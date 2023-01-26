@@ -9,16 +9,19 @@ package fr.ldnr.starwars.modele;
  * @author stag
  */
 public enum EtatChasseur {
-    Operationnel, EnMaintenance, Detruit;
+    Operationnel("Operationnel"),EnMaintenance("En Maintenance"), Detruit("Détruit");
     
-//    private String etat;
-//
-//    public String getEtat() {
-//        return etat;
-//    }
-//
-//    public void setEtat(String etat) {
-//        this.etat = etat;
-//    }
-    
+    private String label;
+
+    private EtatChasseur(String label) {
+        this.label = label;
+    } 
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

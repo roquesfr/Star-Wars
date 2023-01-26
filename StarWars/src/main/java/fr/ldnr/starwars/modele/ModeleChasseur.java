@@ -1,6 +1,10 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+<<<<<<< HEAD
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
+=======
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+>>>>>>> 1dcfb48c4d50b0366d93186f17aeefd02741247f
  */
 package fr.ldnr.starwars.modele;
 
@@ -9,19 +13,20 @@ package fr.ldnr.starwars.modele;
  * @author stag
  */
 public enum ModeleChasseur {
-    XWing, YWing;
-    
-    private String modele;
-    
-//    private ModeleChasseur(String modele) {
-//        this.modele = modele;
-//    }
-    
+
+    XWing("X-Wing"),YWing("Y-Wing");
+       
+    private String label;
+
+    private ModeleChasseur(String label) {
+        this.label = label;
+    } 
+
     public String getLabel() {
-        return modele;
+        return label;
     }
 
-    public void setLabel(String modele) {
-        this.modele = modele;
+    public void setLabel(String label) {
+        this.label = label;
     }
 }

@@ -1,0 +1,11 @@
+@startuml Diag_sequence_inscription_projet_Java
+
+actor recruteur
+database database
+participant appli
+
+recruteur -> appli : inscription candidat
+appli -> database : mise à jour BDD
+appli <-- database : candidat inscrit
+
+@enduml

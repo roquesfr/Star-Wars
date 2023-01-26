@@ -1,0 +1,11 @@
+@startuml Diag_cas_utilisation_projet_Java
+
+:Recruteur: --> (Inscription candidat) 
+
+:Appli: --> (Liste pilotes en cours de formation)
+:Appli: --> (Liste tous les pilotes)
+:Appli: --> (Assignation mission)
+(Assignation mission) .down.> (Assignation Pilote) : include
+(Assignation mission) .down.> (Assignation Chasseur) : include
+
+@enduml

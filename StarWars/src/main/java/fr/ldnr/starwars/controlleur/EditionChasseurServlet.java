@@ -5,10 +5,8 @@
 package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.Chasseur;
-import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

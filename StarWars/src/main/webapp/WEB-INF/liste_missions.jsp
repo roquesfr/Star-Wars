@@ -24,6 +24,10 @@
                         <td><c:out value="${mission.id_mission}"/></td>
                         <td><c:if test="${!mission.completee}">Non </c:if>Complétée</td>
                         <td><c:out value="${mission.dureeHeures}"/>h</td>
+                        <td><form action="DetailMission" method="POST">
+                                <input type="hidden" name="id" value="${mission.id_mission}">
+                                <input type="submit" value="Détail">
+                            </form></td>
                     </tr>
                 </c:forEach>
             </table>

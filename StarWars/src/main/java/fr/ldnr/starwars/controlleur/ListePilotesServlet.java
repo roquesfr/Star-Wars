@@ -37,17 +37,30 @@ public class ListePilotesServlet extends HttpServlet {
             throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = emf.createEntityManager();
-        String queryString = "";
+        String queryString = "SELECT p FROM Pilote p WHERE 1=1";
         TypedQuery<Pilote> query;
-        String search = request.getParameter("search");
-        if (search != null) {
-            queryString = "SELECT p FROM Pilote p WHERE CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', ?1, '%')";
-            query = em.createQuery(queryString, Pilote.class);
-            query.setParameter(1, search);
-        } else {
-            queryString = "SELECT p FROM Pilote p";
-            query = em.createQuery(queryString, Pilote.class);
-        }
+        String recherche = request.getParameter("recherche");
+        String race = request.getParameter("race");
+        String etat = request.getParameter("etat");
+        String grade = request.getParameter("grade");
+        if (recherche != null)
+            queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
+        if(etat != null)
+            queryString += " AND p.etat LIKE CONCAT('%', :etat, '%')";
+        if(race != null)
+            queryString += " AND p.race LIKE CONCAT('%', :race, '%')";
+        if(grade != null)
+            queryString += " AND p.grade LIKE CONCAT('%', :grade, '%')";
+            
+        query = em.createQuery(queryString, Pilote.class);
+        if(recherche != null)
+            query.setParameter("recherche", recherche);
+        if(etat != null)
+            query.setParameter("etat", etat);
+        if(race != null)
+            query.setParameter("race", race);
+        if(grade != null)
+            query.setParameter("grade", grade);
         List<Pilote> liste = query.getResultList();
         request.setAttribute("pilotes", liste);
         em.close();

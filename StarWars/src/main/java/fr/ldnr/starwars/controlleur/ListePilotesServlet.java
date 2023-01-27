@@ -4,7 +4,7 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.Chasseur;
+import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "ListeChasseursServlet", urlPatterns = {"/ListeChasseurs"})
-public class ListeChasseursServlet extends HttpServlet {
+@WebServlet(name = "ListePilotesServlet", urlPatterns = {"/ListePilotes"})
+public class ListePilotesServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,12 +37,12 @@ public class ListeChasseursServlet extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = emf.createEntityManager();
 
-        String query = "SELECT c FROM Chasseur c";
-        List<Chasseur> liste = em.createQuery(query, Chasseur.class).getResultList();
-        request.setAttribute("chasseurs", liste);
+        String query = "SELECT p FROM Pilote p";
+        List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
+        request.setAttribute("pilotes", liste);
         em.close();
         
-        getServletContext().getRequestDispatcher("/WEB-INF/liste_chasseurs.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

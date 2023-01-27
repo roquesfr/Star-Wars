@@ -9,8 +9,24 @@ package fr.ldnr.starwars.modele;
  * @author stag
  */
 public enum Grade {
-    EnFormation,
-    OfficierDeVol,
-    Capitaine,
-    Commandant;
+    EnFormation("En Formation"),
+    OfficierDeVol("Officier de Vol"),
+    Capitaine("Capitaine"),
+    Commandant("Commandant");
+    
+    
+       
+    private String label;
+
+    private Grade(String label) {
+        this.label = label;
+    } 
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
 }

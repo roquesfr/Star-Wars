@@ -4,14 +4,8 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.Chasseur;
-import fr.ldnr.starwars.modele.EtatChasseur;
-import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "MajChasseurServlet", urlPatterns = {"/MajChasseurServlet"})
-public class MajChasseurServlet extends HttpServlet {
+@WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/RechercheAvancee"})
+public class RechercheAvanceeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -36,8 +30,7 @@ public class MajChasseurServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-
+        getServletContext().getRequestDispatcher("/WEB-INF/recherche_avancee_pilote.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -66,38 +59,7 @@ public class MajChasseurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-
-        ModeleChasseur modele = ModeleChasseur.valueOf(request.getParameter("modele"));
-        EtatChasseur etat = EtatChasseur.valueOf(request.getParameter("etat_chasseur"));
-        
-        try {
-            em = emf.createEntityManager();
-            Chasseur chasseur = em.find(Chasseur.class, Integer.parseInt(request.getParameter("id_chasseur")));
-            em.getTransaction().begin();
-            chasseur.setModele(modele);
-            chasseur.setEtat(etat);
-
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            
-            System.out.println(e.getMessage());
-            System.out.println("____________sout________________1");
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-            
-        }
-        getServletContext()
-                    .getRequestDispatcher("/ListeChasseurs")
-                    .forward(request, response);
+        processRequest(request, response);
     }
 
     /**

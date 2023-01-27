@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -36,12 +37,21 @@ public class ListePilotesServlet extends HttpServlet {
             throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = emf.createEntityManager();
-
-        String query = "SELECT p FROM Pilote p";
-        List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
+        String queryString = "";
+        TypedQuery<Pilote> query;
+        String search = request.getParameter("search");
+        if (search != null) {
+            queryString = "SELECT p FROM Pilote p WHERE CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', ?1, '%')";
+            query = em.createQuery(queryString, Pilote.class);
+            query.setParameter(1, search);
+        } else {
+            queryString = "SELECT p FROM Pilote p";
+            query = em.createQuery(queryString, Pilote.class);
+        }
+        List<Pilote> liste = query.getResultList();
         request.setAttribute("pilotes", liste);
         em.close();
-        
+
         getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);
     }
 

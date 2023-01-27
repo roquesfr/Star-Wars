@@ -41,6 +41,7 @@ public class Test extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
         
+        
         Mission mission = new Mission();
         Pilote pilote = new Pilote();
         pilote.setAge(10);

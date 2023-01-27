@@ -11,14 +11,20 @@
     <head>
         <title>Rebelles.ga</title>
         <!--<jsp:include page="meta.jsp"></jsp:include>-->
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="icon" type="image/png" href="logo.png" />
-    </head>
-    <body>
-        <h1>Hello Rebelles!</h1>
-        <!--HEADER-->
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+            <link rel="icon" type="image/png" href="logo.png" />
+        </head>
+        <body>
+            <h1>Hello Rebelles!</h1>
+            <form action="ListePilotes" method="GET">
+                <label for="recherche">Recherche pilote</label>
+                <input type="text" id="recherche" name="recherche">
+                <input type="submit" value="Go">
+            </form>
+            <a href="RechercheAvancee">Recherche avancée</a>
+            <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <!--FOOTER-->
+            <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

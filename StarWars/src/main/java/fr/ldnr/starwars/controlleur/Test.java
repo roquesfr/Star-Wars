@@ -48,7 +48,7 @@ public class Test extends HttpServlet {
         pilote.setGrade(Grade.Capitaine);
         pilote.setNom("Solo");
         pilote.setPrenom("Han");
-        pilote.setRace(Race.Humains);
+        pilote.setRace(Race.Humain);
         mission.getPilotes().add(pilote);
 
         try {

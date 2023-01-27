@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package fr.ldnr.starwars.modele;
+package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.Chasseur;
+import fr.ldnr.starwars.modele.EtatChasseur;
+import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.persistence.EntityManager;
@@ -71,17 +74,11 @@ public class MajChasseurServlet extends HttpServlet {
         EtatChasseur etat = EtatChasseur.valueOf(request.getParameter("etat_chasseur"));
         
         try {
-            System.out.println("LE TRY");
             em = emf.createEntityManager();
-            System.out.println("EM:"+em.toString());
             Chasseur chasseur = em.find(Chasseur.class, Integer.parseInt(request.getParameter("id_chasseur")));
-            System.out.println("CHASSEUR:"+chasseur.toString());
             em.getTransaction().begin();
-            System.out.println("TRANSACTION"+em.getTransaction().isActive());
             chasseur.setModele(modele);
             chasseur.setEtat(etat);
-            
-            System.out.println(chasseur.getEtat()+"&&&"+chasseur.getModele());
 
             em.getTransaction().commit();
 

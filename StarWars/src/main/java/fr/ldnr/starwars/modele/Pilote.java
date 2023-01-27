@@ -47,6 +47,52 @@ public class Pilote implements Serializable {
     public void setId_pilote(int id_pilote) {
         this.id_pilote = id_pilote;
     }
-    
-    
+
+    public Race getRace() {
+        return race;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public EtatPilote getEtat() {
+        return etat;
+    }
+
+    public void setEtat(EtatPilote etat) {
+        this.etat = etat;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 }

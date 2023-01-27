@@ -4,9 +4,12 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.Chasseur;
+import fr.ldnr.starwars.modele.EtatPilote;
+import fr.ldnr.starwars.modele.Grade;
+import fr.ldnr.starwars.modele.Mission;
+import fr.ldnr.starwars.modele.Pilote;
+import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -38,14 +41,23 @@ public class Test extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
         
-        Chasseur chasseur = new Chasseur();
+        Mission mission = new Mission();
+        Pilote pilote = new Pilote();
+        pilote.setAge(10);
+        pilote.setEtat(EtatPilote.Blesse);
+        pilote.setGrade(Grade.Capitaine);
+        pilote.setNom("Solo");
+        pilote.setPrenom("Han");
+        pilote.setRace(Race.Humains);
+        mission.getPilotes().add(pilote);
 
         try {
             em = emf.createEntityManager();
 
             // Etape 1 - On passe l'objet en état managed => sauvegarde en base
             em.getTransaction().begin();
-            em.persist(chasseur);
+            em.persist(pilote);
+            em.persist(mission);
             em.getTransaction().commit();
 
         } catch (Exception e) {

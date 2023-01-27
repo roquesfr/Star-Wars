@@ -56,6 +56,22 @@ public class Pilote implements Serializable {
         this.race = race;
     }
 
+    public EtatPilote getEtat() {
+        return etat;
+    }
+
+    public void setEtat(EtatPilote etat) {
+        this.etat = etat;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
     public String getNom() {
         return nom;
     }
@@ -79,22 +95,4 @@ public class Pilote implements Serializable {
     public void setAge(int age) {
         this.age = age;
     }
-
-    public EtatPilote getEtat() {
-        return etat;
-    }
-
-    public void setEtat(EtatPilote etat) {
-        this.etat = etat;
-    }
-
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
-    
-    
 }

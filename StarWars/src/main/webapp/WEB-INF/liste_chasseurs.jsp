@@ -16,14 +16,18 @@
         <header>
             <a href="index.html">Retour à l'accueil</a>
         </header>
-        <h1>Chasseurs: </h1>
+        <h1>Chasseurs:</h1>
         <div>
             <ul>
                 <c:forEach items="${chasseurs}" var="chasseur">
                     <li>
-                        <c:out value="${chasseur.id_chasseur}"/> -
-                        <c:out value="${chasseur.modele.label}"/> -
-                        <c:out value="${chasseur.etat.label}"/>
+                        <form action="EditionChasseurServlet" method="get">
+                            <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
+                            <c:out value="${chasseur.id_chasseur}"/> -
+                            <c:out value="${chasseur.modele.label}"/> -
+                            <c:out value="${chasseur.etat.label}"/>
+                            <button type="submit">Modifier</button>
+                        </form>
                     </li>
                 </c:forEach>
             </ul>

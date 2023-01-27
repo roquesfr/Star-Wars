@@ -13,6 +13,9 @@
         <title>Rebelles.ga</title>
     </head>
     <body>
+        <header>
+            <a href="index.html">Retour à l'accueil</a>
+        </header>
         <h1>Chasseurs: </h1>
         <div>
             <ul>

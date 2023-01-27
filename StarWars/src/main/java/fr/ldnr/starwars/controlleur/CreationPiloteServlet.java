@@ -6,7 +6,6 @@ package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Grade;
-import fr.ldnr.starwars.modele.Mission;
 import fr.ldnr.starwars.modele.Pilote;
 import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
@@ -23,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "Test", urlPatterns = {"/Test"})
-public class Test extends HttpServlet {
+@WebServlet(name = "CreationPiloteServlet", urlPatterns = {"/CreationPiloteServlet"})
+public class CreationPiloteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,42 +34,6 @@ public class Test extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-        
-        Mission mission = new Mission();
-        Pilote pilote = new Pilote();
-        pilote.setAge(10);
-        pilote.setEtat(EtatPilote.Blesse);
-        pilote.setGrade(Grade.Capitaine);
-        pilote.setNom("Solo");
-        pilote.setPrenom("Han");
-        pilote.setRace(Race.Humains);
-        mission.getPilotes().add(pilote);
-
-        try {
-            em = emf.createEntityManager();
-
-            // Etape 1 - On passe l'objet en état managed => sauvegarde en base
-            em.getTransaction().begin();
-            em.persist(pilote);
-            em.persist(mission);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            System.err.println("Problème survenu : " + e);
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-        }
-    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -81,11 +44,7 @@ public class Test extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
+    
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -98,7 +57,48 @@ public class Test extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+
+        String nom = request.getParameter("nom");
+        String prenom = request.getParameter("prenom");
+        String race = request.getParameter("race");
+        Integer age = Integer.valueOf(request.getParameter("age"));
+        EtatPilote etat = EtatPilote.valueOf("EnFormation");
+        Grade grade = Grade.valueOf("EnFormation");
+
+        Pilote pilote = new Pilote();
+
+        pilote.setNom(nom);
+        pilote.setPrenom(prenom);
+        pilote.setRace(Race.valueOf(race));
+        pilote.setAge(age);
+        pilote.setEtat(etat);
+        pilote.setGrade(grade);
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = null;
+
+        try {
+            em = emf.createEntityManager();
+
+            // Etape 1 - On passe l'objet en état managed => sauvegarde en base
+            em.getTransaction().begin();
+            em.persist(pilote);
+            em.getTransaction().commit();
+
+        } catch (Exception e) {
+            System.err.println("Problème survenu : " + e);
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+        }
+
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/creationPilote.jsp")
+                .forward(request, response);
     }
 
     /**

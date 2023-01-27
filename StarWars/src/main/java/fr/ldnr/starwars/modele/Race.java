@@ -10,7 +10,7 @@ package fr.ldnr.starwars.modele;
  */
 public enum Race {
 
-    Chalactéen("Chalactéen"),
+    Chalacteen("Chalactéen"),
     Chis("Chis"),
     Humain("Humain"),
     Ithorien("Ithorien"),

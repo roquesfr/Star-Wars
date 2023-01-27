@@ -18,21 +18,24 @@
         </header>
         <h1>Pilotes: </h1>
         <div>
-            <table>
+            <ul>
                 <c:forEach items="${pilotes}" var="pilote">
-                    <tr>
-                        <td><c:out value="${pilote.id_pilote}"/></td>
-                        <td><c:out value="${pilote.grade.label}"/></td>
-                        <td>
-                            <c:out value="${pilote.prenom}"/> 
-                            <c:out value="${pilote.nom}"/>
-                        </td>
-                        <td><c:out value="${pilote.race}"/></td>
-                        <td><c:out value="${pilote.age}"/> ans</td>
-                        <td><c:out value="${pilote.etat.label}"/></td>
-                    </tr>
+                    <li>
+                        <form action="EditionPiloteServlet" method="post">
+                            <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
+                            <c:out value="${pilote.id_pilote}"/> -
+                            <c:out value="${pilote.grade.label}"/> -
+                            <c:out value="${pilote.prenom}"/> -
+                            <c:out value="${pilote.nom}"/> -
+                            <c:out value="${pilote.race.label}"/> -
+                            <c:out value="${pilote.age}"/> ans -
+                            <c:out value="${pilote.etat.label}"/>
+                            <button type="submit">Modifier</button>
+                        </form>
+                    </li>
+
                 </c:forEach>
-            </table>
+            </ul>
         </div>
     </body>
 </html>

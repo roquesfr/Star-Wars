@@ -1,4 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="fr.ldnr.starwars.modele.Race"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <!--
 Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -25,8 +27,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             </div>
             <div>
                 <label for="race" id="race">Race du pilote : </label>
-                <input type="text" name="race" id="race" placeholder="Humain" required>
+                <select name="race" id="race">
+                    <c:forEach items="${Race.values()}" var="race">
+                        <option value="${race}">${race.getLabel()}</option>  
+                    </c:forEach>
+                </select>
             </div>
+            <!--            <div>
+                            <label for="race" id="race">Race du pilote : </label>
+                            <input type="text" name="race" id="race" placeholder="Humain" required>
+                        </div>-->
             <div>
                 <label for="age" id="age">Age du pilote : </label>
                 <input type="number" name="age" id="age" min="10" max="800" placeholder="10-800" required>

@@ -22,8 +22,8 @@
                 <c:forEach items="${chasseurs}" var="chasseur">
                     <li>
                         <c:out value="${chasseur.id_chasseur}"/> -
-                        <c:out value="${chasseur.modele}"/> -
-                        <c:out value="${chasseur.etat}"/>
+                        <c:out value="${chasseur.modele.label}"/> -
+                        <c:out value="${chasseur.etat.label}"/>
                     </li>
                 </c:forEach>
             </ul>

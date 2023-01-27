@@ -9,7 +9,7 @@ package fr.ldnr.starwars.modele;
  * @author stag
  */
 public enum EtatChasseur {
-    Operationnel("Operationnel"),EnMaintenance("En Maintenance"), Detruit("Détruit");
+    Operationnel("Opérationnel"),EnMaintenance("En Maintenance"), Detruit("Détruit");
     
     private String label;
 

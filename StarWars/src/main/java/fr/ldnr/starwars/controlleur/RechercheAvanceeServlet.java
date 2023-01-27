@@ -4,13 +4,8 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "ListePilotesServlet", urlPatterns = {"/ListePilotes"})
-public class ListePilotesServlet extends HttpServlet {
+@WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/RechercheAvancee"})
+public class RechercheAvanceeServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,37 +30,7 @@ public class ListePilotesServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
-        String queryString = "SELECT p FROM Pilote p WHERE 1=1";
-        TypedQuery<Pilote> query;
-        String recherche = request.getParameter("recherche");
-        String race = request.getParameter("race");
-        String etat = request.getParameter("etat");
-        String grade = request.getParameter("grade");
-        if (recherche != null && !recherche.isEmpty())
-            queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
-        if(etat != null && !etat.isEmpty())
-            queryString += " AND p.etat LIKE CONCAT('%', :etat, '%')";
-        if(race != null && !race.isEmpty())
-            queryString += " AND p.race LIKE CONCAT('%', :race, '%')";
-        if(grade != null && !grade.isEmpty())
-            queryString += " AND p.grade LIKE CONCAT('%', :grade, '%')";
-            
-        query = em.createQuery(queryString, Pilote.class);
-        if(recherche != null && !recherche.isEmpty())
-            query.setParameter("recherche", recherche);
-        if(etat != null && !etat.isEmpty())
-            query.setParameter("etat", etat);
-        if(race != null && !race.isEmpty())
-            query.setParameter("race", race);
-        if(grade != null && !grade.isEmpty())
-            query.setParameter("grade", grade);
-        List<Pilote> liste = query.getResultList();
-        request.setAttribute("pilotes", liste);
-        em.close();
-
-        getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/recherche_avancee_pilote.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

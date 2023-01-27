@@ -45,7 +45,7 @@ public class ListeChasseursServlet extends HttpServlet {
         request.setAttribute("chasseurs", liste);
         em.close();
         
-        getServletContext().getRequestDispatcher("/liste_chasseurs.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/liste_chasseurs.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

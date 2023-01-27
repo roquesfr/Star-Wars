@@ -4,14 +4,8 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.Chasseur;
-import fr.ldnr.starwars.modele.EtatChasseur;
-import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "CreationChasseurServlet", urlPatterns = {"/CreationChasseurServlet"})
-public class CreationChasseurServlet extends HttpServlet {
+@WebServlet(name = "EtatChasseurServlet", urlPatterns = {"/EtatChasseurServlet"})
+public class EtatChasseurServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,8 +31,9 @@ public class CreationChasseurServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/creationChasseur.jsp")
+                .forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,36 +62,7 @@ public class CreationChasseurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-        
-        Chasseur chasseur = new Chasseur();
-        chasseur.setModele(ModeleChasseur.YWing);
-        chasseur.setEtat(EtatChasseur.Detruit);
-
-        try {
-            em = emf.createEntityManager();
-
-            // Etape 1 - On passe l'objet en état managed => sauvegarde en base
-            em.getTransaction().begin();
-            em.persist(chasseur);
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            System.err.println("Problème survenu : " + e);
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-        }
-        getServletContext()
-                .getRequestDispatcher("/creationChasseur.html")
-                .forward(request, response);
-        //processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

@@ -71,9 +71,12 @@ public class CreationChasseurServlet extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
         
+        ModeleChasseur modele = ModeleChasseur.valueOf(request.getParameter("modele"));
+        EtatChasseur etat = EtatChasseur.valueOf(request.getParameter("etat_chasseur"));
+        
         Chasseur chasseur = new Chasseur();
-        chasseur.setModele(ModeleChasseur.YWing);
-        chasseur.setEtat(EtatChasseur.Detruit);
+        chasseur.setModele(modele);
+        chasseur.setEtat(etat);
 
         try {
             em = emf.createEntityManager();
@@ -94,7 +97,7 @@ public class CreationChasseurServlet extends HttpServlet {
             }
         }
         getServletContext()
-                .getRequestDispatcher("/creationChasseur.html")
+                .getRequestDispatcher("/WEB-INF/creationChasseur.jsp")
                 .forward(request, response);
         //processRequest(request, response);
     }

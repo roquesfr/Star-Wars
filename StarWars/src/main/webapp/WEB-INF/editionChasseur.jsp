@@ -15,6 +15,8 @@
         <title>Edition Chasseur</title>
     </head>
     <body>
+        <!--HEADER-->
+        <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <form action="MajChasseurServlet" method="post">
             <select name="modele"> 
                 <c:forEach items="${ModeleChasseur.values()}" var="modele">
@@ -32,5 +34,7 @@
             <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
             <button type="submit">Modifier</button>
         </form>
+            <!--FOOTER-->
+        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

@@ -13,9 +13,8 @@
         <title>Rebelles.ga</title>
     </head>
     <body>
-        <header>
-            <a href="index.html">Retour à l'accueil</a>
-        </header>
+        <!--HEADER-->
+        <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <h1>Mission n° <c:out value="${mission.id_mission}"/> </h1>
         <div>
             <h2>Cloture</h2>
@@ -27,7 +26,7 @@
                 <form action="ClotureMission" method="POST">
                     <input type="hidden" name="id" value="${mission.id_mission}">
                     <label for="nbHeures">Durée en heures: </label>
-                    <input type="number" name="nbHeures" id="nbHeures" min="1"required><br/>
+                    <input type="number" name="nbHeures" id="nbHeures" min="1" required><br/>
                     <input type="submit" value="Cloturer">
                 </form>
             </c:if>
@@ -46,5 +45,7 @@
                 </tr>
             </c:forEach>
         </div>
+        <!--FOOTER-->
+        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

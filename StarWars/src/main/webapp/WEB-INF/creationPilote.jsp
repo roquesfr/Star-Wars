@@ -14,22 +14,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <!--HEADER-->
+        <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <h1>Création d'un nouveau pilote</h1>
 
         <form action="CreationPiloteServlet" method="post">
             <div>
-                <label for="nom" id="nom">Nom du pilote : </label>
+                <label for="nom" >Nom du pilote : </label>
                 <input type="text" name="nom" id="nom" placeholder="Solo" required>
             </div>
             <div>
-                <label for="prenom" id="prenom">Prénom du pilote : </label>
+                <label for="prenom">Prénom du pilote : </label>
                 <input type="text" name="prenom" id="prenom" placeholder="Han" required>
             </div>
             <div>
-                <label for="race" id="race">Race du pilote : </label>
+                <label for="race">Race du pilote : </label>
                 <select name="race" id="race">
                     <c:forEach items="${Race.values()}" var="race">
-                        <option value="${race}">${race.getLabel()}</option>  
+                        <option value="${race}">${race.label}</option>  
                     </c:forEach>
                 </select>
             </div>
@@ -38,10 +40,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             <input type="text" name="race" id="race" placeholder="Humain" required>
                         </div>-->
             <div>
-                <label for="age" id="age">Age du pilote : </label>
+                <label for="age">Age du pilote : </label>
                 <input type="number" name="age" id="age" min="10" max="800" placeholder="10-800" required>
             </div>
             <input type="submit" value="Valider">
         </form>
+        <!--FOOTER-->
+        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

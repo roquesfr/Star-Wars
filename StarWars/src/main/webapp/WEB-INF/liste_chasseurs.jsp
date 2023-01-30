@@ -13,9 +13,8 @@
         <title>Rebelles.ga</title>
     </head>
     <body>
-        <header>
-            <a href="index.html">Retour à l'accueil</a>
-        </header>
+        <!--HEADER-->
+        <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <h1>Chasseurs:</h1>
         <div>
             <ul>
@@ -32,5 +31,7 @@
                 </c:forEach>
             </ul>
         </div>
+        <!--FOOTER-->
+        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

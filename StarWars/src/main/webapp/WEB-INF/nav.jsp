@@ -1,4 +1,6 @@
 <nav>
+    
+    <a href="/StarWars/">Accueil</a><br>
     <a href="EtatPiloteServlet">Création de pilote</a><br>
     <a href="EtatChasseurServlet">Création de chasseur</a><br>
     <a href="Test">Générer votre armée</a><br/>

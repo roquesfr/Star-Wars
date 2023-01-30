@@ -16,12 +16,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
+        <!--HEADER-->
+        <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <h1>Recherche Avancée</h1>
 
         <form action="ListePilotes" method="GET">
             <label for="recherche">Nom du pilote : </label>
             <input type="text" name="recherche" id="recherche">
-            
+
             <label for="race">Race</label>
             <select name="race" id="race">
                 <option value="" >Toutes</option>
@@ -29,16 +31,16 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <option value="${race}">${race}</option>  
                 </c:forEach>
             </select><br>
-            
-            Grade
+
+            <p>Grade</p>
             <input type="radio" name="grade" id="gradevide" value="" checked>
             <label for="gradevide">Tous</label><br/>
             <c:forEach items="${Grade.values()}" var="grade">
                 <input type="radio" name="grade" id="grade${grade}" value="${grade}">
                 <label for="grade${grade}">${grade.label}</label><br>
             </c:forEach>
-            
-            Etat
+
+            <p>Etat</p>
             <input type="radio" name="etat" id="etatvide" value="" checked>
             <label for="etatvide">Tous</label><br/>
             <c:forEach items="${EtatPilote.values()}" var="etat">
@@ -47,5 +49,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             </c:forEach>
             <input type="submit" value="Chercher">
         </form>
+        <!--FOOTER-->
+        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

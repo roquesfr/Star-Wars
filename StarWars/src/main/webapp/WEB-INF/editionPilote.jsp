@@ -15,6 +15,8 @@
         <title>Edition Pilote</title>
     </head>
     <body>
+        <!--HEADER-->
+        <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <form action="MajPiloteServlet" method="post">
 
             <c:forEach items="${EtatPilote.values()}" var="etat">
@@ -32,5 +34,7 @@
             <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
             <button type="submit">Modifier</button>
         </form>
+            <!--FOOTER-->
+        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

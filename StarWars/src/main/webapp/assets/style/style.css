@@ -1,11 +1,13 @@
 * {
     box-sizing: border-box;
-    
-    --color-primary-0 : #360000;	
-    --color-primary-1 : #2A0000;
-    --color-primary-2 : #460303;
-    --color-primary-3 : #730000;
-    --color-primary-4 : #fc0000;
+
+    --color-primary-0: #360000;
+    --color-primary-1: #2A0000;
+    --color-primary-2: #460303;
+    --color-primary-3: #730000;
+    --color-primary-4: #fc0000;
+
+    --background-form-1: rgba(128, 128, 128, 0.295);
 }
 
 body {
@@ -20,10 +22,11 @@ body {
 
 /* Menu de navigation */
 nav {
-    margin: 15px 0;
+    margin: 20px 0;
+    height: 20vh;
 }
 
-nav ul{
+nav ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -83,20 +86,22 @@ nav img {
     background-color: inherit;
 }
 
-.recherche > li {
+.recherche>li {
     margin-bottom: 18px;
 }
 
 .menu-deroulant {
-   margin: 40px 0;
+    margin: 40px 0;
 }
+
 /* Fin du menu */
 
 /* Footer */
 footer {
-    padding: 90px 10px 0 10px;
+    padding: 40px 10px 0 10px;
     display: flex;
     justify-content: space-between;
+    height: 10vh;
 }
 
 footer a {
@@ -106,8 +111,80 @@ footer a {
 /* Main */
 main {
     text-align: center;
+    height: 60vh;
 }
 
-main h1, main p{
+main h1,
+main p {
     font-size: 64px;
+}
+
+.form {
+    width: 800px;
+    margin: auto;
+    padding: 10px 0 10px 30px;
+    background-color: var(--background-form-1);
+    border-radius: 20px;
+    text-align: left;
+}
+
+.form h1 {
+    font-size: 32px;
+}
+
+.form form div {
+    padding: 10px;
+    display: flex;
+    align-content: center;
+    align-items: flex-start;
+}
+
+.form form div {
+    padding: 0 30px;
+}
+
+.form form div:last-of-type {
+    flex-direction: row;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.form form div:last-of-type input {
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 15px;
+}
+
+#listRadio {
+    padding: 20px 0;
+}
+
+#listRadio div {
+    padding: 0 40px 0 0;
+}
+
+#list {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0;
+}
+
+#list div {
+    padding-top: 0;
+}
+
+.form li form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 50px 10px 0;
+}
+
+.form li form button {
+    padding: 5px 10px;
+    border-radius: 15px;
+}
+
+aside p {
+    font-size: 24px;
 }

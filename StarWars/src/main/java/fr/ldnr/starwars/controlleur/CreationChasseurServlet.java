@@ -96,6 +96,7 @@ public class CreationChasseurServlet extends HttpServlet {
                 em.close();
             }
         }
+        request.setAttribute("titre", "Création de Chasseur");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/creationChasseur.jsp")
                 .forward(request, response);

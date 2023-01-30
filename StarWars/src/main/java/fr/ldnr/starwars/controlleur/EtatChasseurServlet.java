@@ -31,6 +31,7 @@ public class EtatChasseurServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("titre", "Création de Chasseur");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/creationChasseur.jsp")
                 .forward(request, response);

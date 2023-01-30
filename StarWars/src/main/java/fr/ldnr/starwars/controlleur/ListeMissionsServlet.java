@@ -41,7 +41,7 @@ public class ListeMissionsServlet extends HttpServlet {
         List<Mission> liste = em.createQuery(query, Mission.class).getResultList();
         request.setAttribute("missions", liste);
         em.close();
-        
+        request.setAttribute("titre", "Liste des Missions");
         getServletContext().getRequestDispatcher("/WEB-INF/liste_missions.jsp").forward(request, response);
     }
 

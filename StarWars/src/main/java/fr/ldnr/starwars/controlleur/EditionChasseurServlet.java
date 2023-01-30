@@ -67,7 +67,7 @@ public class EditionChasseurServlet extends HttpServlet {
             System.out.println(e.getMessage());
 
         }
-
+        request.setAttribute("titre", "Édition Chasseur");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/editionChasseur.jsp")
                 .forward(request, response);

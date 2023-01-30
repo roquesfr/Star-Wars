@@ -90,10 +90,8 @@ public class MajPiloteServlet extends HttpServlet {
             
             em.getTransaction().commit();
 
-        } catch (Exception e) {
-            
+        } catch (NumberFormatException e) {           
             System.out.println(e.getMessage());
-            System.out.println("____________sout________________1");
         } finally {
             if (em != null) {
                 if (em.getTransaction().isActive()) {
@@ -103,6 +101,7 @@ public class MajPiloteServlet extends HttpServlet {
             }
             
         }
+        request.setAttribute("titre", "Liste des Pilotes");
         getServletContext()
                     .getRequestDispatcher("/ListePilotes")
                     .forward(request, response);

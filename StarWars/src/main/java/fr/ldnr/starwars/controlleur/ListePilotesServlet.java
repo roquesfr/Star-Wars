@@ -85,7 +85,7 @@ public class ListePilotesServlet extends HttpServlet {
         request.setAttribute("pilotes", liste);
         request.setAttribute("titre", "pilotes");
         em.close();
-
+        request.setAttribute("titre", "Liste des Pilotes");
         getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);
     }
 

@@ -42,6 +42,7 @@ public class ListeChasseursServlet extends HttpServlet {
         request.setAttribute("chasseurs", liste);
         em.close();
         
+        request.setAttribute("titre", "Liste des Chasseurs");
         getServletContext().getRequestDispatcher("/WEB-INF/liste_chasseurs.jsp").forward(request, response);
     }
 

@@ -39,6 +39,7 @@ public class EtatMissionServlet extends HttpServlet {
         String query = "SELECT p FROM Pilote p WHERE p.grade != fr.ldnr.starwars.modele.Grade.EnFormation AND p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible";
         List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
         request.setAttribute("pilotesDispo", liste);
+        request.setAttribute("titre", "Création de Mission");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/creationMission.jsp")
                 .forward(request, response);

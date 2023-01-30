@@ -31,6 +31,7 @@ public class EtatPiloteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("titre", "Création de Pilote");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/creationPilote.jsp")
                 .forward(request, response);

@@ -30,6 +30,7 @@ public class RechercheAvanceeServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("titre", "Recherche Pilotes");
         getServletContext().getRequestDispatcher("/WEB-INF/recherche_avancee_pilote.jsp").forward(request, response);
     }
 

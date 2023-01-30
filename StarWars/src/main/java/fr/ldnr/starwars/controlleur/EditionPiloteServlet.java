@@ -95,7 +95,7 @@ public class EditionPiloteServlet extends HttpServlet {
                em.close();
             }
         }
-
+        request.setAttribute("titre", "Édition Pilote");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/editionPilote.jsp")
                 .forward(request, response);

@@ -8,10 +8,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Rebelles.ga</title>
-    </head>
+    <!-- HEAD -->
+    <jsp:include page="head.jsp"></jsp:include>
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>

@@ -73,6 +73,7 @@ public class CreationMissionServlet extends HttpServlet {
                 em.close();
             }
         }
+        request.setAttribute("titre", "Création de Mission");
         getServletContext()
                 .getRequestDispatcher("/ListeMissions")
                 .forward(request, response);

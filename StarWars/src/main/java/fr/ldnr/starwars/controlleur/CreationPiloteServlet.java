@@ -76,7 +76,7 @@ public class CreationPiloteServlet extends HttpServlet {
                 em.close();
             }
         }
-
+        request.setAttribute("titre", "Création de Pilote");
         getServletContext()
                 .getRequestDispatcher("/WEB-INF/creationPilote.jsp")
                 .forward(request, response);

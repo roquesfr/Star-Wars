@@ -38,6 +38,8 @@ public class CreationMissionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        
         Mission mission = new Mission();
         String[] idPilotesString = request.getParameterValues("pilotes");
         ArrayList<Integer> idPilotes = new ArrayList<>();

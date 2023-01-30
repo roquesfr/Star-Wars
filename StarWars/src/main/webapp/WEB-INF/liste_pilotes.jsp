@@ -15,9 +15,9 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <h1>Pilotes: </h1>
-        <div>
-            <ul>
+            <h1>Pilotes: </h1>
+            <div>
+                <ul>
                 <c:forEach items="${pilotes}" var="pilote">
                     <li>
                         <form action="EditionPiloteServlet" method="post">
@@ -28,9 +28,11 @@
                             <c:out value="${pilote.nom}"/> -
                             <c:out value="${pilote.race.label}"/> -
                             <c:out value="${pilote.age}"/> ans -
-                            <c:out value="${pilote.etat.label}"/> |
-                            <c:out value="${pilote.chasseur.id_chasseur}"/>-
-                            <c:out value="${pilote.chasseur.modele.label}"/>
+                            <c:out value="${pilote.etat.label}"/>
+                            <c:if test="${pilote.possedeChasseur()}">|
+                                <c:out value="${pilote.chasseur.modele.label}"/> n°
+                                <c:out value="${pilote.chasseur.id_chasseur}"/>
+                            </c:if>
                             <button type="submit">Modifier</button>
                         </form>
                     </li>

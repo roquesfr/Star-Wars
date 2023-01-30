@@ -41,15 +41,19 @@
                 <label for="grade_${grade}">${grade.label}</label>
             </c:forEach>
             <br>
+            <c:if test="${pilote.possedeChasseur()}">
+                <p>Chasseur du pilote : ${pilote.chasseur.modele.label} n° ${pilote.chasseur.id_chasseur}</p>
+            </c:if>
             <label for="modele">Chasseur</label>
             <select name="modele" id="modele">
-                <option value="0">Aucun</option>
+                <c:if test="${pilote.possedeChasseur()}">
+                    <option value="">Conserver</option>
+                </c:if>
+                <option value="-1">Aucun</option>
                 <c:forEach items="${chasseurs}" var="chasseur">
                     <option value="${chasseur.id_chasseur}">${chasseur.id_chasseur}-${chasseur.modele.label}-${chasseur.etat.label}</option>
                 </c:forEach>
             </select>
-
-            <p>Chasseur du pilote : ${pilote.chasseur.id_chasseur}-${pilote.chasseur.modele.label}</p>
 
             <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
             <button type="submit">Modifier</button>

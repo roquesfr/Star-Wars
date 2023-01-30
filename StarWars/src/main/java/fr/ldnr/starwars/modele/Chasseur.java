@@ -62,9 +62,7 @@ public class Chasseur implements Serializable {
     }
 
     public void setEtat(EtatChasseur etat) {
-        if (this.etat != EtatChasseur.Affecte) {
-            this.etat = etat;
-        }
+        this.etat = etat;
     }
 
 }

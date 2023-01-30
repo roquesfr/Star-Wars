@@ -21,36 +21,39 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <form action="CreationChasseurServlet" method="post">
+            <form action="CreationChasseurServlet" method="post">
 
-            <label for="modele">Modele de chasseur</label>
+                <label for="modele">Modele de chasseur</label>
 
-            <select name="modele" id="modele">
+                <select name="modele" id="modele">
                 <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                <option value="${modele}">${modele.label}</option>  
+                    <option value="${modele}">${modele.label}</option>  
                 </c:forEach>
             </select><br>
 
-<%--        <input list="modele" id="modeles" name="modele">
-            <datalist id="modele">
-                <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                    <option value="${modele}" label="${modele.label}"></option>  
-                </c:forEach>
-            </datalist><br>
---%>
+            <%--        <input list="modele" id="modeles" name="modele">
+                        <datalist id="modele">
+                            <c:forEach items="${ModeleChasseur.values()}" var="modele">
+                                <option value="${modele}" label="${modele.label}"></option>  
+                            </c:forEach>
+                        </datalist><br>
+            --%>
 
 
             <label>Etat du chasseur</label><br>
 
             <c:forEach items="${EtatChasseur.values()}" var="etat">
-                <input type="radio" name="etat_chasseur" id="${etat}" value="${etat}">
-                <label for="${etat}">${etat.getLabel()}</label><br>
+                <c:if test="${etat.selectionable}">
+                    <input type="radio" name="etat_chasseur" id="${etat}" value="${etat}"
+                           <c:if test="${etat == EtatChasseur.Operationnel}">checked</c:if>>
+                    <label for="${etat}">${etat.getLabel()}</label><br>
+                </c:if>
             </c:forEach>
 
             <button type="submit">BFB</button>
 
         </form>
-<!--FOOTER-->
+        <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 

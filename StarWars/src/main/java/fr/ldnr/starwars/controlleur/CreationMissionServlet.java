@@ -5,13 +5,15 @@
 package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.EtatPilote;
-import fr.ldnr.starwars.modele.Grade;
+import fr.ldnr.starwars.modele.Mission;
 import fr.ldnr.starwars.modele.Pilote;
-import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,9 +24,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "CreationPiloteServlet", urlPatterns = {"/CreationPiloteServlet"})
-public class CreationPiloteServlet extends HttpServlet {
-
+@WebServlet(name = "CreationMissionServlet", urlPatterns = {"/CreationMission"})
+public class CreationMissionServlet extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -39,31 +40,27 @@ public class CreationPiloteServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         
-        String nom = request.getParameter("nom");
-        String prenom = request.getParameter("prenom");
-        String race = request.getParameter("race");
-        Integer age = Integer.valueOf(request.getParameter("age"));
-        EtatPilote etat = EtatPilote.valueOf("EnFormation");
-        Grade grade = Grade.valueOf("EnFormation");
-
-        Pilote pilote = new Pilote();
-
-        pilote.setNom(nom);
-        pilote.setPrenom(prenom);
-        pilote.setRace(Race.valueOf(race));
-        pilote.setAge(age);
-        pilote.setEtat(etat);
-        pilote.setGrade(grade);
-
+        Mission mission = new Mission();
+        String[] idPilotesString = request.getParameterValues("pilotes");
+        ArrayList<Integer> idPilotes = new ArrayList<>();
+        for(String id: idPilotesString)
+            idPilotes.add(Integer.valueOf(id));
+        
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
-
         try {
             em = emf.createEntityManager();
+            
+            mission.setIntitule(request.getParameter("intitule"));
 
-            // Etape 1 - On passe l'objet en état managed => sauvegarde en base
+            TypedQuery<Pilote> query = em.createQuery("SELECT p FROM Pilote p WHERE p.id_pilote IN :idPilotes", Pilote.class);
+            query.setParameter("idPilotes", idPilotes);
+            List<Pilote> pilotes = query.getResultList();
+            mission.setPilotes(new ArrayList<>(pilotes));
             em.getTransaction().begin();
-            em.persist(pilote);
+            for(Pilote p: pilotes)
+                p.setEtat(EtatPilote.EnMission);
+            em.persist(mission);
             em.getTransaction().commit();
 
         } catch (Exception e) {
@@ -76,9 +73,8 @@ public class CreationPiloteServlet extends HttpServlet {
                 em.close();
             }
         }
-
         getServletContext()
-                .getRequestDispatcher("/WEB-INF/creationPilote.jsp")
+                .getRequestDispatcher("/ListeMissions")
                 .forward(request, response);
     }
 

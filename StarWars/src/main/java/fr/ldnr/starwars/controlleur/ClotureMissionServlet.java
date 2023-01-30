@@ -4,12 +4,13 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Mission;
+import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -46,6 +47,8 @@ public class ClotureMissionServlet extends HttpServlet {
             em.getTransaction().begin();
             mission.setCompletee(true);
             mission.setDureeHeures(nbHeures);
+            for(Pilote p: mission.getPilotes())
+                p.setEtat(EtatPilote.Disponible);
             em.getTransaction().commit();
 
         } catch (Exception e) {

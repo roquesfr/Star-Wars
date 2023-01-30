@@ -20,13 +20,32 @@
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
             <form action="MajPiloteServlet" method="post">
 
+<<<<<<< HEAD
             <c:forEach items="${EtatPilote.values()}" var="etat">
                 <input id="etat_${etat}" type="radio" name="etat_pilote" value="${etat}">
                 <label for="etat_${etat}">${etat.label}</label>
             </c:forEach>
             <br>
+=======
+            <c:if test="${pilote.etat == EtatPilote.EnMission}">
+                <p>Le pilote est en mission.<br/>
+                    Veuillez clôturer la mission en cours avant de changer l'état du pilote.</p>
+                </c:if>
+                <c:if test="${pilote.etat.selectionable == true}">
+                    <c:forEach items="${EtatPilote.values()}" var="etat">
+                        <c:if test="${etat != EtatPilote.EnMission}">
+                        <input id="etat_${etat}" type="radio" name="etat_pilote" value="${etat}" 
+                               <c:if test="${etat == pilote.etat}">checked </c:if>>
+                        <label for="etat_${etat}">${etat.label}</label>
+                    </c:if>
+                </c:forEach>
+                <br>
+            </c:if>
+
+>>>>>>> origin/thibault
             <c:forEach items="${Grade.values()}" var="grade">
-                <input id="grade_${grade}" type="radio" name="grade_pilote" value="${grade}">
+                <input id="grade_${grade}" type="radio" name="grade_pilote" value="${grade}"
+                       <c:if test="${grade == pilote.grade}">checked</c:if>>
                 <label for="grade_${grade}">${grade.label}</label>
             </c:forEach>
             <br>
@@ -39,9 +58,12 @@
             </select>
 
 
+<<<<<<< HEAD
             <p>État du pilote : ${pilote.etat.label}</p>
             <p>Grade du pilote : ${pilote.grade.label}</p>
             <p>Chasseur du pilote : ${pilote.chasseur.id_chasseur}-${pilote.chasseur.modele.label}-${pilote.chasseur.etat}</p>
+=======
+>>>>>>> origin/thibault
             <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
             <button type="submit">Modifier</button>
         </form>

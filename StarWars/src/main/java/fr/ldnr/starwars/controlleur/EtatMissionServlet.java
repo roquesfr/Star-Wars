@@ -4,12 +4,9 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.Chasseur;
-import fr.ldnr.starwars.modele.EtatPilote;
-import fr.ldnr.starwars.modele.Grade;
-import fr.ldnr.starwars.modele.ModeleChasseur;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,8 +20,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "MajPiloteServlet", urlPatterns = {"/MajPiloteServlet"})
-public class MajPiloteServlet extends HttpServlet {
+@WebServlet(name = "EtatMissionServlet", urlPatterns = {"/EtatMission"})
+public class EtatMissionServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,8 +34,14 @@ public class MajPiloteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-       
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = emf.createEntityManager();
+        String query = "SELECT p FROM Pilote p WHERE p.grade != fr.ldnr.starwars.modele.Grade.EnFormation AND p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible";
+        List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
+        request.setAttribute("pilotesDispo", liste);
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/creationMission.jsp")
+                .forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -67,54 +70,7 @@ public class MajPiloteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-
-        Grade grade = Grade.valueOf(request.getParameter("grade_pilote"));
-<<<<<<< HEAD
-        EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
-        int id_chasseur = Integer.parseInt(request.getParameter("modele"));
-=======
-        EtatPilote etat = null;
-        if(request.getParameter("etat_pilote") != null)
-            etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
->>>>>>> origin/thibault
-        
-        try {
-            em = emf.createEntityManager();
-            Pilote pilote = em.find(Pilote.class, Integer.parseInt(request.getParameter("id_pilote")));
-            Chasseur chasseur = em.find(Chasseur.class, id_chasseur);
-            em.getTransaction().begin();
-            pilote.setGrade(grade);
-<<<<<<< HEAD
-            pilote.setEtat(etat);
-            pilote.setChasseur(chasseur);
-=======
-            if(etat != null)
-                pilote.setEtat(etat);
->>>>>>> origin/thibault
-            
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            
-            System.out.println(e.getMessage());
-            System.out.println("____________sout________________1");
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-            
-        }
-        getServletContext()
-                    .getRequestDispatcher("/ListePilotes")
-                    .forward(request, response);
-        
+        processRequest(request, response);
     }
 
     /**

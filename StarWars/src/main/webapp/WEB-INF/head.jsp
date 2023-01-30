@@ -1,3 +1,4 @@
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <head>
     <title>${titre}</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">

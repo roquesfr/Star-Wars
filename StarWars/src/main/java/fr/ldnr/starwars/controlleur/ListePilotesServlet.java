@@ -44,6 +44,20 @@ public class ListePilotesServlet extends HttpServlet {
         String etat = request.getParameter("etat");
         String grade = request.getParameter("grade");
         String chasseur = request.getParameter("chasseur");
+        
+        int heureVol=0;
+        String queryHeureVol ="SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=1 ";
+        System.out.println(em.createQuery(queryHeureVol).getSingleResult());
+        heureVol = Integer.parseInt(em.createQuery(queryHeureVol).getSingleResult().toString());
+        System.out.println(heureVol);
+        
+        int nbMission = 0;
+        String queryNbMission ="SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=1";
+        nbMission = Integer.parseInt(em.createQuery(queryNbMission).getSingleResult().toString());
+        
+        request.setAttribute("heureVol", heureVol);
+        request.setAttribute("nbMission", nbMission);
+        
         if (recherche != null && !recherche.isEmpty())
             queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
         if(etat != null && !etat.isEmpty())
@@ -63,11 +77,13 @@ public class ListePilotesServlet extends HttpServlet {
         if(race != null && !race.isEmpty())
             query.setParameter("race", race);
         if(grade != null && !grade.isEmpty())
-            query.setParameter("grade", grade);
+            query.setParameter("grade", grade);   
         if(chasseur != null && !chasseur.isEmpty())
             query.setParameter("chasseur", chasseur);
-        List<Pilote> liste = query.getResultList();
+        List<Pilote> liste = query.getResultList();  
+        
         request.setAttribute("pilotes", liste);
+        request.setAttribute("titre", "pilotes");
         em.close();
 
         getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);

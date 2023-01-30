@@ -28,7 +28,9 @@
                             <c:out value="${pilote.nom}"/> -
                             <c:out value="${pilote.race.label}"/> -
                             <c:out value="${pilote.age}"/> ans -
-                            <c:out value="${pilote.etat.label}"/> |
+                            <c:out value="${pilote.etat.label}"/> -
+                            <c:out value="${nbMission}"/> -
+                            <c:out value="${heureVol}h de vol"/> |
                             <c:out value="${pilote.chasseur.id_chasseur}"/>-
                             <c:out value="${pilote.chasseur.modele.label}"/>-   
                             <c:out value="${pilote.chasseur.etat}"/>

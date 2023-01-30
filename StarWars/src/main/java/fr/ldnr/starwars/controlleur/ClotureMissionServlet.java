@@ -47,8 +47,12 @@ public class ClotureMissionServlet extends HttpServlet {
             em.getTransaction().begin();
             mission.setCompletee(true);
             mission.setDureeHeures(nbHeures);
-            for(Pilote p: mission.getPilotes())
+            for(Pilote p: mission.getPilotes()){
                 p.setEtat(EtatPilote.Disponible);
+                
+            }
+               
+                
             em.getTransaction().commit();
 
         } catch (Exception e) {

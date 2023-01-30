@@ -45,6 +45,23 @@ public class Pilote implements Serializable {
     public Pilote() {
 
     }
+    
+    public Grade calculGrade(int heuresVol, int nbMission){
+        
+        if(heuresVol<500){
+            return Grade.OfficierDeVol;
+        }
+        if(heuresVol<1500 && nbMission>=1){
+            return Grade.Lieutenant;
+        }
+        if(heuresVol<4000 && nbMission>=3){
+            return Grade.Capitaine;
+        }
+        if(heuresVol>=4000 && nbMission>=10){
+            return Grade.Commandant;
+        }
+        return Grade.EnFormation;
+    }
 
     public int getId_pilote() {
         return id_pilote;

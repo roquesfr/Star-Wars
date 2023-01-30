@@ -11,6 +11,7 @@ package fr.ldnr.starwars.modele;
 public enum Grade {
     EnFormation("En Formation"),
     OfficierDeVol("Officier de Vol"),
+    Lieutenant("Lieutenant"),
     Capitaine("Capitaine"),
     Commandant("Commandant");
     

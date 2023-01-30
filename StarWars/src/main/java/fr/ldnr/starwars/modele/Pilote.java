@@ -62,6 +62,7 @@ public class Pilote implements Serializable {
             return Grade.Commandant;
         }
         return Grade.EnFormation;
+    }
 
     public boolean possedeChasseur() {
         return chasseur != null;

@@ -4,8 +4,10 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.Chasseur;
 import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Grade;
+import fr.ldnr.starwars.modele.ModeleChasseur;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
 import javax.persistence.EntityManager;
@@ -71,15 +73,17 @@ public class MajPiloteServlet extends HttpServlet {
 
         Grade grade = Grade.valueOf(request.getParameter("grade_pilote"));
         EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
+        int id_chasseur = Integer.parseInt(request.getParameter("modele"));
         
         try {
             em = emf.createEntityManager();
             Pilote pilote = em.find(Pilote.class, Integer.parseInt(request.getParameter("id_pilote")));
+            Chasseur chasseur = em.find(Chasseur.class, id_chasseur);
             em.getTransaction().begin();
             pilote.setGrade(grade);
             pilote.setEtat(etat);
+            pilote.setChasseur(chasseur);
             
-
             em.getTransaction().commit();
 
         } catch (Exception e) {

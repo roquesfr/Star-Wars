@@ -6,7 +6,9 @@ package fr.ldnr.starwars.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,11 +24,18 @@ public class Mission implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_mission;
+    
+    private String nom;
+    private String objectif;
 
     private boolean completee;
     private int dureeHeures;
-    @ManyToMany
+    
+    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private ArrayList<Pilote> pilotes;
+    
+//    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+//    private ArrayList<Chasseur> chasseurs;
     
     public Mission() {
         completee = false;
@@ -64,6 +73,22 @@ public class Mission implements Serializable {
 
     public void setPilotes(ArrayList<Pilote> pilotes) {
         this.pilotes = pilotes;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public String getObjectif() {
+        return objectif;
+    }
+
+    public void setObjectif(String objectif) {
+        this.objectif = objectif;
     }
 
 }

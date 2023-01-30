@@ -4,8 +4,10 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.Chasseur;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -68,14 +70,30 @@ public class EditionPiloteServlet extends HttpServlet {
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
+        
+        String query = "SELECT c FROM Chasseur c where c.id_chasseur not in"
+                + " (SELECT p.chasseur.id_chasseur from Pilote p WHERE p.chasseur.id_chasseur is not null)"; 
+        
 
         try {
             em = emf.createEntityManager();
             Pilote pilote = em.find(Pilote.class, id_pilote);
             request.setAttribute("pilote", pilote);
+            
+            List<Chasseur> chasseurs=em.createQuery(query, Chasseur.class).getResultList();
+            request.setAttribute("chasseurs", chasseurs);
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
+        }
+        finally {
+            if(em!=null){
+                if(em.getTransaction().isActive()){
+                    em.getTransaction().rollback();
+                    
+                }
+               em.close();
+            }
         }
 
         getServletContext()

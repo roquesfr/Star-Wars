@@ -43,6 +43,7 @@ public class ListePilotesServlet extends HttpServlet {
         String race = request.getParameter("race");
         String etat = request.getParameter("etat");
         String grade = request.getParameter("grade");
+        String chasseur = request.getParameter("chasseur");
         if (recherche != null && !recherche.isEmpty())
             queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
         if(etat != null && !etat.isEmpty())
@@ -51,6 +52,8 @@ public class ListePilotesServlet extends HttpServlet {
             queryString += " AND p.race LIKE CONCAT('%', :race, '%')";
         if(grade != null && !grade.isEmpty())
             queryString += " AND p.grade LIKE CONCAT('%', :grade, '%')";
+        if(chasseur != null && !chasseur.isEmpty())
+            queryString += " AND p.chasseur LIKE CONCAT('%', :chasseur, '%')";
             
         query = em.createQuery(queryString, Pilote.class);
         if(recherche != null && !recherche.isEmpty())
@@ -61,6 +64,8 @@ public class ListePilotesServlet extends HttpServlet {
             query.setParameter("race", race);
         if(grade != null && !grade.isEmpty())
             query.setParameter("grade", grade);
+        if(chasseur != null && !chasseur.isEmpty())
+            query.setParameter("chasseur", chasseur);
         List<Pilote> liste = query.getResultList();
         request.setAttribute("pilotes", liste);
         em.close();

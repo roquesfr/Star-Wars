@@ -5,12 +5,15 @@
 package fr.ldnr.starwars.modele;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -18,26 +21,29 @@ import javax.persistence.Id;
  */
 @Entity
 public class Pilote implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_pilote;
-    
+
     @Enumerated(EnumType.STRING)
     private Race race;
-    
+
     @Enumerated(EnumType.STRING)
     private EtatPilote etat;
-    
+
     @Enumerated(EnumType.STRING)
     private Grade grade;
-    
+
     private String nom;
     private String prenom;
     private int age;
-    
+
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Chasseur chasseur;
+
     public Pilote() {
-        
+
     }
 
     public int getId_pilote() {
@@ -94,5 +100,13 @@ public class Pilote implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+    
+    public Chasseur getChasseur() {
+        return chasseur;
+    }
+
+    public void setChasseur(Chasseur chasseur) {
+        this.chasseur = chasseur;
     }
 }

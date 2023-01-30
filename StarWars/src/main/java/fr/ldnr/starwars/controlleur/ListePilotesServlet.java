@@ -4,12 +4,17 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,19 +50,6 @@ public class ListePilotesServlet extends HttpServlet {
         String grade = request.getParameter("grade");
         String chasseur = request.getParameter("chasseur");
 
-        int heureVol = 0;
-        String queryHeureVol = "SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=1 ";
-        System.out.println(em.createQuery(queryHeureVol).getSingleResult());
-        heureVol = Integer.parseInt(em.createQuery(queryHeureVol).getSingleResult().toString());
-        System.out.println(heureVol);
-
-        int nbMission = 0;
-        String queryNbMission = "SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=1";
-        nbMission = Integer.parseInt(em.createQuery(queryNbMission).getSingleResult().toString());
-
-        request.setAttribute("heureVol", heureVol);
-        request.setAttribute("nbMission", nbMission);
-
         if (recherche != null && !recherche.isEmpty()) {
             queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
         }
@@ -91,12 +83,41 @@ public class ListePilotesServlet extends HttpServlet {
             query.setParameter("chasseur", chasseur);
         }
         List<Pilote> liste = query.getResultList();
+        
+        Map<Pilote,Grade> map = new HashMap<>();
+        int heureVol = 0;
+        int nbMission = 0;
+        int id_pilote;
+        String queryHeureVol = 
+                "SELECT SUM(m.dureeHeures) FROM Mission m "
+                + "join m.pilotes p WHERE p.id_pilote=:id_pilote";
+        String queryNbMission = 
+                "SELECT COUNT(m) FROM Mission m "
+                + "join m.pilotes p WHERE p.id_pilote=:id_pilote";
+        
+        Query queryHV = em.createQuery(queryHeureVol,Integer.class);
+        Query queryNBM = em.createQuery(queryNbMission,Integer.class);
+        for (Pilote pilote : liste) {
+            id_pilote = pilote.getId_pilote();
+            queryHV.setParameter("id_pilote",id_pilote);
+            queryNBM.setParameter("id_pilote", id_pilote);
+            try{
+                heureVol = Integer.parseInt(queryHV.getSingleResult().toString());
+            }
+            catch (NullPointerException e){
+                heureVol = 0;
+            }
+            nbMission = Integer.parseInt(queryNBM.getSingleResult().toString());
+            
+            map.put(pilote,pilote.calculGrade(heureVol, nbMission));
+            
+            heureVol=0;
+            nbMission=0;
+        }
+        request.setAttribute("mapGradePilote", map);
+        
 
-        liste.get(0).setGrade(liste.get(0).calculGrade(heureVol, nbMission));
-        System.out.println(liste.get(0).getGrade());
-
-        request.setAttribute("pilotes", liste);
-        request.setAttribute("titre", "pilotes");
+        //request.setAttribute("pilotes", liste);
         em.close();
         request.setAttribute("titre", "Liste des Pilotes");
         getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);

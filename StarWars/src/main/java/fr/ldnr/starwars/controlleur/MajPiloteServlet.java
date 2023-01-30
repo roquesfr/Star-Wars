@@ -71,14 +71,17 @@ public class MajPiloteServlet extends HttpServlet {
         EntityManager em = null;
 
         Grade grade = Grade.valueOf(request.getParameter("grade_pilote"));
-        EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
+        EtatPilote etat = null;
+        if(request.getParameter("etat_pilote") != null)
+            etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
         
         try {
             em = emf.createEntityManager();
             Pilote pilote = em.find(Pilote.class, Integer.parseInt(request.getParameter("id_pilote")));
             em.getTransaction().begin();
             pilote.setGrade(grade);
-            pilote.setEtat(etat);
+            if(etat != null)
+                pilote.setEtat(etat);
             
 
             em.getTransaction().commit();

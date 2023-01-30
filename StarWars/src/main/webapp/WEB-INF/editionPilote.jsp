@@ -35,7 +35,6 @@
                 <br>
             </c:if>
 
-
             <c:forEach items="${Grade.values()}" var="grade">
                 <input id="grade_${grade}" type="radio" name="grade_pilote" value="${grade}"
                        <c:if test="${grade == pilote.grade}">checked</c:if>>

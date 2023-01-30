@@ -73,14 +73,10 @@ public class MajPiloteServlet extends HttpServlet {
         EntityManager em = null;
 
         Grade grade = Grade.valueOf(request.getParameter("grade_pilote"));
-<<<<<<< HEAD
-        EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
         int id_chasseur = Integer.parseInt(request.getParameter("modele"));
-=======
         EtatPilote etat = null;
         if(request.getParameter("etat_pilote") != null)
             etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
->>>>>>> origin/thibault
         
         try {
             em = emf.createEntityManager();
@@ -88,13 +84,9 @@ public class MajPiloteServlet extends HttpServlet {
             Chasseur chasseur = em.find(Chasseur.class, id_chasseur);
             em.getTransaction().begin();
             pilote.setGrade(grade);
-<<<<<<< HEAD
-            pilote.setEtat(etat);
             pilote.setChasseur(chasseur);
-=======
             if(etat != null)
                 pilote.setEtat(etat);
->>>>>>> origin/thibault
             
             em.getTransaction().commit();
 

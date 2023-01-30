@@ -1,11 +1,10 @@
 <nav>
-
     <ul>
         <li class="accueil"><a href="/StarWars/"><img src="assets/img/Alliance_Rebelle.png" alt="alt"/></a></li>
-        <li class="menu-deroulant"><a href="#">Création</a>
+        <li class="menu-deroulant"><a href="#">Crï¿½ation</a>
             <ul>
-                <li><a href="EtatPiloteServlet">Création de pilote</a></li>
-                <li><a href="EtatChasseurServlet">Création de chasseur</a></li>
+                <li><a href="EtatPiloteServlet">Crï¿½ation de pilote</a></li>
+                <li><a href="EtatChasseurServlet">Crï¿½ation de chasseur</a></li>
             </ul>
         </li>
         <li class="menu-deroulant"><a href="#">Listes</a>
@@ -17,9 +16,10 @@
         <li class="menu-deroulant"><a href="#">Missions</a>
             <ul>
                 <li><a href="ListeMissions">Liste des missions</a></li>
+                <li><a href="EtatMission">Crï¿½ation de mission</a></li>
             </ul>
         </li>
-        <!--        <a href="Test">Générer votre armée</a><br/>-->
+        <!--        <a href="Test">Gï¿½nï¿½rer votre armï¿½e</a><br/>-->
         <div class="recherche">
             <li>
                 <form action="ListePilotes" method="GET">
@@ -28,7 +28,7 @@
                     <input type="submit" value="Go">
                 </form>
             </li>
-            <li><a href="RechercheAvancee" id="recherceavancee">Recherche avancée</a></li>
+            <li><a href="RechercheAvancee" id="recherceavancee">Recherche avancï¿½e</a></li>
         </div>
         <li class="accueil"><a href="/StarWars/"><img src="assets/img/Alliance_Rebelle.png" alt="alt"/></a></li>
 

@@ -71,8 +71,7 @@ public class EditionPiloteServlet extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
         
-        String query = "SELECT c FROM Chasseur c where c.id_chasseur not in"
-                + " (SELECT p.chasseur.id_chasseur from Pilote p WHERE p.chasseur.id_chasseur is not null)"; 
+        String query = "SELECT c FROM Chasseur c WHERE c.etat = fr.ldnr.starwars.modele.EtatChasseur.Operationnel"; 
         
 
         try {

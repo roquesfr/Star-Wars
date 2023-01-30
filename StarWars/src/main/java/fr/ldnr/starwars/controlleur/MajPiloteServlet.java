@@ -5,6 +5,7 @@
 package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.Chasseur;
+import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.ModeleChasseur;
@@ -38,7 +39,7 @@ public class MajPiloteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-       
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -68,26 +69,42 @@ public class MajPiloteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
 
         Grade grade = Grade.valueOf(request.getParameter("grade_pilote"));
-        int id_chasseur = Integer.parseInt(request.getParameter("modele"));
+        int id_chasseur = 0;
+        boolean nvChasseur = !request.getParameter("modele").equals("");
+        if (nvChasseur) {
+            id_chasseur = Integer.parseInt(request.getParameter("modele"));
+        }
         EtatPilote etat = null;
-        if(request.getParameter("etat_pilote") != null)
+        if (request.getParameter("etat_pilote") != null) {
             etat = EtatPilote.valueOf(request.getParameter("etat_pilote"));
-        
+        }
+
         try {
             em = emf.createEntityManager();
             Pilote pilote = em.find(Pilote.class, Integer.parseInt(request.getParameter("id_pilote")));
-            Chasseur chasseur = em.find(Chasseur.class, id_chasseur);
             em.getTransaction().begin();
             pilote.setGrade(grade);
-            pilote.setChasseur(chasseur);
-            if(etat != null)
+            if (nvChasseur) {
+                if(pilote.possedeChasseur()) {
+                    pilote.getChasseur().setEtat(EtatChasseur.Operationnel);
+                    System.out.println("#######################");
+                }
+                if (id_chasseur == -1) {
+                    pilote.setChasseur(null);
+                } else {
+                    Chasseur chasseur = em.find(Chasseur.class, id_chasseur);
+                    pilote.setChasseur(chasseur);
+                }
+            }
+            if (etat != null) {
                 pilote.setEtat(etat);
-            
+            }
+
             em.getTransaction().commit();
 
         } catch (NumberFormatException e) {           
@@ -99,13 +116,13 @@ public class MajPiloteServlet extends HttpServlet {
                 }
                 em.close();
             }
-            
+
         }
         request.setAttribute("titre", "Liste des Pilotes");
         getServletContext()
-                    .getRequestDispatcher("/ListePilotes")
-                    .forward(request, response);
-        
+                .getRequestDispatcher("/ListePilotes")
+                .forward(request, response);
+
     }
 
     /**

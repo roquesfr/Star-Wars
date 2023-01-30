@@ -1,13 +1,8 @@
-<%-- 
-    Document   : liste_pilotes
-    Created on : 27 janv. 2023, 11:08:08
-    Author     : stag
---%>
+<%-- Document : liste_pilotes Created on : 27 janv. 2023, 11:08:08 Author : stag --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <!-- HEAD -->
     <jsp:include page="head.jsp"></jsp:include>
     <body>
@@ -42,4 +37,5 @@
         <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
+
 </html>

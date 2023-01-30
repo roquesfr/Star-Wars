@@ -31,13 +31,13 @@
                         </c:forEach>
                     </select>
 
-                    <%-- <input list="modele" id="modeles" name="modele">
-                        <datalist id="modele">
-                            <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                                <option value="${modele}" label="${modele.label}"></option>
-                            </c:forEach>
-                        </datalist>
-                    --%>
+                    <label for="modele">Modele de chasseur</label>
+
+                    <select name="modele" id="modele">
+                        <c:forEach items="${ModeleChasseur.values()}" var="modele">
+                            <option value="${modele}">${modele.label}</option>  
+                        </c:forEach>
+                    </select><br>
 
                     <div id="listRadio">
                         <label>Etat du chasseur : </label>
@@ -55,6 +55,16 @@
                         <input type="submit" value="Valider la création">
                         <input type="reset" value="Reset">
                     </div>
+                </form>
+                <c:forEach items="${EtatChasseur.values()}" var="etat">
+                    <c:if test="${etat.selectionable}">
+                        <input type="radio" name="etat_chasseur" id="${etat}" value="${etat}"
+                               <c:if test="${etat == EtatChasseur.Operationnel}">checked</c:if>>
+                        <label for="${etat}">${etat.getLabel()}</label><br>
+                    </c:if>
+                </c:forEach>
+
+                <button type="submit">BFB</button>
 
                 </form>
             </div>

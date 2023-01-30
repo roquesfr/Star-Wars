@@ -15,6 +15,7 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
+            <<<<<<< HEAD
             <main>
                 <div class="form">
                     <h1>Pilotes : </h1>
@@ -24,21 +25,23 @@
                             <li>
                                 <form action="EditionPiloteServlet" method="post">
                                     <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
-                                    <c:out value="${pilote.id_pilote}" /> -
-                                    <c:out value="${pilote.grade.label}" /> -
-                                    <c:out value="${pilote.prenom}" /> -
-                                    <c:out value="${pilote.nom}" /> -
-                                    <c:out value="${pilote.race.label}" /> -
-                                    <c:out value="${pilote.age}" /> ans -
-                                    <c:out value="${pilote.etat.label}" />
-                                    <button type="submit">Mettre à jour le pilote</button>
+                                    <c:out value="${pilote.id_pilote}"/> -
+                                    <c:out value="${pilote.grade.label}"/> -
+                                    <c:out value="${pilote.prenom}"/> -
+                                    <c:out value="${pilote.nom}"/> -
+                                    <c:out value="${pilote.race.label}"/> -
+                                    <c:out value="${pilote.age}"/> ans -
+                                    <c:out value="${pilote.etat.label}"/>
+                                    <c:if test="${pilote.possedeChasseur()}">|
+                                        <c:out value="${pilote.chasseur.modele.label}"/> n°
+                                        <c:out value="${pilote.chasseur.id_chasseur}"/>
+                                    </c:if>
+                                    <button type="submit">Modifier</button>
                                 </form>
                             </li>
-
                         </c:forEach>
                     </ul>
                 </div>
-            </div>
         </main>
         <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>

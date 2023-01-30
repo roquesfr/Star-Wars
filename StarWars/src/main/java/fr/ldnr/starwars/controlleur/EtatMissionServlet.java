@@ -36,7 +36,7 @@ public class EtatMissionServlet extends HttpServlet {
             throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = emf.createEntityManager();
-        String query = "SELECT p FROM Pilote p WHERE p.grade != fr.ldnr.starwars.modele.Grade.EnFormation AND p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible";
+        String query = "SELECT p FROM Pilote p WHERE p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible AND p.chasseur IS NOT NULL";
         List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
         request.setAttribute("pilotesDispo", liste);
         getServletContext()

@@ -45,6 +45,16 @@ public class Pilote implements Serializable {
     public Pilote() {
 
     }
+    
+    public boolean possedeChasseur() {
+        return chasseur != null;
+    }
+    
+    public void verifierEtatChasseur() {
+        if(possedeChasseur() && chasseur.getEtat() != EtatChasseur.Affecte) {
+            setChasseur(null);
+        }
+    }
 
     public int getId_pilote() {
         return id_pilote;
@@ -108,5 +118,7 @@ public class Pilote implements Serializable {
 
     public void setChasseur(Chasseur chasseur) {
         this.chasseur = chasseur;
+        if(chasseur != null)
+            chasseur.setEtat(EtatChasseur.Affecte);
     }
 }

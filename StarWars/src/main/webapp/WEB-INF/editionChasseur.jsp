@@ -23,9 +23,10 @@
                     <form action="MajChasseurServlet" method="post">
                         <div>
                             <label for="race">Modèle du chasseur : </label>
-                            <select name="modele">
+                            <select name="modele"> 
                             <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                                <option value="${modele}">${modele.label}</option>
+                                <option value="${modele}"
+                                        <c:if test="${chasseur.modele == modele}">selected</c:if>>${modele.label}</option>   
                             </c:forEach>
                         </select>
                     </div>
@@ -34,10 +35,11 @@
                             <label>Etat du chasseur : </label>
                             <div id="list">
                                 <c:forEach items="${EtatChasseur.values()}" var="etat">
-                                    <div>
-                                        <input type="radio" name="etat_chasseur" value="${etat}">
-                                        <label>${etat.label}</label>
-                                    </div>
+                                    <c:if test="${etat.selectionable}">
+                                        <input type="radio" name="etat_chasseur" value="${etat}" id="etat_${etat}"
+                                               <c:if test="${chasseur.etat == etat}">checked</c:if>>
+                                        <label for="etat_${etat}">${etat.label}</label>
+                                    </c:if>
                                 </c:forEach>
                             </div>
                         </div>
@@ -56,9 +58,9 @@
                 </form>
             </div>
         </main>
-        <!--FOOTER-->
-        <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
-    </body>
+    <!--FOOTER-->
+    <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
+</body>
 
 </html>
 

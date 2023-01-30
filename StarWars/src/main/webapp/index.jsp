@@ -12,18 +12,22 @@
         <title>Rebelles.ga</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="icon" type="image/png" href="logo.png" />
+        <link rel="shortcut icon" href="assets/img/Alliance_Rebelle.png" type="image/x-icon">
+        <link rel="stylesheet" href="assets/style/style.css">
     </head>
     <body>
-        <h1>Hello Rebelles!</h1>
-        <form action="ListePilotes" method="GET">
-            <label for="recherche">Recherche pilote</label>
-            <input type="text" id="recherche" name="recherche">
-            <input type="submit" value="Go">
-        </form>
-        <a href="RechercheAvancee">Recherche avancée</a>
+        <!--        <h1>Hello Rebelles!</h1>-->
+
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <!--FOOTER-->
+            <main>
+                <h1>Bienvenue dans l'alliance rebelle !</h1>
+                <p>
+                    Nous avons besoin de vous <br>
+                    Engagez-vous contre l'empire
+                </p>
+            </main>
+            <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

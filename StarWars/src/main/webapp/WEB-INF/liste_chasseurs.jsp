@@ -4,6 +4,7 @@
     Author     : stag
 --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@page import="fr.ldnr.starwars.modele.EtatChasseur"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -15,9 +16,9 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <h1>Chasseurs:</h1>
-        <div>
-            <ul>
+            <h1>Chasseurs:</h1>
+            <div>
+                <ul>
                 <c:forEach items="${chasseurs}" var="chasseur">
                     <li>
                         <form action="EditionChasseurServlet" method="get">
@@ -25,7 +26,9 @@
                             <c:out value="${chasseur.id_chasseur}"/> -
                             <c:out value="${chasseur.modele.label}"/> -
                             <c:out value="${chasseur.etat.label}"/>
-                            <button type="submit">Modifier</button>
+                            <c:if test="${chasseur.etat != EtatChasseur.Affecte}">
+                                <button type="submit">Modifier</button>
+                            </c:if>
                         </form>
                     </li>
                 </c:forEach>

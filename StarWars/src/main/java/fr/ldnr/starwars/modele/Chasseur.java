@@ -32,11 +32,11 @@ public class Chasseur implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private EtatChasseur etat;
-    
+
     @OneToOne(mappedBy = "chasseur")
     private Pilote pilote;
 
-    public Chasseur(){
+    public Chasseur() {
         this.modele = ModeleChasseur.XWing;
         this.etat = EtatChasseur.Operationnel;
     }
@@ -62,7 +62,9 @@ public class Chasseur implements Serializable {
     }
 
     public void setEtat(EtatChasseur etat) {
-        this.etat = etat;
+        if (this.etat != EtatChasseur.Affecte) {
+            this.etat = etat;
+        }
     }
 
 }

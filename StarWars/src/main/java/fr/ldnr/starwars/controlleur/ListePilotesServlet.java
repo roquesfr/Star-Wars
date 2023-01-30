@@ -44,44 +44,57 @@ public class ListePilotesServlet extends HttpServlet {
         String etat = request.getParameter("etat");
         String grade = request.getParameter("grade");
         String chasseur = request.getParameter("chasseur");
-        
-        int heureVol=0;
-        String queryHeureVol ="SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=1 ";
+
+        int heureVol = 0;
+        String queryHeureVol = "SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=1 ";
         System.out.println(em.createQuery(queryHeureVol).getSingleResult());
         heureVol = Integer.parseInt(em.createQuery(queryHeureVol).getSingleResult().toString());
         System.out.println(heureVol);
-        
+
         int nbMission = 0;
-        String queryNbMission ="SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=1";
+        String queryNbMission = "SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=1";
         nbMission = Integer.parseInt(em.createQuery(queryNbMission).getSingleResult().toString());
-        
+
         request.setAttribute("heureVol", heureVol);
         request.setAttribute("nbMission", nbMission);
-        
-        if (recherche != null && !recherche.isEmpty())
+
+        if (recherche != null && !recherche.isEmpty()) {
             queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
-        if(etat != null && !etat.isEmpty())
+        }
+        if (etat != null && !etat.isEmpty()) {
             queryString += " AND p.etat LIKE CONCAT('%', :etat, '%')";
-        if(race != null && !race.isEmpty())
+        }
+        if (race != null && !race.isEmpty()) {
             queryString += " AND p.race LIKE CONCAT('%', :race, '%')";
-        if(grade != null && !grade.isEmpty())
+        }
+        if (grade != null && !grade.isEmpty()) {
             queryString += " AND p.grade LIKE CONCAT('%', :grade, '%')";
-        if(chasseur != null && !chasseur.isEmpty())
+        }
+        if (chasseur != null && !chasseur.isEmpty()) {
             queryString += " AND p.chasseur LIKE CONCAT('%', :chasseur, '%')";
-            
+        }
+
         query = em.createQuery(queryString, Pilote.class);
-        if(recherche != null && !recherche.isEmpty())
+        if (recherche != null && !recherche.isEmpty()) {
             query.setParameter("recherche", recherche);
-        if(etat != null && !etat.isEmpty())
+        }
+        if (etat != null && !etat.isEmpty()) {
             query.setParameter("etat", etat);
-        if(race != null && !race.isEmpty())
+        }
+        if (race != null && !race.isEmpty()) {
             query.setParameter("race", race);
-        if(grade != null && !grade.isEmpty())
-            query.setParameter("grade", grade);   
-        if(chasseur != null && !chasseur.isEmpty())
+        }
+        if (grade != null && !grade.isEmpty()) {
+            query.setParameter("grade", grade);
+        }
+        if (chasseur != null && !chasseur.isEmpty()) {
             query.setParameter("chasseur", chasseur);
-        List<Pilote> liste = query.getResultList();  
-        
+        }
+        List<Pilote> liste = query.getResultList();
+
+        liste.get(0).setGrade(liste.get(0).calculGrade(heureVol, nbMission));
+        System.out.println(liste.get(0).getGrade());
+
         request.setAttribute("pilotes", liste);
         request.setAttribute("titre", "pilotes");
         em.close();

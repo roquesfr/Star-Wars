@@ -4,7 +4,9 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.EtatPilote;
+import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.Mission;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
@@ -47,8 +49,14 @@ public class ClotureMissionServlet extends HttpServlet {
             em.getTransaction().begin();
             mission.setCompletee(true);
             mission.setDureeHeures(nbHeures);
-            for(Pilote p: mission.getPilotes())
-                p.setEtat(EtatPilote.Disponible);
+            for(Pilote p: mission.getPilotes()) {
+                Grade grade = Grade.valueOf(request.getParameter("grade_" + p.getId_pilote()));
+                EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_" + p.getId_pilote()));
+                EtatChasseur etatChasseur = EtatChasseur.valueOf(request.getParameter("etatChasseur_" + p.getId_pilote()));
+                p.setGrade(grade);
+                p.setEtat(etat);
+                p.getChasseur().setEtat(etatChasseur);
+            }
             em.getTransaction().commit();
 
         } catch (Exception e) {

@@ -24,9 +24,9 @@
                 <p>Le pilote est en mission.<br/>
                     Veuillez clôturer la mission en cours avant de changer l'état du pilote.</p>
                 </c:if>
-                <c:if test="${pilote.etat.selectionable == true}">
+                <c:if test="${pilote.etat != EtatPilote.EnMission}">
                     <c:forEach items="${EtatPilote.values()}" var="etat">
-                        <c:if test="${etat != EtatPilote.EnMission}">
+                        <c:if test="${etat.selectionable}">
                         <input id="etat_${etat}" type="radio" name="etat_pilote" value="${etat}" 
                                <c:if test="${etat == pilote.etat}">checked </c:if>>
                         <label for="etat_${etat}">${etat.label}</label>

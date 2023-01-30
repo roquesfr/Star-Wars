@@ -7,20 +7,21 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Rebelles.ga</title>
     </head>
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <h1>Missions: </h1>
-        <div>
-            <table>
+            <h1>Missions: </h1>
+            <div>
+                <table>
                 <c:forEach items="${missions}" var="mission">
                     <tr>
-                        <td><c:out value="${mission.id_mission}"/></td>
+                        <td><c:out value="${mission.intitule}"/></td>
                         <td><c:if test="${!mission.completee}">Non </c:if>Complétée</td>
                         <td><c:out value="${mission.dureeHeures}"/>h</td>
                         <td><form action="DetailMission" method="POST">

@@ -15,7 +15,7 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <h1>Mission n° <c:out value="${mission.id_mission}"/> </h1>
+        <h1><c:out value="${mission.intitule}"/> </h1>
         <div>
             <h2>Cloture</h2>
             <c:if test="${mission.completee}">
@@ -31,8 +31,8 @@
                 </form>
             </c:if>
             <h2>Participants</h2>
-            <c:forEach items="${mission.pilotes}" var="pilote">
-                <table>
+            <table>
+                <c:forEach items="${mission.pilotes}" var="pilote">
                     <tr>
                         <td><c:out value="${pilote.id_pilote}"/></td>
                         <td><c:out value="${pilote.grade.label}"/></td>
@@ -43,8 +43,8 @@
                         <td><c:out value="${pilote.race}"/></td>
                         <td><c:out value="${pilote.age}"/> ans</td>
                     </tr>
-                </table>
-            </c:forEach>
+                </c:forEach>
+            </table>
         </div>
         <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>

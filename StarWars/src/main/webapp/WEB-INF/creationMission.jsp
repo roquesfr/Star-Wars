@@ -20,6 +20,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
         <form action="CreationMission" method="post">
             <div>
+                <label>Intitulé : </label>
+                <input type="text" name="intitule" id="intitule" required>
+            </div>
+            <div>
                 <label for="pilotes">Participants : </label>
                 <select name="pilotes" id="pilotes" required multiple>
                     <c:forEach items="${pilotesDispo}" var="pilote">

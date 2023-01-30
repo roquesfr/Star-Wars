@@ -48,6 +48,8 @@ public class CreationMissionServlet extends HttpServlet {
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
+            
+            mission.setIntitule(request.getParameter("intitule"));
 
             TypedQuery<Pilote> query = em.createQuery("SELECT p FROM Pilote p WHERE p.id_pilote IN :idPilotes", Pilote.class);
             query.setParameter("idPilotes", idPilotes);

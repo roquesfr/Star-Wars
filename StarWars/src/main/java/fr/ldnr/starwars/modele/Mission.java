@@ -23,6 +23,7 @@ public class Mission implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id_mission;
 
+    private String intitule;
     private boolean completee;
     private int dureeHeures;
     @ManyToMany
@@ -40,6 +41,14 @@ public class Mission implements Serializable {
 
     public void setId_mission(int id_mission) {
         this.id_mission = id_mission;
+    }
+    
+    public String getIntitule() {
+        return intitule;
+    }
+    
+    public void setIntitule(String intitule) {
+        this.intitule = intitule;
     }
 
     public boolean isCompletee() {

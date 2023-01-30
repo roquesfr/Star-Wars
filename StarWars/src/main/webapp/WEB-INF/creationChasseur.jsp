@@ -43,8 +43,8 @@
             <label>Etat du chasseur</label><br>
 
             <c:forEach items="${EtatChasseur.values()}" var="etat">
-                <input type="radio" name="etat_chasseur" value="${etat}">
-                <label>${etat.getLabel()}</label><br>
+                <input type="radio" name="etat_chasseur" id="${etat}" value="${etat}">
+                <label for="${etat}">${etat.getLabel()}</label><br>
             </c:forEach>
 
             <button type="submit">BFB</button>

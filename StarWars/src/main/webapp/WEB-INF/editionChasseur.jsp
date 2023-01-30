@@ -17,24 +17,26 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <form action="MajChasseurServlet" method="post">
-            <select name="modele"> 
+            <form action="MajChasseurServlet" method="post">
+                <select name="modele"> 
                 <c:forEach items="${ModeleChasseur.values()}" var="modele">
                     <option value="${modele}"
                             <c:if test="${chasseur.modele == modele}">selected</c:if>>${modele.label}</option>   
                 </c:forEach>
             </select>
-            
+
             <c:forEach items="${EtatChasseur.values()}" var="etat">
-                <input type="radio" name="etat_chasseur" value="${etat}" id="etat_${etat}"
-                       <c:if test="${chasseur.etat == etat}">checked</c:if>>
-                <label for="etat_${etat}">${etat.label}</label>
+                <c:if test="${etat.selectionable}">
+                    <input type="radio" name="etat_chasseur" value="${etat}" id="etat_${etat}"
+                           <c:if test="${chasseur.etat == etat}">checked</c:if>>
+                    <label for="etat_${etat}">${etat.label}</label>
+                </c:if>
             </c:forEach>
-                
+
             <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
             <button type="submit">Modifier</button>
         </form>
-            <!--FOOTER-->
+        <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>
 </html>

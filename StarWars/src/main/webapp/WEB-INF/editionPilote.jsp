@@ -49,7 +49,7 @@
                 </c:forEach>
             </select>
 
-            <p>Chasseur du pilote : ${pilote.chasseur.id_chasseur}-${pilote.chasseur.modele.label}-${pilote.chasseur.etat}</p>
+            <p>Chasseur du pilote : ${pilote.chasseur.id_chasseur}-${pilote.chasseur.modele.label}</p>
 
             <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
             <button type="submit">Modifier</button>

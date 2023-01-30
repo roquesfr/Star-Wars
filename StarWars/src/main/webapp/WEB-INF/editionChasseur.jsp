@@ -20,17 +20,17 @@
         <form action="MajChasseurServlet" method="post">
             <select name="modele"> 
                 <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                    <option value="${modele}">${modele.label}</option>   
+                    <option value="${modele}"
+                            <c:if test="${chasseur.modele == modele}">selected</c:if>>${modele.label}</option>   
                 </c:forEach>
             </select>
             
             <c:forEach items="${EtatChasseur.values()}" var="etat">
-                <input type="radio" name="etat_chasseur" value="${etat}">
-                <label>${etat.label}</label>
+                <input type="radio" name="etat_chasseur" value="${etat}" id="etat_${etat}"
+                       <c:if test="${chasseur.etat == etat}">checked</c:if>>
+                <label for="etat_${etat}">${etat.label}</label>
             </c:forEach>
                 
-            <p>Modèle du chasseur : ${chasseur.modele.label}</p>
-            <p>État du chasseur : ${chasseur.etat.label}</p>
             <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
             <button type="submit">Modifier</button>
         </form>

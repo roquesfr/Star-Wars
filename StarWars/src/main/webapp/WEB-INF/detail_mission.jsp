@@ -42,7 +42,6 @@
                         </td>
                         <td><c:out value="${pilote.race}"/></td>
                         <td><c:out value="${pilote.age}"/> ans</td>
-                        <td><c:out value="${pilote.etat.label}"/></td>
                     </tr>
                 </table>
             </c:forEach>

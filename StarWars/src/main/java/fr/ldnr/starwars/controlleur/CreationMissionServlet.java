@@ -4,6 +4,7 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Mission;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
@@ -53,6 +54,8 @@ public class CreationMissionServlet extends HttpServlet {
             List<Pilote> pilotes = query.getResultList();
             mission.setPilotes(new ArrayList<>(pilotes));
             em.getTransaction().begin();
+            for(Pilote p: pilotes)
+                p.setEtat(EtatPilote.EnMission);
             em.persist(mission);
             em.getTransaction().commit();
 

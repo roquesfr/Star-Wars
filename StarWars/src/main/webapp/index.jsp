@@ -10,7 +10,6 @@
 <html lang="fr">
     <head>
         <title>Rebelles.ga</title>
-        <!--<jsp:include page="meta.jsp"></jsp:include>-->
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
             <link rel="icon" type="image/png" href="logo.png" />
         </head>

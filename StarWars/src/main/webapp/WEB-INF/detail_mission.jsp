@@ -32,17 +32,19 @@
             </c:if>
             <h2>Participants</h2>
             <c:forEach items="${mission.pilotes}" var="pilote">
-                <tr>
-                    <td><c:out value="${pilote.id_pilote}"/></td>
-                    <td><c:out value="${pilote.grade.label}"/></td>
-                    <td>
-                        <c:out value="${pilote.prenom}"/> 
-                        <c:out value="${pilote.nom}"/>
-                    </td>
-                    <td><c:out value="${pilote.race}"/></td>
-                    <td><c:out value="${pilote.age}"/> ans</td>
-                    <td><c:out value="${pilote.etat.label}"/></td>
-                </tr>
+                <table>
+                    <tr>
+                        <td><c:out value="${pilote.id_pilote}"/></td>
+                        <td><c:out value="${pilote.grade.label}"/></td>
+                        <td>
+                            <c:out value="${pilote.prenom}"/> 
+                            <c:out value="${pilote.nom}"/>
+                        </td>
+                        <td><c:out value="${pilote.race}"/></td>
+                        <td><c:out value="${pilote.age}"/> ans</td>
+                        <td><c:out value="${pilote.etat.label}"/></td>
+                    </tr>
+                </table>
             </c:forEach>
         </div>
         <!--FOOTER-->

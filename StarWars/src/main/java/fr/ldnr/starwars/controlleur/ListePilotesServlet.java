@@ -90,7 +90,6 @@ public class ListePilotesServlet extends HttpServlet {
         else
             request.setAttribute("pilotes", liste);
         
-
         //request.setAttribute("pilotes", liste);
         em.close();
         request.setAttribute("titre", "Liste des Pilotes");

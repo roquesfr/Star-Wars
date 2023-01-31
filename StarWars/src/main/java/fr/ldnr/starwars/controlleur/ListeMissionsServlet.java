@@ -42,7 +42,7 @@ public class ListeMissionsServlet extends HttpServlet {
         request.setAttribute("missions", liste);
         em.close();
         request.setAttribute("titre", "Liste des Missions");
-        getServletContext().getRequestDispatcher("/WEB-INF/liste_missions.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/listeMissions.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

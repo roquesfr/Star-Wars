@@ -57,7 +57,7 @@ public class DetailMissionServlet extends HttpServlet {
         }
         request.setAttribute("titre", "Détails de Mission");
         getServletContext()
-                .getRequestDispatcher("/WEB-INF/detail_mission.jsp")
+                .getRequestDispatcher("/WEB-INF/detailMission.jsp")
                 .forward(request, response);
     }
 

@@ -120,7 +120,7 @@ public class ListePilotesServlet extends HttpServlet {
         //request.setAttribute("pilotes", liste);
         em.close();
         request.setAttribute("titre", "Liste des Pilotes");
-        getServletContext().getRequestDispatcher("/WEB-INF/liste_pilotes.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/listePilotes.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

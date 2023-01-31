@@ -21,7 +21,6 @@ body {
     grid-row-gap: 20px;*/
     display: flex;
     flex-direction: column;
-    height: 100vh;
 }
 
 /* Menu de navigation */
@@ -113,6 +112,10 @@ footer {
 footer a {
     text-decoration: none;
 }
+
+footer a:visited {
+    color: #fc0000;
+}
 /* Fin du footer */
 
 /* Main */
@@ -128,7 +131,7 @@ main p {
 
 /* Mise en page des formulaires */
 .form {
-    width: 800px;
+    width: 900px;
     margin: auto;
     padding: 10px 0 10px 30px;
     background-color: var(--background-form-1);

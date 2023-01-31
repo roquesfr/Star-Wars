@@ -26,6 +26,11 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CreationMissionServlet", urlPatterns = {"/creationMission"})
 public class CreationMissionServlet extends HttpServlet {
+    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.

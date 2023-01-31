@@ -48,8 +48,8 @@ public class Pilote implements Serializable {
     @Enumerated(EnumType.STRING)
     private EtatPilote etat;
 
-    @Enumerated(EnumType.STRING)
-    private Grade grade;
+//    @Enumerated(EnumType.STRING)
+//    private Grade grade;
 
     private String nom;
     private String prenom;
@@ -125,13 +125,13 @@ public class Pilote implements Serializable {
         this.etat = etat;
     }
 
-    public Grade getGrade() {
-        return grade;
-    }
-
-    public void setGrade(Grade grade) {
-        this.grade = grade;
-    }
+//    public Grade getGrade() {
+//        return grade;
+//    }
+//
+//    public void setGrade(Grade grade) {
+//        this.grade = grade;
+//    }
 
     public String getNom() {
         return nom;

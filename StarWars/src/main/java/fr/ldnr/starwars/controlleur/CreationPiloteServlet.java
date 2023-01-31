@@ -53,7 +53,7 @@ public class CreationPiloteServlet extends HttpServlet {
         pilote.setRace(Race.valueOf(race));
         pilote.setAge(age);
         pilote.setEtat(etat);
-        pilote.setGrade(grade);
+//        pilote.setGrade(grade);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;

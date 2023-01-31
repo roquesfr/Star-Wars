@@ -193,6 +193,21 @@ main p {
     padding-top: 0;
 }
 
+#list.listeEtatPilote {
+    display: flex;
+    flex-direction: row;
+}
+
+#etatPilote {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+}
+
+#radioPilote {
+    align-content: flex-start;
+}
+
 .form li form {
     display: flex;
     justify-content: space-between;

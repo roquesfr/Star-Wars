@@ -19,8 +19,8 @@
                 <form action="MajPiloteServlet" method="post">
                     <div id="listRadio">
                         <div>
-                            <label>Etat du pilote</label>
-                            <div id="list">
+                            
+                            <div id="list" class="listeEtatPilote">
                                 <c:if test="${pilote.etat == EtatPilote.EnMission}">
                                     <aside>
                                         <p>
@@ -29,16 +29,20 @@
                                         </p>
                                     </aside>    
                                 </c:if>
+                                
                                 <c:if test="${pilote.etat != EtatPilote.EnMission}">
+                                    <label>Etat du pilote : </label>
+                                    <div id="etatPilote">
                                     <c:forEach items="${EtatPilote.values()}" var="etat">
                                         <c:if test="${etat.selectionable}">
-                                            <div>
+                                            <div id="radioPilote">
                                                 <input id="etat_${etat}" type="radio" name="etat_pilote" value="${etat}" 
                                                        <c:if test="${etat == pilote.etat}">checked </c:if>>
                                                 <label for="etat_${etat}">${etat.label}</label>
                                             </div>   
                                         </c:if>
                                     </c:forEach>
+                                    </div>
                                 </c:if>
                             </div>
                         </div>
@@ -51,6 +55,7 @@
                                 </aside>
 
                             </c:if>
+                            <c:if test="${!pilote.possedeChasseur()}">
                             <label for="modele">Chasseur</label>
                             <select name="modele" id="modele">
                                 <c:if test="${pilote.possedeChasseur()}">
@@ -61,6 +66,7 @@
                                     <option value="${chasseur.id_chasseur}">${chasseur.id_chasseur}-${chasseur.modele.label}-${chasseur.etat.label}</option>
                                 </c:forEach>
                             </select>
+                            </c:if>
                         </div>
                     </div>
 

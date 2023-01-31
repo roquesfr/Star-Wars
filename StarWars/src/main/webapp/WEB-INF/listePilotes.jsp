@@ -13,22 +13,22 @@
                 <h1>Pilotes: </h1>
                 <div>
                     <ul>
-                        <c:forEach items="${mapGradePilote}" var="map">
+                        <c:forEach items="${pilotes}" var="pilote">
                             <li>
                                 <form action="EditionPiloteServlet" method="post">
-                                    <input type="hidden" name="id_pilote" value="${map.key.id_pilote}">
-                                    <c:out value="${map.key.id_pilote}"/> -
-                                    <c:out value="${map.value.grade}"/> -
-                                    <c:out value="${map.key.prenom}"/> -
-                                    <c:out value="${map.key.nom}"/> -
-                                    <c:out value="${map.key.race.label}"/> -
-                                    <c:out value="${map.key.age}"/> ans -
-                                    <c:out value="${map.key.etat.label}"/> -
-                                    <c:out value="${map.value.nbMission}"/> -
-                                    <c:out value="${map.value.nbHeureVol}h de vol"/> |
-                                    <c:out value="${map.key.chasseur.id_chasseur}"/>-
-                                    <c:out value="${map.key.chasseur.modele.label}"/>-   
-                                    <c:out value="${map.key.chasseur.etat}"/>
+                                    <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
+                                    <c:out value="${pilote.id_pilote}"/> -
+                                    <c:out value="${pilote.grade.label}"/> -
+                                    <c:out value="${pilote.prenom}"/> -
+                                    <c:out value="${pilote.nom}"/> -
+                                    <c:out value="${pilote.race.label}"/> -
+                                    <c:out value="${pilote.age}"/> ans -
+                                    <c:out value="${pilote.etat.label}"/> -
+                                    <c:out value="${pilote.nbMissions}"/> -
+                                    <c:out value="${pilote.heuresVol}h de vol"/> |
+                                    <c:out value="${pilote.chasseur.id_chasseur}"/>-
+                                    <c:out value="${pilote.chasseur.modele.label}"/>-   
+                                    <c:out value="${pilote.chasseur.etat}"/>
                                     <button type="submit">Modifier</button>
                                 </form>
                             </li>

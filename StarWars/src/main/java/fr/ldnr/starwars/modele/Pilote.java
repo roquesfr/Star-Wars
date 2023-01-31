@@ -5,7 +5,6 @@
 package fr.ldnr.starwars.modele;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -17,9 +16,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import sun.util.calendar.CalendarDate;
+import javax.persistence.Transient;
 
 /**
  *
@@ -27,13 +24,13 @@ import sun.util.calendar.CalendarDate;
  */
 @NamedQueries({
     @NamedQuery(
-        name="HeureDeVolPourPilote",
-        query="SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
+            name = "HeureDeVolPourPilote",
+            query = "SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
     ),
     @NamedQuery(
-        name="NbMissionPourPilote",
-        query="SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
-    )     
+            name = "NbMissionPourPilote",
+            query = "SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
+    )
 })
 @Entity
 public class Pilote implements Serializable {
@@ -48,12 +45,18 @@ public class Pilote implements Serializable {
     @Enumerated(EnumType.STRING)
     private EtatPilote etat;
 
-//    @Enumerated(EnumType.STRING)
-//    private Grade grade;
+    @Transient
+    private Grade grade;
+
+    @Transient
+    private int heuresVol;
+
+    @Transient
+    private int nbMissions;
 
     private String nom;
     private String prenom;
-    
+
 //    @Temporal(TemporalType.DATE)
 //    private DateNaissance dateNaissance;
     private int age;
@@ -62,10 +65,12 @@ public class Pilote implements Serializable {
     private Chasseur chasseur;
 
     public Pilote() {
-
+        heuresVol = 0;
+        grade = Grade.OfficierDeVol;
     }
-    
+
     public Pilote(String prenom, String nom, int age, Race race, EtatPilote etat) {
+        this();
         this.prenom = prenom;
         this.nom = nom;
         this.age = age;
@@ -73,29 +78,25 @@ public class Pilote implements Serializable {
         this.etat = etat;
     }
 
-    public Grade calculGrade(int heuresVol, int nbMission){
-        
-        if(heuresVol<500){
-            return Grade.OfficierDeVol;
+    public void calculGrade() {
+
+        if (heuresVol < 500) {
+            grade = Grade.OfficierDeVol;
+        } else if (heuresVol < 1500 && nbMissions >= 1) {
+            grade = Grade.Lieutenant;
+        } else if (heuresVol < 4000 && nbMissions >= 3) {
+            grade = Grade.Capitaine;
+        } else if (heuresVol >= 4000 && nbMissions >= 10) {
+            grade = Grade.Commandant;
         }
-        if(heuresVol<1500 && nbMission>=1){
-            return Grade.Lieutenant;
-        }
-        if(heuresVol<4000 && nbMission>=3){
-            return Grade.Capitaine;
-        }
-        if(heuresVol>=4000 && nbMission>=10){
-            return Grade.Commandant;
-        }
-        return Grade.EnFormation;
     }
 
     public boolean possedeChasseur() {
         return chasseur != null;
     }
-    
+
     public void verifierEtatChasseur() {
-        if(possedeChasseur() && chasseur.getEtat() != EtatChasseur.Affecte) {
+        if (possedeChasseur() && chasseur.getEtat() != EtatChasseur.Affecte) {
             setChasseur(null);
         }
 
@@ -125,13 +126,29 @@ public class Pilote implements Serializable {
         this.etat = etat;
     }
 
-//    public Grade getGrade() {
-//        return grade;
-//    }
-//
-//    public void setGrade(Grade grade) {
-//        this.grade = grade;
-//    }
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public void setGrade(Grade grade) {
+        this.grade = grade;
+    }
+
+    public int getHeuresVol() {
+        return heuresVol;
+    }
+
+    public void setHeuresVol(int heuresVol) {
+        this.heuresVol = heuresVol;
+    }
+
+    public int getNbMissions() {
+        return nbMissions;
+    }
+
+    public void setNbMissions(int nbMissions) {
+        this.nbMissions = nbMissions;
+    }
 
     public String getNom() {
         return nom;
@@ -156,14 +173,15 @@ public class Pilote implements Serializable {
     public void setAge(int age) {
         this.age = age;
     }
-    
+
     public Chasseur getChasseur() {
         return chasseur;
     }
 
     public void setChasseur(Chasseur chasseur) {
         this.chasseur = chasseur;
-        if(chasseur != null)
+        if (chasseur != null) {
             chasseur.setEtat(EtatChasseur.Affecte);
+        }
     }
 }

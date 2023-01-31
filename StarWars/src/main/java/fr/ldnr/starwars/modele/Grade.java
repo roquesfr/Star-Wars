@@ -9,7 +9,6 @@ package fr.ldnr.starwars.modele;
  * @author stag
  */
 public enum Grade {
-    EnFormation("En Formation"),
     OfficierDeVol("Officier de Vol"),
     Lieutenant("Lieutenant"),
     Capitaine("Capitaine"),

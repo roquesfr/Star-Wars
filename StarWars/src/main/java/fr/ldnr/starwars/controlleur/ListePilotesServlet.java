@@ -6,16 +6,12 @@ package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.Pilote;
-import fr.ldnr.starwars.modele.StatPilote;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -60,9 +56,6 @@ public class ListePilotesServlet extends HttpServlet {
         if (race != null && !race.isEmpty()) {
             queryString += " AND p.race LIKE CONCAT('%', :race, '%')";
         }
-        if (grade != null && !grade.isEmpty()) {
-            queryString += " AND p.grade LIKE CONCAT('%', :grade, '%')";
-        }
         if (chasseur != null && !chasseur.isEmpty()) {
             queryString += " AND p.chasseur.modele LIKE CONCAT('%', :chasseur, '%')";
         }
@@ -77,42 +70,25 @@ public class ListePilotesServlet extends HttpServlet {
         if (race != null && !race.isEmpty()) {
             query.setParameter("race", race);
         }
-        if (grade != null && !grade.isEmpty()) {
-            query.setParameter("grade", grade);
-        }
         if (chasseur != null && !chasseur.isEmpty()) {
             query.setParameter("chasseur", chasseur);
         }
         List<Pilote> liste = query.getResultList();
-        
-        Map<Pilote,StatPilote> map = new HashMap<>();
-        int heureVol = 0;
-        int nbMission = 0;
-        int id_pilote;
-
-        Query queryHV = em.createNamedQuery("HeureDeVolPourPilote",Integer.class);
-        Query queryNBM = em.createNamedQuery("NbMissionPourPilote",Integer.class);
 
         for (Pilote pilote : liste) {
-            id_pilote = pilote.getId_pilote();
-            queryHV.setParameter("id_pilote",id_pilote);
-            queryNBM.setParameter("id_pilote", id_pilote);
-            try{
-                heureVol = Integer.parseInt(queryHV.getSingleResult().toString());
-            }
-            catch (NullPointerException e){
-                heureVol = 0;
-            }
-            nbMission = Integer.parseInt(queryNBM.getSingleResult().toString());
-            
-            StatPilote stat = new StatPilote(heureVol, nbMission);
-            
-            map.put(pilote,stat);
-            
-            heureVol=0;
-            nbMission=0;
+            GestionairePilote.majGrade(pilote);
         }
-        request.setAttribute("mapGradePilote", map);
+        
+        if(grade != null && !grade.isEmpty()) {
+            ArrayList<Pilote> resultat = new ArrayList<>();
+            for(Pilote pilote: liste) {
+                if(pilote.getGrade() == Grade.valueOf(grade))
+                    resultat.add(pilote);
+            }
+            request.setAttribute("pilotes", resultat);
+        }
+        else
+            request.setAttribute("pilotes", liste);
         
 
         //request.setAttribute("pilotes", liste);

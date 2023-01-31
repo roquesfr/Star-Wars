@@ -40,6 +40,11 @@ public class Chasseur implements Serializable {
         this.modele = ModeleChasseur.XWing;
         this.etat = EtatChasseur.Operationnel;
     }
+    
+    public Chasseur(ModeleChasseur modele, EtatChasseur etat) {
+        this.modele = modele;
+        this.etat = etat;
+    }
 
     public int getId_chasseur() {
         return id_chasseur;

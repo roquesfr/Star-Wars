@@ -46,6 +46,13 @@ public class Pilote implements Serializable {
 
     }
     
+    public Pilote(String prenom, String nom, int age, Race race, EtatPilote etat) {
+        this.prenom = prenom;
+        this.nom = nom;
+        this.age = age;
+        this.race = race;
+        this.etat = etat;
+    }
 
     public Grade calculGrade(int heuresVol, int nbMission){
         

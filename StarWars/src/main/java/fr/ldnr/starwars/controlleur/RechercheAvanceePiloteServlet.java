@@ -16,8 +16,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/RechercheAvancee"})
-public class RechercheAvanceeServlet extends HttpServlet {
+@WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/RechercheAvanceePilote"})
+public class RechercheAvanceePiloteServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -31,7 +31,7 @@ public class RechercheAvanceeServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setAttribute("titre", "Recherche Pilotes");
-        getServletContext().getRequestDispatcher("/WEB-INF/recherche_avancee_pilote.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/WEB-INF/rechercheAvanceePilote.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

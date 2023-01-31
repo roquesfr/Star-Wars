@@ -17,7 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
                 <main>
                     <div class="form">
-                        <h1>Recherche Avancée : </h1>
+                        <h1>Recherche Avancée Pilote : </h1>
 
                         <form action="ListePilotes" method="GET">
                             <label for="recherche">Nom du pilote : </label>

@@ -21,7 +21,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
                         <form action="ListePilotes" method="GET">
                             <label for="recherche">Nom du pilote : </label>
-                            <input type="text" name="recherche" id="recherche">
+                            <input type="text" name="recherche" id="recherche" pattern="[a-zA-Z/\s-]+">
 
                             <label for="race">Race</label>
                             <select name="race" id="race">

@@ -19,11 +19,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <form action="CreationPiloteServlet" method="post">
                     <div>
                         <label for="nom" >Nom du pilote : </label>
-                        <input type="text" name="nom" id="nom" placeholder="Solo" required>
+                        <input type="text" name="nom" id="nom" placeholder="Solo" pattern="[a-zA-Z/\s-]+" required>
                     </div>
                     <div>
                         <label for="prenom">Prénom du pilote : </label>
-                        <input type="text" name="prenom" id="prenom" placeholder="Han" required>
+                        <input type="text" name="prenom" id="prenom" placeholder="Han" pattern="[a-zA-Z/\s-]+" required>
                     </div>
                     <div>
                         <label for="race">Race du pilote : </label>

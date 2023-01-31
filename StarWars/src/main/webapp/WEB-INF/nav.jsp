@@ -19,12 +19,12 @@
                 <li><a href="EtatMission">Création de mission</a></li>
             </ul>
         </li>
-        <!--        <a href="Test">Générer votre armée</a><br/>-->
+        <!--        <a href="Test">Gï¿½nï¿½rer votre armï¿½e</a><br/>-->
         <div class="recherche">
             <li>
                 <form action="ListePilotes" method="GET">
                     <!--                    <label for="recherche">Recherche pilote : </label>-->
-                    <input type="search" id="recherche" name="recherche" placeholder="Recherche de pilote">
+                    <input type="search" id="recherche" name="recherche" pattern="[a-zA-Z/\s-]+" placeholder="Recherche de pilote">
                     <input type="submit" value="Go">
                 </form>
             </li>

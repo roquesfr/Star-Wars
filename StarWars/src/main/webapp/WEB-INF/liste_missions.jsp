@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <!-- HEAD -->
-    <jsp:include page="head.jsp"></jsp:include>origin/main
+    <jsp:include page="head.jsp"></jsp:include>
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
@@ -27,7 +27,9 @@
                                 <td>
                                     <form action="DetailMission" method="POST">
                                         <input type="hidden" name="id" value="${mission.id_mission}">
-                                        <input type="submit" value="Détail">
+                                        <div>
+                                            <input type="submit" value="Détail">
+                                        </div>
                                     </form>
                                 </td>
                             </tr>

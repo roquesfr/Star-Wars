@@ -29,9 +29,11 @@
                         <div id="list">
                             <c:forEach items="${EtatChasseur.values()}" var="etat">
                                 <c:if test="${etat.selectionable}">
-                                    <input type="radio" name="etat_chasseur" id="${etat}" value="${etat}"
-                                           <c:if test="${etat == EtatChasseur.Operationnel}">checked</c:if>>
-                                    <label for="${etat}">${etat.getLabel()}</label><br>
+                                    <div>
+                                        <input type="radio" name="etat_chasseur" id="${etat}" value="${etat}"
+                                            <c:if test="${etat == EtatChasseur.Operationnel}">checked</c:if>>
+                                        <label for="${etat}">${etat.getLabel()}</label>
+                                    </div>
                                 </c:if>
                             </c:forEach>
                         </div>

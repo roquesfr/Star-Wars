@@ -7,12 +7,14 @@
     --color-primary-3: #730000;
     --color-primary-4: #fc0000;
 
-    --background-form-1: rgba(68, 68, 68, 0.521);
+    --background-form-1: rgba(15, 15, 15, 0.623);
 }
 
 body {
     margin: auto;
-    background-image: url("../img/background_star.jpg");
+    background-image: url("../img/background-sombre.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     color: var(--color-primary-4);
     /*display: grid;
     grid-template-rows: 1fr 3fr 1fr;

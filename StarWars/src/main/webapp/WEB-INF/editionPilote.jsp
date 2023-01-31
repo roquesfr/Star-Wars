@@ -19,7 +19,7 @@
                 <form action="MajPiloteServlet" method="post">
                     <div id="listRadio">
                         <div>
-                            
+
                             <div id="list" class="listeEtatPilote">
                                 <c:if test="${pilote.etat == EtatPilote.EnMission}">
                                     <aside>
@@ -29,53 +29,52 @@
                                         </p>
                                     </aside>    
                                 </c:if>
-                                
+
                                 <c:if test="${pilote.etat != EtatPilote.EnMission}">
                                     <label>Etat du pilote : </label>
                                     <div id="etatPilote">
-                                    <c:forEach items="${EtatPilote.values()}" var="etat">
-                                        <c:if test="${etat.selectionable}">
-                                            <div id="radioPilote">
-                                                <input id="etat_${etat}" type="radio" name="etat_pilote" value="${etat}" 
-                                                       <c:if test="${etat == pilote.etat}">checked </c:if>>
-                                                <label for="etat_${etat}">${etat.label}</label>
-                                            </div>   
-                                        </c:if>
-                                    </c:forEach>
+                                        <c:forEach items="${EtatPilote.values()}" var="etat">
+                                            <c:if test="${etat.selectionable}">
+                                                <div id="radioPilote">
+                                                    <input id="etat_${etat}" type="radio" name="etat_pilote" value="${etat}" 
+                                                           <c:if test="${etat == pilote.etat}">checked </c:if>>
+                                                    <label for="etat_${etat}">${etat.label}</label>
+                                                </div>   
+                                            </c:if>
+                                        </c:forEach>
                                     </div>
                                 </c:if>
                             </div>
                         </div>
                         <div>
-                            <c:if test="${pilote.possedeChasseur()}">
+                            <c:if test="${pilote.etat != EtatPilote.EnMission}">
                                 <aside>
                                     <p>
                                         Chasseur du pilote : ${pilote.chasseur.modele.label} n° ${pilote.chasseur.id_chasseur}
                                     </p>
                                 </aside>
-
-                            </c:if>
-                            <c:if test="${!pilote.possedeChasseur()}">
-                            <label for="modele">Chasseur</label>
-                            <select name="modele" id="modele">
-                                <c:if test="${pilote.possedeChasseur()}">
-                                    <option value="">Conserver</option>
-                                </c:if>
-                                <option value="-1">Aucun</option>
-                                <c:forEach items="${chasseurs}" var="chasseur">
-                                    <option value="${chasseur.id_chasseur}">${chasseur.id_chasseur}-${chasseur.modele.label}-${chasseur.etat.label}</option>
-                                </c:forEach>
-                            </select>
+                                <label for="modele">Chasseur</label>
+                                <select name="modele" id="modele">
+                                    <c:if test="${pilote.possedeChasseur()}">
+                                        <option value="">Conserver</option>
+                                    </c:if>
+                                    <option value="-1">Aucun</option>
+                                    <c:forEach items="${chasseurs}" var="chasseur">
+                                        <option value="${chasseur.id_chasseur}">${chasseur.id_chasseur}-${chasseur.modele.label}-${chasseur.etat.label}</option>
+                                    </c:forEach>
+                                </select>
                             </c:if>
                         </div>
                     </div>
 
                     <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
                     <!--<button type="submit">Modifier</button>-->
-                    <div>
-                        <input type="submit" value="Valider la mise à jour">
-                        <input type="reset" value="Reset">
-                    </div>
+                    <c:if test="${pilote.etat != EtatPilote.EnMission}">
+                        <div>
+                            <input type="submit" value="Valider la mise à jour">
+                            <input type="reset" value="Reset">
+                        </div>
+                    </c:if>
                 </form>
             </div>
         </main>

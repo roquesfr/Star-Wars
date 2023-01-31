@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
             <div class="form">
                 <h1>Création d'une nouvelle mission</h1>
 
-                <form action="CreationMission" method="post">
+                <form action="creationMission" method="post">
                     <div>
                         <label>Intitulé : </label>
                         <input type="text" name="intitule" id="intitule" pattern="[0-9a-zA-Z/\s-]+" required>

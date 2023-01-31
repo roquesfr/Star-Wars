@@ -14,7 +14,7 @@
                 <div class="form">
                     <h1>Création d'un nouveau chasseur</h1>
 
-                    <form action="CreationChasseurServlet" method="post">
+                    <form action="creationChasseur" method="post">
 
                     <label for="modele">Modele de chasseur</label>
 

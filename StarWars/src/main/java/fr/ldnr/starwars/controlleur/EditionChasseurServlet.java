@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "EditionChasseurServlet", urlPatterns = {"/EditionChasseurServlet"})
+@WebServlet(name = "EditionChasseurServlet", urlPatterns = {"/editionChasseur"})
 public class EditionChasseurServlet extends HttpServlet {
 
     /**

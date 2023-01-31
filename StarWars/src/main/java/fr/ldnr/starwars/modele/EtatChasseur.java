@@ -9,7 +9,11 @@ package fr.ldnr.starwars.modele;
  * @author stag
  */
 public enum EtatChasseur {
-    Affecte("Affecté", false),Operationnel("Opérationnel", true),EnMaintenance("En Maintenance", true), Detruit("Détruit", true),EnConstruction("En construction", true);
+    Affecte("Affecté", false),
+    Operationnel("Opérationnel", true),
+    EnMaintenance("En Maintenance", true),
+    Detruit("Détruit", true),
+    EnConstruction("En construction", true);
     
     private String label;
     private boolean selectionable;

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "ListeMissionsServlet", urlPatterns = {"/ListeMissions"})
+@WebServlet(name = "ListeMissionsServlet", urlPatterns = {"/missions"})
 public class ListeMissionsServlet extends HttpServlet {
 
     /**
@@ -57,7 +57,7 @@ public class ListeMissionsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            processRequest(request, response);
     }
 
     /**

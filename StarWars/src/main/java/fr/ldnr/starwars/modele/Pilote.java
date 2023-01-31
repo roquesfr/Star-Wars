@@ -68,6 +68,7 @@ public class Pilote implements Serializable {
         heuresVol = 0;
         nbMissions = 0;
         grade = Grade.OfficierDeVol;
+        etat = EtatPilote.Disponible;
     }
 
     public Pilote(String prenom, String nom, int age, Race race, EtatPilote etat) {
@@ -77,6 +78,14 @@ public class Pilote implements Serializable {
         this.age = age;
         this.race = race;
         this.etat = etat;
+    }
+    
+    public Pilote(String prenom, String nom, int age, Race race) {
+        this();
+        this.prenom = prenom;
+        this.nom = nom;
+        this.age = age;
+        this.race = race;
     }
 
     /**

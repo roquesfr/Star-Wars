@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "MajPiloteServlet", urlPatterns = {"/MajPiloteServlet"})
+@WebServlet(name = "MajPiloteServlet", urlPatterns = {"/majPilote"})
 public class MajPiloteServlet extends HttpServlet {
 
     /**
@@ -54,7 +54,7 @@ public class MajPiloteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        
     }
 
     /**
@@ -69,7 +69,6 @@ public class MajPiloteServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
 
@@ -118,7 +117,7 @@ public class MajPiloteServlet extends HttpServlet {
         }
         request.setAttribute("titre", "Liste des Pilotes");
         getServletContext()
-                .getRequestDispatcher("/ListePilotes")
+                .getRequestDispatcher("/pilotes")
                 .forward(request, response);
 
     }

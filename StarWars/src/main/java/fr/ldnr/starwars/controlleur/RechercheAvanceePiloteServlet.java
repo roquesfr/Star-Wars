@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/RechercheAvanceePilote"})
+@WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/rechercheAvanceePilote"})
 public class RechercheAvanceePiloteServlet extends HttpServlet {
 
     /**

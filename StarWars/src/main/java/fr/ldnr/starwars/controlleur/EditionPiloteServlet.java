@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "EditionPiloteServlet", urlPatterns = {"/EditionPiloteServlet"})
+@WebServlet(name = "EditionPiloteServlet", urlPatterns = {"/editionPilote"})
 public class EditionPiloteServlet extends HttpServlet {
 
     /**

@@ -16,7 +16,7 @@
                     <c:out value="${pilote.nom}"/> 
                     <c:out value="${pilote.prenom}"/>
                 </h1>
-                <form action="MajPiloteServlet" method="post">
+                <form action="majPilote" method="post">
                     <div id="listRadio">
                         <div>
 
@@ -55,6 +55,7 @@
                                         </p>
                                     </aside>
                                 </c:if>
+
                                 <label for="modele">Chasseur</label>
                                 <select name="modele" id="modele">
                                     <c:if test="${pilote.possedeChasseur()}">
@@ -66,6 +67,7 @@
                                     </c:forEach>
                                 </select>
                             </c:if>
+
                         </div>
                     </div>
 

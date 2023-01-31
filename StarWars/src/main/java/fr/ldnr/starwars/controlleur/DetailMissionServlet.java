@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "DetailMissionServlet", urlPatterns = {"/DetailMission"})
+@WebServlet(name = "DetailMissionServlet", urlPatterns = {"/detailMission"})
 public class DetailMissionServlet extends HttpServlet {
 
     /**
@@ -34,33 +34,7 @@ public class DetailMissionServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int missionId = Integer.valueOf(request.getParameter("id"));
-
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-
-        try {
-            em = emf.createEntityManager();
-            
-            Mission mission = em.find(Mission.class, missionId);
-            for(Pilote p: mission.getPilotes())
-                GestionairePilote.majGrade(p);
-            request.setAttribute("mission", mission);
-
-        } catch (Exception e) {
-            System.err.println("Problème survenu : " + e);
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-        }
-        request.setAttribute("titre", "Détails de Mission");
-        getServletContext()
-                .getRequestDispatcher("/WEB-INF/detailMission.jsp")
-                .forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -90,6 +64,33 @@ public class DetailMissionServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        int missionId = Integer.valueOf(request.getParameter("id"));
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = null;
+
+        try {
+            em = emf.createEntityManager();
+            
+            Mission mission = em.find(Mission.class, missionId);
+            for(Pilote p: mission.getPilotes())
+                GestionairePilote.majGrade(p);
+            request.setAttribute("mission", mission);
+
+        } catch (Exception e) {
+            System.err.println("Problème survenu : " + e);
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+        }
+        request.setAttribute("titre", "Détails de Mission");
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/detailMission.jsp")
+                .forward(request, response);
     }
 
     /**

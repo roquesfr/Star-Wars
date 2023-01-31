@@ -22,18 +22,25 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "CreationPiloteServlet", urlPatterns = {"/CreationPiloteServlet"})
+@WebServlet(name = "CreationPiloteServlet", urlPatterns = {"/creationPilote"})
 public class CreationPiloteServlet extends HttpServlet {
 
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+   protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+    }
+   
+   
+   @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("titre", "Création de Pilote");
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/creationPilote.jsp")
+                .forward(request, response);
+    }
+   
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,19 +48,9 @@ public class CreationPiloteServlet extends HttpServlet {
         
         String nom = request.getParameter("nom");
         String prenom = request.getParameter("prenom");
-        String race = request.getParameter("race");
+        Race race = Race.valueOf(request.getParameter("race"));
         Integer age = Integer.valueOf(request.getParameter("age"));
-        EtatPilote etat = EtatPilote.valueOf("EnFormation");
-        Grade grade = Grade.valueOf("EnFormation");
-
-        Pilote pilote = new Pilote();
-
-        pilote.setNom(nom);
-        pilote.setPrenom(prenom);
-        pilote.setRace(Race.valueOf(race));
-        pilote.setAge(age);
-        pilote.setEtat(etat);
-//        pilote.setGrade(grade);
+        Pilote pilote = new Pilote(prenom,nom,age,race);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;

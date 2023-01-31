@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "MajChasseurServlet", urlPatterns = {"/MajChasseurServlet"})
+@WebServlet(name = "MajChasseurServlet", urlPatterns = {"/majChasseur"})
 public class MajChasseurServlet extends HttpServlet {
 
     /**
@@ -95,7 +95,7 @@ public class MajChasseurServlet extends HttpServlet {
         }
         request.setAttribute("titre", "Liste des Chasseurs");
         getServletContext()
-                    .getRequestDispatcher("/ListeChasseurs")
+                    .getRequestDispatcher("/chasseurs")
                     .forward(request, response);
     }
 

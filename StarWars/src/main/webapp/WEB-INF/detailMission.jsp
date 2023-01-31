@@ -13,8 +13,8 @@
 <html lang="fr">
     <!-- HEAD -->
     <jsp:include page="head.jsp"></jsp:include>
-    <body>
-        <!--HEADER-->
+        <body>
+            <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
         <h1><c:out value="${mission.intitule}"/> </h1>
         <div>
@@ -24,19 +24,7 @@
                     <c:forEach items="${mission.pilotes}" var="pilote">
                         <tr>
                             <td>
-                                <c:choose>
-                                    <c:when test="${!mission.completee}">
-                                        <select name="grade_${pilote.id_pilote}" id="grade_${pilote.id_pilote}">
-                                            <c:forEach items="${Grade.values()}" var="grade">
-                                                <option value="${grade}"
-                                                        <c:if test="${grade == pilote.grade}">selected</c:if>>
-                                                    ${grade.label}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </c:when>
-                                    <c:otherwise>${pilote.grade.label}</c:otherwise>
-                                </c:choose>
+                                <c:out value="${pilote.grade.label}"/>
                             </td>
                             <td>
                                 <c:if test="${!mission.completee}">

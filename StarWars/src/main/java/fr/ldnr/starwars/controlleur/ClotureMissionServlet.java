@@ -51,10 +51,8 @@ public class ClotureMissionServlet extends HttpServlet {
             mission.setDureeHeures(nbHeures);
 
             for (Pilote p : mission.getPilotes()) {
-                Grade grade = Grade.valueOf(request.getParameter("grade_" + p.getId_pilote()));
                 EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_" + p.getId_pilote()));
                 EtatChasseur etatChasseur = EtatChasseur.valueOf(request.getParameter("etatChasseur_" + p.getId_pilote()));
-                p.setGrade(grade);
                 p.setEtat(etat);
                 if (p.possedeChasseur()) {
                     p.getChasseur().setEtat(etatChasseur);

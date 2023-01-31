@@ -13,12 +13,24 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 
 /**
  *
  * @author stag
  */
+@NamedQueries({
+    @NamedQuery(
+        name="HeureDeVolPourPilote",
+        query="SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
+    ),
+    @NamedQuery(
+        name="NbMissionPourPilote",
+        query="SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
+    )     
+})
 @Entity
 public class Pilote implements Serializable {
 

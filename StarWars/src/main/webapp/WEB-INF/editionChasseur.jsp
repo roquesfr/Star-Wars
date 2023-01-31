@@ -13,7 +13,7 @@
             <main>
                 <div class="form">
                     <h1>Mise à jour de la fiche du chasseur : </h1>
-                    <form action="MajChasseurServlet" method="post">
+                    <form action="majChasseur" method="post">
                         <div>
                             <label for="race">Modèle du chasseur : </label>
                             <select name="modele"> 

@@ -3,27 +3,25 @@
         <li class="accueil"><a href="/StarWars/"><img src="assets/img/Alliance_Rebelle.png" alt="alt"/></a></li>
         <li class="menu-deroulant"><a href="#">Création</a>
             <ul>
-                <li><a href="EtatPiloteServlet">Création de pilote</a></li>
-                <li><a href="EtatChasseurServlet">Création de chasseur</a></li>
+                <li><a href="creationPilote">Création de pilote</a></li>
+                <li><a href="creationChasseur">Création de chasseur</a></li>
             </ul>
         </li>
         <li class="menu-deroulant"><a href="#">Listes</a>
             <ul>
-                <li><a href="ListePilotes">Liste des pilotes</a></li>
-                <li><a href="ListeChasseurs">Liste des chasseurs</a></li>
+                <li><a href="pilotes">Liste des pilotes</a></li>
+                <li><a href="chasseurs">Liste des chasseurs</a></li>
             </ul>
         </li>
         <li class="menu-deroulant"><a href="#">Missions</a>
             <ul>
-                <li><a href="ListeMissions">Liste des missions</a></li>
-                <li><a href="EtatMission">Création de mission</a></li>
+                <li><a href="missions">Liste des missions</a></li>
+                <li><a href="creationMission">Création de mission</a></li>
             </ul>
         </li>
-        <!--        <a href="Test">Gï¿½nï¿½rer votre armï¿½e</a><br/>-->
         <div class="recherche">
             <li>
-                <form action="ListePilotes" method="GET">
-                    <!--                    <label for="recherche">Recherche pilote : </label>-->
+                <form action="pilotes" method="GET">
                     <input type="search" id="recherche" name="recherche" pattern="[a-zA-Z/\s-]+" placeholder="Recherche de pilote">
                     <input type="submit" value="Go">
                 </form>
@@ -31,8 +29,8 @@
 
             <li class="menu-deroulant" id="rechercheavancee"><a href="#">Recherche Avancée</a>
                 <ul>
-                    <li><a href="RechercheAvanceePilote">Pilotes</a></li>
-                    <li><a href="RechercheAvanceeChasseur">Chasseurs</a></li>
+                    <li><a href="rechercheAvanceePilote">Pilotes</a></li>
+                    <li><a href="rechercheAvanceeChasseur">Chasseurs</a></li>
                 </ul>
             </li>
         </div>

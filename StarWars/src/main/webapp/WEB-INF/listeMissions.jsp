@@ -25,7 +25,7 @@
                                     <c:out value="${mission.dureeHeures}" />h
                                 </td>
                                 <td>
-                                    <form action="DetailMission" method="POST">
+                                    <form action="detailMission" method="POST">
                                         <input type="hidden" name="id" value="${mission.id_mission}">
                                         <div>
                                             <input type="submit" value="Détail">

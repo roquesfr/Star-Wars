@@ -16,7 +16,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <div class="form">
                 <h1>Création d'un nouveau pilote</h1>
 
-                <form action="CreationPiloteServlet" method="post">
+                <form action="creationPilote" method="post">
                     <div>
                         <label for="nom" >Nom du pilote : </label>
                         <input type="text" name="nom" id="nom" placeholder="Solo" pattern="[a-zA-Z/\s-]+" required>

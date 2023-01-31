@@ -15,7 +15,7 @@
                     <ul>
                         <c:forEach items="${pilotes}" var="pilote">
                             <li>
-                                <form action="EditionPiloteServlet" method="post">
+                                <form action="editionPilote" method="post">
                                     <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
                                     <c:out value="${pilote.id_pilote}"/> -
                                     <c:out value="${pilote.grade.label}"/> -

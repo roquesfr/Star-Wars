@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "CreationChasseurServlet", urlPatterns = {"/CreationChasseurServlet"})
+@WebServlet(name = "CreationChasseurServlet", urlPatterns = {"/creationChasseur"})
 public class CreationChasseurServlet extends HttpServlet {
 
     /**
@@ -54,6 +54,10 @@ public class CreationChasseurServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        request.setAttribute("titre", "Création de Chasseur");
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/creationChasseur.jsp")
+                .forward(request, response);
     }
 
     /**
@@ -74,9 +78,7 @@ public class CreationChasseurServlet extends HttpServlet {
         ModeleChasseur modele = ModeleChasseur.valueOf(request.getParameter("modele"));
         EtatChasseur etat = EtatChasseur.valueOf(request.getParameter("etat_chasseur"));
         
-        Chasseur chasseur = new Chasseur();
-        chasseur.setModele(modele);
-        chasseur.setEtat(etat);
+        Chasseur chasseur = new Chasseur(modele,etat);
 
         try {
             em = emf.createEntityManager();

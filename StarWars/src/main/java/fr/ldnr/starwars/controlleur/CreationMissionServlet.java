@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "CreationMissionServlet", urlPatterns = {"/CreationMission"})
+@WebServlet(name = "CreationMissionServlet", urlPatterns = {"/creationMission"})
 public class CreationMissionServlet extends HttpServlet {
 
     /**
@@ -78,6 +78,21 @@ public class CreationMissionServlet extends HttpServlet {
                 .getRequestDispatcher("/ListeMissions")
                 .forward(request, response);
     }
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = emf.createEntityManager();
+        String query = "SELECT p FROM Pilote p WHERE p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible AND p.chasseur IS NOT NULL";
+        List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
+        request.setAttribute("pilotesDispo", liste);
+        request.setAttribute("titre", "Création de Mission");
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/creationMission.jsp")
+                .forward(request, response);
+    }
+    
 
     /**
      * Returns a short description of the servlet.

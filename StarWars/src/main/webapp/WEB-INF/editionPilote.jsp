@@ -16,7 +16,7 @@
                     <c:out value="${pilote.nom}"/> 
                     <c:out value="${pilote.prenom}"/>
                 </h1>
-                <form action="MajPiloteServlet" method="post">
+                <form action="majPilote" method="post">
                     <div id="listRadio">
                         <div>
                             

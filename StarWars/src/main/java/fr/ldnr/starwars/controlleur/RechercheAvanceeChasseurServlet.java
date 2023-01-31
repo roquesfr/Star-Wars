@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "RechercheAvanceeChasseurServlet", urlPatterns = {"/RechercheAvanceeChasseur"})
+@WebServlet(name = "RechercheAvanceeChasseurServlet", urlPatterns = {"/rechercheAvanceeChasseur"})
 public class RechercheAvanceeChasseurServlet extends HttpServlet {
 
     /**
@@ -30,8 +30,7 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setAttribute("titre", "Recherche Chasseurs");
-        getServletContext().getRequestDispatcher("/WEB-INF/rechercheAvanceeChasseur.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -46,7 +45,11 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        request.setAttribute("titre", "Recherche Chasseurs");
+        getServletContext().
+                getRequestDispatcher("/WEB-INF/rechercheAvanceeChasseur.jsp").
+                forward(request, response);
     }
 
     /**

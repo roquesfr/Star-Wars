@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "ListeMissionsServlet", urlPatterns = {"/ListeMissions"})
+@WebServlet(name = "ListeMissionsServlet", urlPatterns = {"/missions"})
 public class ListeMissionsServlet extends HttpServlet {
 
     /**
@@ -34,15 +34,7 @@ public class ListeMissionsServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
-
-        String query = "SELECT m FROM Mission m";
-        List<Mission> liste = em.createQuery(query, Mission.class).getResultList();
-        request.setAttribute("missions", liste);
-        em.close();
-        request.setAttribute("titre", "Liste des Missions");
-        getServletContext().getRequestDispatcher("/WEB-INF/listeMissions.jsp").forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,6 +50,15 @@ public class ListeMissionsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = emf.createEntityManager();
+
+        String query = "SELECT m FROM Mission m";
+        List<Mission> liste = em.createQuery(query, Mission.class).getResultList();
+        request.setAttribute("missions", liste);
+        em.close();
+        request.setAttribute("titre", "Liste des Missions");
+        getServletContext().getRequestDispatcher("/WEB-INF/listeMissions.jsp").forward(request, response);
     }
 
     /**

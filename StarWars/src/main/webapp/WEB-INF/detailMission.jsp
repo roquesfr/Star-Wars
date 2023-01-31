@@ -21,7 +21,7 @@
                 <div class="form">
                     <h1><c:out value="${mission.intitule}"/> </h1>
                 <div>
-                    <form action="ClotureMission" method="POST">
+                    <form action="clotureMission" method="POST">
                         <h2>Participants</h2>
                         <table>
                             <c:forEach items="${mission.pilotes}" var="pilote">

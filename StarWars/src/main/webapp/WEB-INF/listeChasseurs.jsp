@@ -17,7 +17,7 @@
                         <ul>
                         <c:forEach items="${chasseurs}" var="chasseur">
                             <li>
-                                <form action="EditionChasseurServlet" method="get">
+                                <form action="editionChasseur" method="get">
                                     <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
                                     <c:out value="${chasseur.id_chasseur}"/> -
                                     <c:out value="${chasseur.modele.label}"/> -

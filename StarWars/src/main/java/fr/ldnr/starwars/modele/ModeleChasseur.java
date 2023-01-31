@@ -11,7 +11,9 @@ package fr.ldnr.starwars.modele;
  */
 public enum ModeleChasseur {
 
-    XWing("X-Wing"),YWing("Y-Wing"),ZWing("Z-Wing");
+    XWing("X-Wing"),
+    YWing("Y-Wing"),
+    ZWing("Z-Wing");
        
     private String label;
 

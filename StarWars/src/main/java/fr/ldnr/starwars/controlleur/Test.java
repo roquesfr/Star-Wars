@@ -72,9 +72,7 @@ public class Test extends HttpServlet {
             for(int i=0; i<pilotesm1.size(); i++) {
                 Pilote p = pilotesm1.get(i);
                 Chasseur c = chasseursm1.get(i);
-                em.persist(c);
                 p.setChasseur(c);
-                em.persist(p);
             }
             em.persist(mission1);
             
@@ -82,8 +80,7 @@ public class Test extends HttpServlet {
             mission2.setIntitule("Reconnaissance");
             Chasseur chasseurm2 = new Chasseur(ModeleChasseur.ZWing, EtatChasseur.Operationnel);
             Pilote pilotem2 = new Pilote("Chroll", "Diraso", 30, Race.Humain, EtatPilote.EnMission);
-            em.persist(chasseurm2);
-            em.persist(pilotem2);
+            pilotem2.setChasseur(chasseurm2);
             mission2.getPilotes().add(pilotem2);
             em.persist(mission2);
             em.persist(new Chasseur(ModeleChasseur.XWing, EtatChasseur.EnMaintenance));

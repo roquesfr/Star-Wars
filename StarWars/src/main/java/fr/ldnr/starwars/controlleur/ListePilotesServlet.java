@@ -6,6 +6,7 @@ package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.Pilote;
+import fr.ldnr.starwars.modele.StatPilote;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -84,19 +85,14 @@ public class ListePilotesServlet extends HttpServlet {
         }
         List<Pilote> liste = query.getResultList();
         
-        Map<Pilote,Grade> map = new HashMap<>();
+        Map<Pilote,StatPilote> map = new HashMap<>();
         int heureVol = 0;
         int nbMission = 0;
         int id_pilote;
-        String queryHeureVol = 
-                "SELECT SUM(m.dureeHeures) FROM Mission m "
-                + "join m.pilotes p WHERE p.id_pilote=:id_pilote";
-        String queryNbMission = 
-                "SELECT COUNT(m) FROM Mission m "
-                + "join m.pilotes p WHERE p.id_pilote=:id_pilote";
-        
-        Query queryHV = em.createQuery(queryHeureVol,Integer.class);
-        Query queryNBM = em.createQuery(queryNbMission,Integer.class);
+
+        Query queryHV = em.createNamedQuery("HeureDeVolPourPilote",Integer.class);
+        Query queryNBM = em.createNamedQuery("NbMissionPourPilote",Integer.class);
+
         for (Pilote pilote : liste) {
             id_pilote = pilote.getId_pilote();
             queryHV.setParameter("id_pilote",id_pilote);
@@ -109,7 +105,9 @@ public class ListePilotesServlet extends HttpServlet {
             }
             nbMission = Integer.parseInt(queryNBM.getSingleResult().toString());
             
-            map.put(pilote,pilote.calculGrade(heureVol, nbMission));
+            StatPilote stat = new StatPilote(heureVol, nbMission);
+            
+            map.put(pilote,stat);
             
             heureVol=0;
             nbMission=0;

@@ -5,6 +5,7 @@
 package fr.ldnr.starwars.modele;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -13,12 +14,27 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import sun.util.calendar.CalendarDate;
 
 /**
  *
  * @author stag
  */
+@NamedQueries({
+    @NamedQuery(
+        name="HeureDeVolPourPilote",
+        query="SELECT SUM(m.dureeHeures) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
+    ),
+    @NamedQuery(
+        name="NbMissionPourPilote",
+        query="SELECT COUNT(m) FROM Mission m join m.pilotes p WHERE p.id_pilote=:id_pilote"
+    )     
+})
 @Entity
 public class Pilote implements Serializable {
 
@@ -37,6 +53,9 @@ public class Pilote implements Serializable {
 
     private String nom;
     private String prenom;
+    
+//    @Temporal(TemporalType.DATE)
+//    private DateNaissance dateNaissance;
     private int age;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)

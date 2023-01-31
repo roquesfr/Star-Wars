@@ -38,19 +38,18 @@ public class CreationMissionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        
         Mission mission = new Mission();
         String[] idPilotesString = request.getParameterValues("pilotes");
         ArrayList<Integer> idPilotes = new ArrayList<>();
-        for(String id: idPilotesString)
+        for (String id : idPilotesString) {
             idPilotes.add(Integer.valueOf(id));
-        
+        }
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
         try {
             em = emf.createEntityManager();
-            
+
             mission.setIntitule(request.getParameter("intitule"));
 
             TypedQuery<Pilote> query = em.createQuery("SELECT p FROM Pilote p WHERE p.id_pilote IN :idPilotes", Pilote.class);
@@ -58,8 +57,9 @@ public class CreationMissionServlet extends HttpServlet {
             List<Pilote> pilotes = query.getResultList();
             mission.setPilotes(new ArrayList<>(pilotes));
             em.getTransaction().begin();
-            for(Pilote p: pilotes)
+            for (Pilote p : pilotes) {
                 p.setEtat(EtatPilote.EnMission);
+            }
             em.persist(mission);
             em.getTransaction().commit();
 
@@ -75,9 +75,10 @@ public class CreationMissionServlet extends HttpServlet {
         }
         request.setAttribute("titre", "Création de Mission");
         getServletContext()
-                .getRequestDispatcher("/ListeMissions")
+                .getRequestDispatcher("/missions")
                 .forward(request, response);
     }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -92,7 +93,6 @@ public class CreationMissionServlet extends HttpServlet {
                 .getRequestDispatcher("/WEB-INF/creationMission.jsp")
                 .forward(request, response);
     }
-    
 
     /**
      * Returns a short description of the servlet.

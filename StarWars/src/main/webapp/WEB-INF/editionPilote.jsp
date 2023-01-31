@@ -47,7 +47,8 @@
                             </div>
                         </div>
                         <div>
-                            <c:if test="${pilote.possedeChasseur()}">
+                            <c:if test="${pilote.etat != EtatPilote.EnMission}">
+                                <c:if test="${pilote.possedeChasseur()}">
                                 <aside>
                                     <p>
                                         Chasseur du pilote : ${pilote.chasseur.modele.label} n° ${pilote.chasseur.id_chasseur}
@@ -55,7 +56,7 @@
                                 </aside>
 
                             </c:if>
-                            <c:if test="${!pilote.possedeChasseur()}">
+                            
                             <label for="modele">Chasseur</label>
                             <select name="modele" id="modele">
                                 <c:if test="${pilote.possedeChasseur()}">
@@ -66,7 +67,7 @@
                                     <option value="${chasseur.id_chasseur}">${chasseur.id_chasseur}-${chasseur.modele.label}-${chasseur.etat.label}</option>
                                 </c:forEach>
                             </select>
-                            </c:if>
+                        </c:if>
                         </div>
                     </div>
 

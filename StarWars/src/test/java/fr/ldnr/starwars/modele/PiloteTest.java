@@ -17,136 +17,95 @@ public class PiloteTest {
     }
 
     /**
-     * Test of calculGrade method, of class Pilote.
+     * Teste la méthode Pilote.calculGrade().
      */
     @Test
     public void testCalculGrade() {
+        Pilote pilote = new Pilote();
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.OfficierDeVol);
+        
+        pilote.setHeuresVol(500);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.OfficierDeVol);
+        
+        pilote.setNbMissions(1);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.Lieutenant);
+        
+        pilote.setHeuresVol(499);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.OfficierDeVol);
+        
+        pilote.setHeuresVol(499);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.OfficierDeVol);
+        
+        pilote.setHeuresVol(1500);
+        pilote.setNbMissions(2);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.Lieutenant);
+        
+        pilote.setNbMissions(3);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.Capitaine);
+        
+        pilote.setHeuresVol(1499);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.Lieutenant);
+        
+        pilote.setHeuresVol(5000);
+        pilote.setNbMissions(9);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.Capitaine);
+        
+        pilote.setNbMissions(10);
+        pilote.calculGrade();
+        assertTrue(pilote.getGrade() == Grade.Commandant);
     }
-
+    
+    
     /**
-     * Test of possedeChasseur method, of class Pilote.
-     */
-    @Test
-    public void testPossedeChasseur() {
-    }
-
-    /**
-     * Test of verifierEtatChasseur method, of class Pilote.
-     */
-    @Test
-    public void testVerifierEtatChasseur() {
-    }
-
-    /**
-     * Test of getId_pilote method, of class Pilote.
-     */
-    @Test
-    public void testGetId_pilote() {
-    }
-
-    /**
-     * Test of setId_pilote method, of class Pilote.
-     */
-    @Test
-    public void testSetId_pilote() {
-    }
-
-    /**
-     * Test of getRace method, of class Pilote.
-     */
-    @Test
-    public void testGetRace() {
-    }
-
-    /**
-     * Test of setRace method, of class Pilote.
-     */
-    @Test
-    public void testSetRace() {
-    }
-
-    /**
-     * Test of getEtat method, of class Pilote.
-     */
-    @Test
-    public void testGetEtat() {
-    }
-
-    /**
-     * Test of setEtat method, of class Pilote.
-     */
-    @Test
-    public void testSetEtat() {
-    }
-
-    /**
-     * Test of getGrade method, of class Pilote.
-     */
-    @Test
-    public void testGetGrade() {
-    }
-
-    /**
-     * Test of setGrade method, of class Pilote.
-     */
-    @Test
-    public void testSetGrade() {
-    }
-
-    /**
-     * Test of getNom method, of class Pilote.
-     */
-    @Test
-    public void testGetNom() {
-    }
-
-    /**
-     * Test of setNom method, of class Pilote.
-     */
-    @Test
-    public void testSetNom() {
-    }
-
-    /**
-     * Test of getPrenom method, of class Pilote.
-     */
-    @Test
-    public void testGetPrenom() {
-    }
-
-    /**
-     * Test of setPrenom method, of class Pilote.
-     */
-    @Test
-    public void testSetPrenom() {
-    }
-
-    /**
-     * Test of getAge method, of class Pilote.
-     */
-    @Test
-    public void testGetAge() {
-    }
-
-    /**
-     * Test of setAge method, of class Pilote.
-     */
-    @Test
-    public void testSetAge() {
-    }
-
-    /**
-     * Test of getChasseur method, of class Pilote.
-     */
-    @Test
-    public void testGetChasseur() {
-    }
-
-    /**
-     * Test of setChasseur method, of class Pilote.
+     * Teste la méthode Pilote.setChasseur(Chasseur chasseur).
      */
     @Test
     public void testSetChasseur() {
+        Chasseur chasseur = new Chasseur(ModeleChasseur.XWing, EtatChasseur.Operationnel);
+        Pilote pilote = new Pilote();
+        pilote.setChasseur(chasseur);
+        assert(chasseur.getEtat() == EtatChasseur.Affecte);
+        
+        pilote.setChasseur(null);
     }
-    
+
+    /**
+     * Teste la méthode Pilote.possedeChasseur().
+     * Doit retourner false si l'attribut chasseur est null;
+     * true sinon.
+     */
+    @Test
+    public void testPossedeChasseur() {
+        Pilote pilote = new Pilote();
+        pilote.setChasseur(null);
+        assert(!pilote.possedeChasseur());
+        
+        pilote.setChasseur(new Chasseur());
+        assert(pilote.possedeChasseur());
+    }
+
+    /**
+     * Teste la méthode Pilote.verifierEtatChasseur().
+     */
+    @Test
+    public void testVerifierEtatChasseur() {
+        Pilote pilote = new Pilote();
+        Chasseur chasseur = new Chasseur();
+        pilote.setChasseur(chasseur);
+        pilote.verifierEtatChasseur();
+        assert(pilote.getChasseur() == chasseur);
+        
+        chasseur.setEtat(EtatChasseur.Detruit);
+        pilote.verifierEtatChasseur();
+        assert(pilote.getChasseur() == null);
+    }
 }

@@ -66,6 +66,7 @@ public class Pilote implements Serializable {
 
     public Pilote() {
         heuresVol = 0;
+        nbMissions = 0;
         grade = Grade.OfficierDeVol;
     }
 
@@ -78,16 +79,19 @@ public class Pilote implements Serializable {
         this.etat = etat;
     }
 
+    /**
+     * Met à jour l'attribut grade en fonction des valeurs des attributs
+     * heuresVol et nbMissions.
+     */
     public void calculGrade() {
-
-        if (heuresVol < 500) {
-            grade = Grade.OfficierDeVol;
-        } else if (heuresVol < 1500 && nbMissions >= 1) {
-            grade = Grade.Lieutenant;
-        } else if (heuresVol < 4000 && nbMissions >= 3) {
-            grade = Grade.Capitaine;
-        } else if (heuresVol >= 4000 && nbMissions >= 10) {
+        if(heuresVol >= 4000 && nbMissions >= 10) {
             grade = Grade.Commandant;
+        } else if (heuresVol >= 1500 && nbMissions >= 3) {
+            grade = Grade.Capitaine;
+        } else if(heuresVol >= 500 && nbMissions >= 1) {
+            grade = Grade.Lieutenant;
+        } else {
+            grade = Grade.OfficierDeVol;
         }
     }
 
@@ -95,6 +99,10 @@ public class Pilote implements Serializable {
         return chasseur != null;
     }
 
+    /**
+     * Vérifie que le Chasseur référencé dans l'attribut chasseur est toujours
+     * affecté. Sinon, passe l'attribut à null.
+     */
     public void verifierEtatChasseur() {
         if (possedeChasseur() && chasseur.getEtat() != EtatChasseur.Affecte) {
             setChasseur(null);

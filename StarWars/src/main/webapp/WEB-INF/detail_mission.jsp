@@ -64,7 +64,7 @@
                                     <select name="etatChasseur_${pilote.id_pilote}" id="etatChasseur_${pilote.id_pilote}">
                                         <c:forEach items="${EtatChasseur.values()}" var="etat">
                                             <option value="${etat}"
-                                                    <c:if test="${etat == EtatChasseur.Operationnel}">selected</c:if>>
+                                                    <c:if test="${etat == EtatChasseur.Affecte}">selected</c:if>>
                                                 ${etat.label}
                                             </option>
                                         </c:forEach>

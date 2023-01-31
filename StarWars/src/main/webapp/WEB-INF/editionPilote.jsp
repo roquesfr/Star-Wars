@@ -48,11 +48,13 @@
                         </div>
                         <div>
                             <c:if test="${pilote.etat != EtatPilote.EnMission}">
-                                <aside>
-                                    <p>
-                                        Chasseur du pilote : ${pilote.chasseur.modele.label} n° ${pilote.chasseur.id_chasseur}
-                                    </p>
-                                </aside>
+                                <c:if test="${pilote.possedeChasseur()}">
+                                    <aside>
+                                        <p>
+                                            Chasseur du pilote : ${pilote.chasseur.modele.label} n° ${pilote.chasseur.id_chasseur}
+                                        </p>
+                                    </aside>
+                                </c:if>
                                 <label for="modele">Chasseur</label>
                                 <select name="modele" id="modele">
                                     <c:if test="${pilote.possedeChasseur()}">

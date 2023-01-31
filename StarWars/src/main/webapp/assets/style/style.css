@@ -21,6 +21,7 @@ body {
     grid-row-gap: 20px;*/
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 /* Menu de navigation */
@@ -52,7 +53,7 @@ nav a {
 }
 
 nav a:hover {
-    background-color: var(--color-primary-0);
+    background-color: var(--color-primary-3);
 }
 
 nav ul ul {

@@ -63,7 +63,7 @@ public class ListePilotesServlet extends HttpServlet {
             queryString += " AND p.grade LIKE CONCAT('%', :grade, '%')";
         }
         if (chasseur != null && !chasseur.isEmpty()) {
-            queryString += " AND p.chasseur LIKE CONCAT('%', :chasseur, '%')";
+            queryString += " AND p.chasseur.modele LIKE CONCAT('%', :chasseur, '%')";
         }
 
         query = em.createQuery(queryString, Pilote.class);

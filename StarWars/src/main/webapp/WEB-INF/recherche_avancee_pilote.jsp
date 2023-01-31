@@ -33,7 +33,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
                         <label for="chasseur">Chasseur</label>
                         <select name="chasseur" id="chasseur">
-                            <option name="modele">Tous</option>
+                            <option name="modele" value="">Tous</option>
                             <c:forEach items="${ModeleChasseur.values()}" var="modele">
                                 <option value="${modele}">${modele.label}</option>
                             </c:forEach>

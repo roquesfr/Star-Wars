@@ -16,78 +16,85 @@
     <body>
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <h1><c:out value="${mission.intitule}"/> </h1>
-        <div>
-            <form action="ClotureMission" method="POST">
-                <h2>Participants</h2>
-                <table>
-                    <c:forEach items="${mission.pilotes}" var="pilote">
-                        <tr>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${!mission.completee}">
-                                        <select name="grade_${pilote.id_pilote}" id="grade_${pilote.id_pilote}">
-                                            <c:forEach items="${Grade.values()}" var="grade">
-                                                <option value="${grade}"
-                                                        <c:if test="${grade == pilote.grade}">selected</c:if>>
-                                                    ${grade.label}
-                                                </option>
-                                            </c:forEach>
-                                        </select>
-                                    </c:when>
-                                    <c:otherwise>${pilote.grade.label}</c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>
-                                <c:if test="${!mission.completee}">
-                                    <select name="etat_${pilote.id_pilote}" id="etat_${pilote.id_pilote}">
-                                        <c:forEach items="${EtatPilote.values()}" var="etat">
-                                            <c:if test="${etat.selectionable}">
-                                                <option value="${etat}"
-                                                        <c:if test="${etat == EtatPilote.Disponible}">selected</c:if>>
-                                                    ${etat.label}
-                                                </option>
-                                            </c:if>
-                                        </c:forEach>
-                                    </select>
-                                </c:if>
-                            </td>
-                            <td>
-                                <c:out value="${pilote.prenom}"/> 
-                                <c:out value="${pilote.nom}"/>
-                            </td>
-                            <td><c:out value="${pilote.race}"/></td>
-                            <td><c:out value="${pilote.age}"/> ans</td>
-                            <c:if test="${!mission.completee}">
-                                <td><c:out value="${pilote.chasseur.modele}"/></td>
-                                <td>
-                                    <select name="etatChasseur_${pilote.id_pilote}" id="etatChasseur_${pilote.id_pilote}">
-                                        <c:forEach items="${EtatChasseur.values()}" var="etat">
-                                            <option value="${etat}"
-                                                    <c:if test="${etat == EtatChasseur.Operationnel}">selected</c:if>>
-                                                ${etat.label}
-                                            </option>
-                                        </c:forEach>
-                                    </select>
-                                </td>
-                            </c:if>
-                        </tr>
-                    </c:forEach>
-                </table>
-                <h2>Cloture</h2>
-                <c:if test="${mission.completee}">
-                    Cette mission a déjà été cloturée.<br/>
-                    Durée: <c:out value="${mission.dureeHeures}"/>h
-                </c:if>
-                <c:if test="${!mission.completee}">
+        <main>
+            <div class="form">
+                <h1><c:out value="${mission.intitule}"/> </h1>
+                <div>
+                    <form action="ClotureMission" method="POST">
+                        <h2>Participants</h2>
+                        <table>
+                            <c:forEach items="${mission.pilotes}" var="pilote">
+                                <tr>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${!mission.completee}">
+                                                <select name="grade_${pilote.id_pilote}" id="grade_${pilote.id_pilote}">
+                                                    <c:forEach items="${Grade.values()}" var="grade">
+                                                        <option value="${grade}"
+                                                                <c:if test="${grade == pilote.grade}">selected</c:if>>
+                                                            ${grade.label}
+                                                        </option>
+                                                    </c:forEach>
+                                                </select>
+                                            </c:when>
+                                            <c:otherwise>${pilote.grade.label}</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                    <td>
+                                        <c:if test="${!mission.completee}">
+                                            <select name="etat_${pilote.id_pilote}" id="etat_${pilote.id_pilote}">
+                                                <c:forEach items="${EtatPilote.values()}" var="etat">
+                                                    <c:if test="${etat.selectionable}">
+                                                        <option value="${etat}"
+                                                                <c:if test="${etat == EtatPilote.Disponible}">selected</c:if>>
+                                                            ${etat.label}
+                                                        </option>
+                                                    </c:if>
+                                                </c:forEach>
+                                            </select>
+                                        </c:if>
+                                    </td>
+                                    <td>
+                                        <c:out value="${pilote.prenom}"/> 
+                                        <c:out value="${pilote.nom}"/>
+                                    </td>
+                                    <td><c:out value="${pilote.race}"/></td>
+                                    <td><c:out value="${pilote.age}"/> ans</td>
+                                    <c:if test="${!mission.completee}">
+                                        <td><c:out value="${pilote.chasseur.modele}"/></td>
+                                        <td>
+                                            <select name="etatChasseur_${pilote.id_pilote}" id="etatChasseur_${pilote.id_pilote}">
+                                                <c:forEach items="${EtatChasseur.values()}" var="etat">
+                                                    <option value="${etat}"
+                                                            <c:if test="${etat == EtatChasseur.Operationnel}">selected</c:if>>
+                                                        ${etat.label}
+                                                    </option>
+                                                </c:forEach>
+                                            </select>
+                                        </td>
+                                    </c:if>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                        <h2>Cloture</h2>
+                        <c:if test="${mission.completee}">
+                            Cette mission a déjà été cloturée.<br/>
+                            Durée: <c:out value="${mission.dureeHeures}"/>h
+                        </c:if>
+                        <c:if test="${!mission.completee}">
 
-                    <input type="hidden" name="id" value="${mission.id_mission}">
-                    <label for="nbHeures">Durée en heures: </label>
-                    <input type="number" name="nbHeures" id="nbHeures" min="1" required><br/>
-                    <input type="submit" value="Cloturer">
-                </c:if>
-            </form>
-        </div>
+                            <input type="hidden" name="id" value="${mission.id_mission}">
+                            <label for="nbHeures">Durée en heures: </label>
+                            <input type="number" name="nbHeures" id="nbHeures" min="1" required><br/>
+                            <div>
+                                <input type="submit" value="Cloturer">
+                            </div>
+                            
+                        </c:if>
+                    </form>
+                </div>
+            </div>
+        </main>
         <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
     </body>

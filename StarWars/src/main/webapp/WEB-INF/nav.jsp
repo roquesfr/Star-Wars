@@ -1,10 +1,10 @@
 <nav>
     <ul>
         <li class="accueil"><a href="/StarWars/"><img src="assets/img/Alliance_Rebelle.png" alt="alt"/></a></li>
-        <li class="menu-deroulant"><a href="#">Création</a>
+        <li class="menu-deroulant"><a href="#">CrÃ©ation</a>
             <ul>
-                <li><a href="EtatPiloteServlet">Création de pilote</a></li>
-                <li><a href="EtatChasseurServlet">Création de chasseur</a></li>
+                <li><a href="EtatPiloteServlet">CrÃ©ation de pilote</a></li>
+                <li><a href="EtatChasseurServlet">CrÃ©ation de chasseur</a></li>
             </ul>
         </li>
         <li class="menu-deroulant"><a href="#">Listes</a>
@@ -16,19 +16,19 @@
         <li class="menu-deroulant"><a href="#">Missions</a>
             <ul>
                 <li><a href="ListeMissions">Liste des missions</a></li>
-                <li><a href="EtatMission">Création de mission</a></li>
+                <li><a href="EtatMission">CrÃ©ation de mission</a></li>
             </ul>
         </li>
-        <!--        <a href="Test">Générer votre armée</a><br/>-->
+        <!--        <a href="Test">Gï¿½nï¿½rer votre armï¿½e</a><br/>-->
         <div class="recherche">
             <li>
                 <form action="ListePilotes" method="GET">
 <!--                    <label for="recherche">Recherche pilote : </label>-->
-                    <input type="search" id="recherche" name="recherche" placeholder="Recherche de pilote">
+                    <input type="search" id="recherche" name="recherche" pattern="[a-zA-Z/\s-]+" placeholder="Recherche de pilote">
                     <input type="submit" value="Go">
                 </form>
             </li>
-            <li><a href="RechercheAvancee" id="recherceavancee">Recherche avancée</a></li>
+            <li><a href="RechercheAvancee" id="recherceavancee">Recherche avancÃ©e</a></li>
         </div>
         <li class="accueil"><a href="/StarWars/"><img src="assets/img/Alliance_Rebelle.png" alt="alt"/></a></li>
 

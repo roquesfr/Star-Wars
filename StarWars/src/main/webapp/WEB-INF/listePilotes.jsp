@@ -18,14 +18,14 @@
                                 <form action="EditionPiloteServlet" method="post">
                                     <input type="hidden" name="id_pilote" value="${map.key.id_pilote}">
                                     <c:out value="${map.key.id_pilote}"/> -
-                                    <c:out value="${map.value}"/> -
+                                    <c:out value="${map.value.grade}"/> -
                                     <c:out value="${map.key.prenom}"/> -
                                     <c:out value="${map.key.nom}"/> -
                                     <c:out value="${map.key.race.label}"/> -
                                     <c:out value="${map.key.age}"/> ans -
                                     <c:out value="${map.key.etat.label}"/> -
-                                    <c:out value="${nbMission}"/> -
-                                    <c:out value="${heureVol}h de vol"/> |
+                                    <c:out value="${map.value.nbMission}"/> -
+                                    <c:out value="${map.value.nbHeureVol}h de vol"/> |
                                     <c:out value="${map.key.chasseur.id_chasseur}"/>-
                                     <c:out value="${map.key.chasseur.modele.label}"/>-   
                                     <c:out value="${map.key.chasseur.etat}"/>

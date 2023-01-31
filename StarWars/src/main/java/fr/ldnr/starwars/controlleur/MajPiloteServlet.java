@@ -73,7 +73,6 @@ public class MajPiloteServlet extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
 
-        Grade grade = Grade.valueOf(request.getParameter("grade_pilote"));
         int id_chasseur = 0;
         boolean nvChasseur = !request.getParameter("modele").equals("");
         if (nvChasseur) {
@@ -88,7 +87,6 @@ public class MajPiloteServlet extends HttpServlet {
             em = emf.createEntityManager();
             Pilote pilote = em.find(Pilote.class, Integer.parseInt(request.getParameter("id_pilote")));
             em.getTransaction().begin();
-            pilote.setGrade(grade);
             if (nvChasseur) {
                 if(pilote.possedeChasseur()) {
                     pilote.getChasseur().setEtat(EtatChasseur.Operationnel);

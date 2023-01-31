@@ -22,8 +22,8 @@ public class StatPilote {
     }
     
     public StatPilote(Integer sumHeureVol,Integer countMission) {
-        this.nbHeureVol = sumHeureVol;
-        this.nbMission = countMission;
+        setNbHeureVol(sumHeureVol);
+        setNbMission(countMission);
     }
 
     public Grade calculGrade() {

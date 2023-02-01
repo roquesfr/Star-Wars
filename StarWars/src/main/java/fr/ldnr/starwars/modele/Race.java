@@ -4,6 +4,9 @@
  */
 package fr.ldnr.starwars.modele;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author stag
@@ -46,5 +49,11 @@ public enum Race {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+    
+    public static ArrayList<Race> getAll(){
+        ArrayList<Race> liste = new ArrayList<>();
+        liste.addAll(Arrays.asList(Race.values()));
+        return liste;
     }
 }

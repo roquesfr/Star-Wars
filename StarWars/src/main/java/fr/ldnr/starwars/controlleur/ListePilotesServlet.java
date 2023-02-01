@@ -4,8 +4,12 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.EtatChasseur;
+import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Grade;
+import fr.ldnr.starwars.modele.ModeleChasseur;
 import fr.ldnr.starwars.modele.Pilote;
+import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,57 +43,121 @@ public class ListePilotesServlet extends HttpServlet {
             throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = emf.createEntityManager();
-        String queryString = "SELECT p FROM Pilote p WHERE 1=1";
+        StringBuilder queryString = new StringBuilder("SELECT p FROM Pilote p WHERE 1=1");
         TypedQuery<Pilote> query;
+
         String recherche = request.getParameter("recherche");
         String race = request.getParameter("race");
-        String etat = request.getParameter("etat");
-        String grade = request.getParameter("grade");
-        String chasseur = request.getParameter("chasseur");
+        String etat = "";
+        String grade = "";
+        String chasseur = "";
+
+//        ArrayList<Race> races = new ArrayList<>();
+        ArrayList<EtatPilote> etats = new ArrayList<>();
+        ArrayList<Grade> grades = new ArrayList<>();
+        ArrayList<ModeleChasseur> chasseurs = new ArrayList<>();
 
         if (recherche != null && !recherche.isEmpty()) {
-            queryString += " AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')";
-        }
-        if (etat != null && !etat.isEmpty()) {
-            queryString += " AND p.etat LIKE CONCAT('%', :etat, '%')";
-        }
-        if (race != null && !race.isEmpty()) {
-            queryString += " AND p.race LIKE CONCAT('%', :race, '%')";
-        }
-        if (chasseur != null && !chasseur.isEmpty()) {
-            queryString += " AND p.chasseur.modele LIKE CONCAT('%', :chasseur, '%')";
+            queryString.append("AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')");
         }
 
-        query = em.createQuery(queryString, Pilote.class);
+        if (race != null && !race.isEmpty()) {
+            queryString.append(" AND p.race = :race");
+        }
+
+        for (EtatPilote e : EtatPilote.values()) {
+            etat = request.getParameter(e.toString());
+
+            if (etat != null && !etat.isEmpty()) {
+                etats.add(EtatPilote.valueOf(etat));
+            }
+        }
+        if (!etats.isEmpty()) {
+            queryString.append(" AND ");
+            queryString.append("p.etat IN :etats ");
+        }
+
+        
+
+        for (ModeleChasseur c : ModeleChasseur.values()) {
+            chasseur = request.getParameter(c.toString());
+
+            if (chasseur != null && !chasseur.isEmpty()) {
+                chasseurs.add(ModeleChasseur.valueOf(chasseur));
+            }
+        }
+        
+        if(!chasseurs.isEmpty()){
+            queryString.append(" AND ");
+        queryString.append(" p.chasseur.modele IN :chasseurs ");
+        }
+
+        for (Grade g : Grade.values()) {
+            grade = request.getParameter(g.toString());
+
+            if (grade != null && !grade.isEmpty()) {
+                grades.add(Grade.valueOf(grade));
+            }
+        }
+
+//        queryString.append("AND ");
+//        queryString.append("p.race IN :races ");
+//        for(Race r : Race.values()){
+//            race = request.getParameter(r.toString());
+//
+//            if (race != null && !race.isEmpty()) {
+//                races.add(Race.valueOf(race));
+//            }
+//        }
+        System.out.println(queryString.toString());
+
+        query = em.createQuery(queryString.toString(), Pilote.class);
+        System.out.println(query.toString());
+
         if (recherche != null && !recherche.isEmpty()) {
             query.setParameter("recherche", recherche);
         }
-        if (etat != null && !etat.isEmpty()) {
-            query.setParameter("etat", etat);
-        }
+        
         if (race != null && !race.isEmpty()) {
-            query.setParameter("race", race);
+            query.setParameter("race", Race.valueOf(race));
         }
-        if (chasseur != null && !chasseur.isEmpty()) {
-            query.setParameter("chasseur", chasseur);
+        if (!etats.isEmpty()) {
+            query.setParameter("etats", etats);
+          System.out.println("tous les etat");
+//            etats.addAll(EtatPilote.getAll());
         }
+
+        if (!chasseurs.isEmpty()) {
+            query.setParameter("chasseurs", chasseurs);
+//            chasseurs.add(null);
+            System.out.println("tous les chasseurs");
+//            chasseurs.addAll(ModeleChasseur.getAll());
+        }
+
+//        if (races.isEmpty()) {
+//            races.addAll(Race.getAll());
+//        }
+//        query.setParameter("races", races);
+        
+       
         List<Pilote> liste = query.getResultList();
 
         for (Pilote pilote : liste) {
             GestionairePilote.majGrade(pilote);
         }
-        
-        if(grade != null && !grade.isEmpty()) {
+        if (!grades.isEmpty()) {
             ArrayList<Pilote> resultat = new ArrayList<>();
-            for(Pilote pilote: liste) {
-                if(pilote.getGrade() == Grade.valueOf(grade))
+            for (Pilote pilote : liste) {
+                if (grades.contains(pilote.getGrade())) {
                     resultat.add(pilote);
+                }
+
             }
             request.setAttribute("pilotes", resultat);
-        }
-        else
+        } else {
             request.setAttribute("pilotes", liste);
-        
+        }
+
         //request.setAttribute("pilotes", liste);
         em.close();
         request.setAttribute("titre", "Liste des Pilotes");

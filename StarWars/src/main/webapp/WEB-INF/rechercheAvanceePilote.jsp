@@ -22,7 +22,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                         <form action="pilotes" method="GET">
                             <label for="recherche">Nom du pilote : </label>
                             <input type="text" name="recherche" id="recherche" pattern="[a-zA-Z/\s-]+">
-
                             <label for="race">Race</label>
                             <select name="race" id="race">
                                 <option value="">Toutes</option>
@@ -31,25 +30,20 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                             </c:forEach>
                         </select>
 
-                        <label for="chasseur">Chasseur</label>
-                        <select name="chasseur" id="chasseur">
-                            <option name="modele" value="">Tous</option>
+                        <label>Chasseur</label>
+
                             <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                                <option value="${modele}">${modele.label}</option>
-                            </c:forEach>
-                        </select><br>
+                                <input type="checkbox" value="${modele}" id="modele${modele}" name="${modele}">
+                                <label for="modele${modele}">${modele.label}</label>
+                            </c:forEach><br>
                         
                         <div id="listRadio">
                             <div>
-                                <label>Grade : </label>
+                                <label>Grade </label>
                                 <div id="list">
-                                    <span>
-                                        <input type="radio" name="grade" id="gradevide" value="" checked>
-                                        <label for="gradevide">Tous</label>
-                                    </span>
                                     <c:forEach items="${Grade.values()}" var="grade">
                                         <div>
-                                            <input type="radio" name="grade" id="grade${grade}"
+                                            <input type="checkbox" name="${grade}" id="grade${grade}"
                                                    value="${grade}">
                                             <label for="grade${grade}">${grade.label}</label>
                                         </div>
@@ -57,15 +51,11 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 </div>
                             </div>
                             <div>
-                                <label>Etat : </label>
+                                <label>Etat </label>
                                 <div id="list">
-                                    <span>
-                                        <input type="radio" name="etat" id="etatvide" value="" checked>
-                                        <label for="etatvide">Tous</label>
-                                    </span>
                                     <c:forEach items="${EtatPilote.values()}" var="etat">
                                         <div>
-                                            <input type="radio" name="etat" id="etat${etat}"
+                                            <input type="checkbox" name="${etat}" id="etat${etat}"
                                                    value="${etat}">
                                             <label for="etat${etat}">${etat.label}</label>
                                         </div>

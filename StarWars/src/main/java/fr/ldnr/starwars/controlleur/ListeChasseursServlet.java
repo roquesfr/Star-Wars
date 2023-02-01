@@ -39,72 +39,7 @@ public class ListeChasseursServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-        List<Chasseur> liste = null;
-        try {
-            em = emf.createEntityManager();
-            StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
-            TypedQuery<Chasseur> query;
-            if (request.getParameter("recherche") != null) {
-
-                System.out.println("Je passe dans la recherche avancée");
-                String etat = "";
-                String modele = "";
-                ArrayList<EtatChasseur> etats = new ArrayList<>();
-                ArrayList<ModeleChasseur> modeles = new ArrayList<>();
-
-                for (EtatChasseur e : EtatChasseur.values()) {
-                    etat = request.getParameter(e.toString());
-
-                    if (etat != null && !etat.isEmpty()) {
-                        etats.add(EtatChasseur.valueOf(etat));
-                    }
-                }
-
-                for (ModeleChasseur m : ModeleChasseur.values()) {
-                    modele = request.getParameter(m.toString());
-
-                    if (modele != null && !modele.isEmpty()) {
-                        modeles.add(ModeleChasseur.valueOf(modele));
-                    }
-                }
-                if (!modeles.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append("c.modele IN :modeles");
-                }
-                if (!etats.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append("c.etat IN :etats");
-                }
-                query = em.createQuery(queryString.toString(), Chasseur.class);
-
-                if (!modeles.isEmpty()) {
-                    query.setParameter("modeles", modeles);
-                }
-                if (!etats.isEmpty()) {
-                    query.setParameter("etats", etats);
-                }
-            } else {
-                System.out.println("Je passe dans la recherche simple");
-                query = em.createQuery(queryString.toString(), Chasseur.class);
-                
-            }
-            liste = query.getResultList();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-            request.setAttribute("chasseurs", liste);
-            request.setAttribute("titre", "Liste des Chasseurs");
-            getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
-        }
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -120,6 +55,39 @@ public class ListeChasseursServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = null;
+        List<Chasseur> liste = null;
+        try {
+            em = emf.createEntityManager();
+            String queryString ="SELECT c FROM Chasseur c WHERE 1=1";
+            TypedQuery<Chasseur> query;
+            if (request.getParameter("recherche") != null) {
+
+                System.out.println("Je passe dans la recherche avancée");
+                query = TypedQuery.class.cast(request.getAttribute("query"));
+                System.out.println(request.getAttribute("query"));
+                System.out.println("Le query récupéré de l'autre servlet "+query.toString());
+            } else {
+                System.out.println("Je passe dans la recherche simple");
+                query = em.createQuery(queryString, Chasseur.class);
+                
+            }
+            liste = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("ERROR"+e.getMessage());
+
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+            request.setAttribute("chasseurs", liste);
+            request.setAttribute("titre", "Liste des Chasseurs");
+            getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
+        }
     }
 
     /**

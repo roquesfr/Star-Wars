@@ -4,8 +4,17 @@
  */
 package fr.ldnr.starwars.controlleur;
 
+import fr.ldnr.starwars.modele.Chasseur;
+import fr.ldnr.starwars.modele.EtatChasseur;
+import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -30,7 +39,7 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -45,11 +54,76 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        request.setAttribute("titre", "Recherche Chasseurs");
-        getServletContext().
-                getRequestDispatcher("/WEB-INF/rechercheAvanceeChasseur.jsp").
-                forward(request, response);
+        if (request.getParameter("recherche") == null) {
+            System.out.println("Je redirige vers le jsp");
+            request.setAttribute("titre", "Recherche Chasseurs");
+            getServletContext()
+                    .getRequestDispatcher("/WEB-INF/rechercheAvanceeChasseur.jsp")
+                    .forward(request, response);
+        } else {
+            System.out.println("je suis un mauvais servlet");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+            EntityManager em = null;
+            TypedQuery<Chasseur> query = null;
+            try {
+                em = emf.createEntityManager();
+                StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
+
+                String etat = "";
+                String modele = "";
+                ArrayList<EtatChasseur> etats = new ArrayList<>();
+                ArrayList<ModeleChasseur> modeles = new ArrayList<>();
+
+                for (EtatChasseur e : EtatChasseur.values()) {
+                    etat = request.getParameter(e.toString());
+
+                    if (etat != null && !etat.isEmpty()) {
+                        etats.add(EtatChasseur.valueOf(etat));
+                    }
+                }
+
+                for (ModeleChasseur m : ModeleChasseur.values()) {
+                    modele = request.getParameter(m.toString());
+
+                    if (modele != null && !modele.isEmpty()) {
+                        modeles.add(ModeleChasseur.valueOf(modele));
+                    }
+                }
+                if (!modeles.isEmpty()) {
+                    queryString.append(" AND ");
+                    queryString.append("c.modele IN :modeles");
+                }
+                if (!etats.isEmpty()) {
+                    queryString.append(" AND ");
+                    queryString.append("c.etat IN :etats");
+                }
+                query = em.createQuery(queryString.toString(), Chasseur.class);
+
+                if (!modeles.isEmpty()) {
+                    query.setParameter("modeles", modeles);
+                }
+                if (!etats.isEmpty()) {
+                    query.setParameter("etats", etats);
+                }
+                System.out.println("ma requete :" + query.toString());
+            } catch (Exception e) {
+                System.err.println("zut" + e.getMessage());
+
+            } finally {
+                if (em != null) {
+                    if (em.getTransaction().isActive()) {
+                        em.getTransaction().rollback();
+                    }
+                    request.setAttribute("query", query);
+                    getServletContext()
+                            .getRequestDispatcher("/chasseurs")
+                            .forward(request, response);
+                    em.close();
+                }
+            }
+
+        }
+        System.out.println("Vilain Servlet");
     }
 
     /**

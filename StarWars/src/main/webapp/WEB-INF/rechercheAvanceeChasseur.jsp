@@ -17,7 +17,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div class="form">
                         <h1>Recherche Avancée Chasseur : </h1>
 
-                        <form action="chasseurs" method="GET">
+                        <form action="rechercheAvanceeChasseur" method="GET">
 
                             <input type="hidden" name="recherche" value="avancee">
                             

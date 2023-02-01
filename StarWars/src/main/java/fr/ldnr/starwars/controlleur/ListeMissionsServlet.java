@@ -38,11 +38,11 @@ public class ListeMissionsServlet extends HttpServlet {
         EntityManager em = null;
         String query = "SELECT m FROM Mission m";
         List<Mission> liste = null;
-        try{
-         em = emf.createEntityManager();
-         em.createQuery(query, Mission.class).getResultList();
-        
-        }catch (Exception e) {
+        try {
+            em = emf.createEntityManager();
+            liste = em.createQuery(query, Mission.class).getResultList();
+
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         } finally {
             if (em != null) {
@@ -69,7 +69,7 @@ public class ListeMissionsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

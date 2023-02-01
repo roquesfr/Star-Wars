@@ -100,10 +100,8 @@ public class ListePilotesServlet extends HttpServlet {
                 }
             }
 
-            System.out.println(queryString.toString());
 
             query = em.createQuery(queryString.toString(), Pilote.class);
-            System.out.println(query.toString());
 
             if (recherche != null && !recherche.isEmpty()) {
                 query.setParameter("recherche", recherche);
@@ -114,12 +112,10 @@ public class ListePilotesServlet extends HttpServlet {
             }
             if (!etats.isEmpty()) {
                 query.setParameter("etats", etats);
-                System.out.println("tous les etat");
             }
 
             if (!chasseurs.isEmpty()) {
                 query.setParameter("chasseurs", chasseurs);
-                System.out.println("tous les chasseurs");
             }
 
             List<Pilote> liste = query.getResultList();

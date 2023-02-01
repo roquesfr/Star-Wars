@@ -18,23 +18,38 @@ public class GestionairePilote {
 
     public static void majGrade(Pilote pilote) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
+        EntityManager em = null;
 
-        Query queryHV = em.createNamedQuery("HeureDeVolPourPilote", Integer.class);
-        Query queryNBM = em.createNamedQuery("NbMissionPourPilote", Integer.class);
-
-        queryHV.setParameter("id_pilote", pilote.getId_pilote());
-        queryNBM.setParameter("id_pilote", pilote.getId_pilote());
-        int heuresVol;
         try {
-            heuresVol = Integer.parseInt(queryHV.getSingleResult().toString());
-        } catch (NullPointerException e) {
-            heuresVol = 0;
+            em = emf.createEntityManager();
+
+            Query queryHV = em.createNamedQuery("HeureDeVolPourPilote", Integer.class);
+            Query queryNBM = em.createNamedQuery("NbMissionPourPilote", Integer.class);
+
+            queryHV.setParameter("id_pilote", pilote.getId_pilote());
+            queryNBM.setParameter("id_pilote", pilote.getId_pilote());
+            int heuresVol;
+            try {
+                heuresVol = Integer.parseInt(queryHV.getSingleResult().toString());
+            } catch (NullPointerException e) {
+                heuresVol = 0;
+            }
+            int nbMissions = Integer.parseInt(queryNBM.getSingleResult().toString());
+
+            pilote.setHeuresVol(heuresVol);
+            pilote.setNbMissions(nbMissions);
+            pilote.calculGrade();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+
+                }
+                em.close();
+            }
+
         }
-        int nbMissions = Integer.parseInt(queryNBM.getSingleResult().toString());
-        
-        pilote.setHeuresVol(heuresVol);
-        pilote.setNbMissions(nbMissions);
-        pilote.calculGrade();
     }
 }

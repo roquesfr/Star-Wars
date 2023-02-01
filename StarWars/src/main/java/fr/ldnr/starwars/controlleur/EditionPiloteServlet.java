@@ -71,7 +71,8 @@ public class EditionPiloteServlet extends HttpServlet {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
         
-        String query = "SELECT c FROM Chasseur c WHERE c.etat = fr.ldnr.starwars.modele.EtatChasseur.Operationnel"; 
+        String query = "SELECT c FROM Chasseur c WHERE "
+                + "c.etat = fr.ldnr.starwars.modele.EtatChasseur.Operationnel"; 
         
 
         try {

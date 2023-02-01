@@ -56,51 +56,64 @@ public class ListeChasseursServlet extends HttpServlet {
         processRequest(request, response);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
-        StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
-        TypedQuery<Chasseur> query;
-        String etat = "";
-        String modele = "";
-        ArrayList<EtatChasseur> etats = new ArrayList<>();
-        ArrayList<ModeleChasseur> modeles = new ArrayList<>();
+        EntityManager em = null;
+        List<Chasseur> liste = null;
+        try {
+            em = emf.createEntityManager();
+            StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
+            TypedQuery<Chasseur> query;
+            String etat = "";
+            String modele = "";
+            ArrayList<EtatChasseur> etats = new ArrayList<>();
+            ArrayList<ModeleChasseur> modeles = new ArrayList<>();
 
-        queryString.append("AND ");
-        queryString.append("c.etat IN :etats");
-        for (EtatChasseur e : EtatChasseur.values()) {
-            etat = request.getParameter(e.toString());
+            for (EtatChasseur e : EtatChasseur.values()) {
+                etat = request.getParameter(e.toString());
 
-            if (etat != null && !etat.isEmpty()) {
-                etats.add(EtatChasseur.valueOf(etat));
+                if (etat != null && !etat.isEmpty()) {
+                    etats.add(EtatChasseur.valueOf(etat));
+                }
             }
-        }
 
-        queryString.append(" AND ");
-        queryString.append("c.modele IN :modeles");
+            for (ModeleChasseur m : ModeleChasseur.values()) {
+                modele = request.getParameter(m.toString());
 
-        for (ModeleChasseur m : ModeleChasseur.values()) {
-            modele = request.getParameter(m.toString());
-
-            if (modele != null && !modele.isEmpty()) {
-                modeles.add(ModeleChasseur.valueOf(modele));
+                if (modele != null && !modele.isEmpty()) {
+                    modeles.add(ModeleChasseur.valueOf(modele));
+                }
             }
-        }
 
-        query = em.createQuery(queryString.toString(), Chasseur.class);
-        if(modeles.isEmpty()){
-            modeles.addAll(ModeleChasseur.getAll());
-        }
-        if(etats.isEmpty()){
-            etats.addAll(EtatChasseur.getAll());
-        }
-        query.setParameter("modeles", modeles);
-        query.setParameter("etats", etats);
+            
+            if (!modeles.isEmpty()) {
+                queryString.append(" AND ");
+                queryString.append("c.modele IN :modeles");
+            }
+            if (!etats.isEmpty()) {
+                queryString.append(" AND ");
+                queryString.append("c.etat IN :etats");
+            }
+            query = em.createQuery(queryString.toString(), Chasseur.class);
+            
+            if(!modeles.isEmpty())
+                query.setParameter("modeles", modeles);
+            if(!etats.isEmpty())
+                query.setParameter("etats", etats);
 
-        List<Chasseur> liste = query.getResultList();
-        request.setAttribute("chasseurs", liste);
-        em.close();
+            liste = query.getResultList();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
 
-        request.setAttribute("titre", "Liste des Chasseurs");
-        getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+            request.setAttribute("chasseurs", liste);
+            request.setAttribute("titre", "Liste des Chasseurs");
+            getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
+        }
     }
 
     /**

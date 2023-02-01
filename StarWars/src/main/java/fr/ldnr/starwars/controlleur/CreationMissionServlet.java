@@ -26,10 +26,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "CreationMissionServlet", urlPatterns = {"/creationMission"})
 public class CreationMissionServlet extends HttpServlet {
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -89,9 +89,25 @@ public class CreationMissionServlet extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
-        String query = "SELECT p FROM Pilote p WHERE p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible AND p.chasseur IS NOT NULL";
-        List<Pilote> liste = em.createQuery(query, Pilote.class).getResultList();
+        EntityManager em = null;
+        List<Pilote> liste = null;
+        try {
+            em = emf.createEntityManager();
+            String query = "SELECT p FROM Pilote p WHERE "
+                    + "p.etat = fr.ldnr.starwars.modele.EtatPilote.Disponible "
+                    + "AND p.chasseur IS NOT NULL";
+            liste = em.createQuery(query, Pilote.class).getResultList();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+        }
+        
         request.setAttribute("pilotesDispo", liste);
         request.setAttribute("titre", "Création de Mission");
         getServletContext()

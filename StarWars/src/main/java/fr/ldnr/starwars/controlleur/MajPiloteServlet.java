@@ -54,7 +54,7 @@ public class MajPiloteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     /**
@@ -87,9 +87,9 @@ public class MajPiloteServlet extends HttpServlet {
             Pilote pilote = em.find(Pilote.class, Integer.parseInt(request.getParameter("id_pilote")));
             em.getTransaction().begin();
             if (nvChasseur) {
-                if(pilote.possedeChasseur()) {
+                if (pilote.possedeChasseur()) {
                     pilote.getChasseur().setEtat(EtatChasseur.Operationnel);
-                    System.out.println("#######################");
+
                 }
                 if (id_chasseur == -1) {
                     pilote.setChasseur(null);
@@ -104,7 +104,7 @@ public class MajPiloteServlet extends HttpServlet {
 
             em.getTransaction().commit();
 
-        } catch (NumberFormatException e) {           
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
         } finally {
             if (em != null) {

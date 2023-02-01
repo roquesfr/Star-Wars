@@ -28,17 +28,14 @@
                                     <c:out value="${pilote.nbMissions}"/> -
                                     <c:out value="${pilote.heuresVol}h de vol"/> |
                                     <c:out value="${pilote.chasseur.matricule}"/>
-                                    <div>
+                                    <span id="validerFormation"><button type="submit">Modifier</button>
+                                </form>
                                     <c:if test="${pilote.etat == EtatPilote.EnFormation}">
                                         <form action="validerFormation" method="GET">
                                             <input type="hidden" name="id" value="${pilote.id_pilote}">
                                             <button type="submit">Valider Formation</button>
                                         </form>
-                                    </c:if>
-                                    <button type="submit">Modifier</button>
-                                </div>
-                                    
-                                </form>
+                                    </c:if></span>
                             </li>
 
                         </c:forEach>

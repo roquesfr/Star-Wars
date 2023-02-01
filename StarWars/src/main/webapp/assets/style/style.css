@@ -132,7 +132,7 @@ main p {
 
 /* Mise en page des formulaires */
 .form {
-    width: 900px;
+    width: 950px;
     margin: auto;
     padding: 10px 0 10px 30px;
     background-color: var(--background-form-1);
@@ -173,6 +173,16 @@ main p {
 .form li form button:hover {
     cursor: pointer;
     background-color: #fc0000;
+}
+
+#validerFormation {
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+}
+
+#validerFormation form {
+    padding-right: 15px;
 }
 
 #listRadio {

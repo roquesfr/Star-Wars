@@ -4,9 +4,6 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.EtatChasseur;
-import fr.ldnr.starwars.modele.EtatPilote;
-import fr.ldnr.starwars.modele.Mission;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
 import javax.persistence.EntityManager;
@@ -22,8 +19,59 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author stag
  */
-@WebServlet(name = "ClotureMissionServlet", urlPatterns = {"/clotureMission"})
-public class ClotureMissionServlet extends HttpServlet {
+@WebServlet(name = "ValiderFormationServlet", urlPatterns = {"/validerFormation"})
+public class ValiderFormationServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.valueOf(request.getParameter("id"));
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = null;
+        try {
+            em = emf.createEntityManager();
+
+            Pilote pilote = em.find(Pilote.class, id);
+            em.getTransaction().begin();
+            pilote.validerFormation();
+            em.getTransaction().commit();
+        } catch (NumberFormatException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+        }
+        getServletContext()
+                .getRequestDispatcher("/pilotes")
+                .forward(request, response);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -36,45 +84,7 @@ public class ClotureMissionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int missionId = Integer.valueOf(request.getParameter("id"));
-        int nbHeures = Integer.valueOf(request.getParameter("nbHeures"));
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-
-        try {
-            em = emf.createEntityManager();
-
-            Mission mission = em.find(Mission.class, missionId);
-            em.getTransaction().begin();
-            mission.setCompletee(true);
-            mission.setDureeHeures(nbHeures);
-
-            for (Pilote p : mission.getPilotes()) {
-                EtatPilote etat = EtatPilote.valueOf(request.getParameter("etat_" + p.getId_pilote()));
-                EtatChasseur etatChasseur = EtatChasseur.valueOf(request.getParameter("etatChasseur_" + p.getId_pilote()));
-                p.setEtat(etat);
-                if (p.possedeChasseur()) {
-                    p.getChasseur().setEtat(etatChasseur);
-                    p.verifierEtatChasseur();
-                }
-            }
-
-            em.getTransaction().commit();
-
-        } catch (Exception e) {
-            System.err.println("Problème survenu : " + e);
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-        }
-        request.setAttribute("titre", "Liste des Missions");
-        getServletContext()
-                .getRequestDispatcher("/missions")
-                .forward(request, response);
+        processRequest(request, response);
     }
 
     /**

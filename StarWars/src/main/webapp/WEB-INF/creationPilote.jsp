@@ -23,7 +23,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     </div>
                     <div>
                         <label for="prenom">Prénom du pilote : </label>
-                        <input type="text" name="prenom" id="prenom" placeholder="Han" pattern="[a-zA-Z/\s-]+" required>
+                        <input type="text" name="prenom" id="prenom" placeholder="Han" pattern="[/\p{L}/\s-]+" required>
                     </div>
                     <div>
                         <label for="race">Race du pilote : </label>

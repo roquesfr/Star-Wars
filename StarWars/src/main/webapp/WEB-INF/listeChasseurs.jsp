@@ -19,8 +19,7 @@
                             <li>
                                 <form action="editionChasseur" method="get">
                                     <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
-                                    <c:out value="${chasseur.id_chasseur}"/> -
-                                    <c:out value="${chasseur.modele.label}"/> -
+                                    <c:out value="${chasseur.matricule}"/> - 
                                     <c:out value="${chasseur.etat.label}"/>
                                     <c:if test="${chasseur.etat != EtatChasseur.Affecte}">
                                         <button type="submit">Modifier</button>

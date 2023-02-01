@@ -1,12 +1,16 @@
 
 body {
     margin: 0;
-    background-image: url("../img/error404.jpg");
+    background-image: url("../img/gif404.gif");
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-img {
-    width: auto;
-    height: 100%;
+p {
+    color: #fff;
+    font-size: 42px;
+    position: absolute;
+    bottom: 0px;
+    left: 30px;
+    opacity: 75%;
 }

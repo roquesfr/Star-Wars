@@ -4,7 +4,7 @@
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>40</x>
+      <x>50</x>
       <y>120</y>
       <w>290</w>
       <h>190</h>
@@ -15,10 +15,10 @@
   <element>
     <id>UMLDeployment</id>
     <coordinates>
-      <x>400</x>
-      <y>90</y>
+      <x>380</x>
+      <y>40</y>
       <w>500</w>
-      <h>270</h>
+      <h>290</h>
     </coordinates>
     <panel_attributes>Serveur</panel_attributes>
     <additional_attributes/>
@@ -26,25 +26,12 @@
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>160</x>
-      <y>220</y>
-      <w>140</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>symbol=component
-
-Navigateur Web</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>420</x>
-      <y>140</y>
+      <x>400</x>
+      <y>90</y>
       <w>200</w>
-      <h>170</h>
+      <h>230</h>
     </coordinates>
-    <panel_attributes>symbol=component
+    <panel_attributes>symbol=artifact
 
 Serveur d'application
 Tomcat</panel_attributes>
@@ -53,13 +40,63 @@ Tomcat</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>710</x>
+      <x>700</x>
       <y>220</y>
       <w>140</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>symbol=component
+    <panel_attributes>symbol=artifact
 MySql</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>450</x>
+      <y>170</y>
+      <w>140</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>symbol=artifact
+
+StarWars.war</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>310</x>
+      <y>240</y>
+      <w>180</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+http</panel_attributes>
+    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>240</y>
+      <w>150</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.&gt;
+jdbc</panel_attributes>
+    <additional_attributes>10.0;20.0;130.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>180</x>
+      <y>220</y>
+      <w>140</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>symbol=artifact
+
+Navigateur Web</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -67,35 +104,11 @@ MySql</panel_attributes>
     <coordinates>
       <x>470</x>
       <y>220</y>
-      <w>140</w>
+      <w>110</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>symbol=component
-Servlets</panel_attributes>
+    <panel_attributes>symbol=artifact
+Servlet</panel_attributes>
     <additional_attributes/>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>290</x>
-      <y>240</y>
-      <w>200</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-http</panel_attributes>
-    <additional_attributes>10.0;20.0;180.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>600</x>
-      <y>240</y>
-      <w>130</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=&lt;.&gt;
-jdbc</panel_attributes>
-    <additional_attributes>10.0;20.0;110.0;20.0</additional_attributes>
   </element>
 </diagram>

@@ -1,18 +1,17 @@
 @startuml creationPilote
 participant index.jsp as accueil
-participant EditionPiloteServlet as serlvet
-participant creationPilote.jsp as creation
-database star_wars as bdd
+participant EditionChasseurServlet as serlvet
+participant creationChasseur.jsp as creation
+database BDD as bdd
 
 accueil -> serlvet: nav GET
 serlvet -> creation : redirection Get
 creation -> creation : formulaire
 creation -> serlvet : envoie form POST
-serlvet -> serlvet : Vérifie les informations du formulaire
 serlvet -> bdd : createEntityManagerFactory
 bdd --> serlvet : connexion ok
-serlvet -> serlvet : creation du Pilote
-serlvet -> bdd : persistance du Pilote
+serlvet -> serlvet : creation du Chasseur
+serlvet -> bdd : persistance du Chasseur
 bdd --> serlvet: persistance ok
 serlvet -> creation : redirection
 @enduml

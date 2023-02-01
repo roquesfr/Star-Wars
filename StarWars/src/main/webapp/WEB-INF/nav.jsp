@@ -21,7 +21,7 @@
         </li>
         <div class="recherche">
             <li>
-                <form action="pilotes" method="GET">
+                <form action="rechercheAvanceePilote" method="GET">
                     <input type="search" id="recherche" name="recherche" pattern="[a-zA-Z/\s-]+" placeholder="Recherche de pilote">
                     <input type="submit" value="Go">
                 </form>

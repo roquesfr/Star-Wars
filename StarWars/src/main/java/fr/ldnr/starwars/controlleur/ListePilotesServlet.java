@@ -12,6 +12,7 @@ import fr.ldnr.starwars.modele.Pilote;
 import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -46,80 +47,19 @@ public class ListePilotesServlet extends HttpServlet {
         try {
             em = emf.createEntityManager();
 
-            StringBuilder queryString = new StringBuilder("SELECT p FROM Pilote p WHERE 1=1");
-            TypedQuery<Pilote> query;
-            String etat = "";
-            String grade = "";
-            String chasseur = "";
+            String queryString = "SELECT p FROM Pilote p WHERE 1=1";
+            TypedQuery<Pilote> query=null;
 
-            ArrayList<EtatPilote> etats = new ArrayList<>();
             ArrayList<Grade> grades = new ArrayList<>();
-            ArrayList<ModeleChasseur> chasseurs = new ArrayList<>();
             if (request.getParameter("recherche") != null) {
                 System.out.println("Recherche avancée");
-                String recherche = request.getParameter("recherche");
-                String race = request.getParameter("race");
-
-                if (recherche != null && !recherche.isEmpty()) {
-                    queryString.append(" AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')");
-                }
-
-                if (race != null && !race.isEmpty()) {
-                    queryString.append(" AND p.race = :race");
-                }
-
-                for (EtatPilote e : EtatPilote.values()) {
-                    etat = request.getParameter(e.toString());
-
-                    if (etat != null && !etat.isEmpty()) {
-                        etats.add(EtatPilote.valueOf(etat));
-                    }
-                }
-                if (!etats.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append("p.etat IN :etats ");
-                }
-
-                for (ModeleChasseur c : ModeleChasseur.values()) {
-                    chasseur = request.getParameter(c.toString());
-
-                    if (chasseur != null && !chasseur.isEmpty()) {
-                        chasseurs.add(ModeleChasseur.valueOf(chasseur));
-                    }
-                }
-
-                if (!chasseurs.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append(" p.chasseur.modele IN :chasseurs ");
-                }
-
-                for (Grade g : Grade.values()) {
-                    grade = request.getParameter(g.toString());
-
-                    if (grade != null && !grade.isEmpty()) {
-                        grades.add(Grade.valueOf(grade));
-                    }
-                }
-
-                query = em.createQuery(queryString.toString(), Pilote.class);
-
-                if (recherche != null && !recherche.isEmpty()) {
-                    query.setParameter("recherche", recherche);
-                }
-
-                if (race != null && !race.isEmpty()) {
-                    query.setParameter("race", Race.valueOf(race));
-                }
-                if (!etats.isEmpty()) {
-                    query.setParameter("etats", etats);
-                }
-
-                if (!chasseurs.isEmpty()) {
-                    query.setParameter("chasseurs", chasseurs);
-                }
+                query= TypedQuery.class.cast(request.getAttribute("query"));
+                System.out.println("la query récupérée du servlet"+query.toString());
+                grades = ArrayList.class.cast(request.getAttribute("grades"));
+                System.out.println(grades.toString());
             } else {
-                System.out.println("Pas de recherche avancé");
-                query = em.createQuery(queryString.toString(), Pilote.class);
+                System.out.println("Pas de recherche avancée");
+                query = em.createQuery(queryString, Pilote.class);
             }
             List<Pilote> liste = query.getResultList();
 
@@ -139,7 +79,7 @@ public class ListePilotesServlet extends HttpServlet {
                 request.setAttribute("pilotes", liste);
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("error"+e.getMessage());
         } finally {
             if (em != null) {
                 if (em.getTransaction().isActive()) {

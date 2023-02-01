@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div class="form">
                         <h1>Recherche Avancée Pilote : </h1>
 
-                        <form action="pilotes" method="GET">
+                        <form action="rechercheAvanceePilote" method="GET">
                             <label for="recherche">Nom du pilote : </label>
                             <input type="text" name="recherche" id="recherche" pattern="[a-zA-Z/\s-]+">
                             <label for="race">Race</label>

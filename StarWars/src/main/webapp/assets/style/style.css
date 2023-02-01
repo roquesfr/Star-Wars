@@ -234,3 +234,28 @@ main p {
 aside p {
     font-size: 24px;
 }
+
+/* Responsive */
+@media screen and (max-width: 870px) {
+    html {
+        width: fit-content;
+    }
+
+    body {
+        width: auto;
+        margin: auto;
+    }
+
+    .recherche form {
+        display: flex;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    footer p {
+        margin: 8px auto;
+    }
+}

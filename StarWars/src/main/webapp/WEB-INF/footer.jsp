@@ -5,3 +5,5 @@
         <p> Concepteurs: Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES</p>
     
 </footer>
+
+<script src="assets/script/script.js"></script>

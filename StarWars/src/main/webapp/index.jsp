@@ -24,5 +24,6 @@
             </main>
             <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
+        <script src="assets/script/script.js"></script>
     </body>
 </html>

@@ -38,21 +38,6 @@ public class ListeChasseursServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-    }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
 
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
@@ -82,7 +67,6 @@ public class ListeChasseursServlet extends HttpServlet {
                 }
             }
 
-            
             if (!modeles.isEmpty()) {
                 queryString.append(" AND ");
                 queryString.append("c.modele IN :modeles");
@@ -92,11 +76,13 @@ public class ListeChasseursServlet extends HttpServlet {
                 queryString.append("c.etat IN :etats");
             }
             query = em.createQuery(queryString.toString(), Chasseur.class);
-            
-            if(!modeles.isEmpty())
+
+            if (!modeles.isEmpty()) {
                 query.setParameter("modeles", modeles);
-            if(!etats.isEmpty())
+            }
+            if (!etats.isEmpty()) {
                 query.setParameter("etats", etats);
+            }
 
             liste = query.getResultList();
         } catch (Exception e) {
@@ -114,6 +100,22 @@ public class ListeChasseursServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
         }
     }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

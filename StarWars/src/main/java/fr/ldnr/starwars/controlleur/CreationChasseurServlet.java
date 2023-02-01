@@ -83,7 +83,6 @@ public class CreationChasseurServlet extends HttpServlet {
         try {
             em = emf.createEntityManager();
 
-            // Etape 1 - On passe l'objet en état managed => sauvegarde en base
             em.getTransaction().begin();
             em.persist(chasseur);
             em.getTransaction().commit();

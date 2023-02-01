@@ -17,6 +17,7 @@
                     <c:out value="${pilote.prenom}"/>
                 </h1>
                 <form action="majPilote" method="post">
+                    <input type="hidden" name="paramsPrecedents" value="${param.paramsPrecedents}">
                     <div id="listRadio">
                         <div>
 

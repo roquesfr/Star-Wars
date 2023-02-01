@@ -17,6 +17,7 @@
                         <c:forEach items="${pilotes}" var="pilote">
                             <li>
                                 <form action="editionPilote" method="post">
+                                    <input type="hidden" name="paramsPrecedents" value="${pageContext.request.queryString}">
                                     <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
                                     <c:out value="${pilote.id_pilote}"/> -
                                     <c:out value="${pilote.grade.label}"/> -
@@ -30,12 +31,12 @@
                                     <c:out value="${pilote.chasseur.matricule}"/>
                                     <span id="validerFormation"><button type="submit">Modifier</button>
                                 </form>
-                                    <c:if test="${pilote.etat == EtatPilote.EnFormation}">
-                                        <form action="validerFormation" method="GET">
-                                            <input type="hidden" name="id" value="${pilote.id_pilote}">
-                                            <button type="submit">Valider Formation</button>
-                                        </form>
-                                    </c:if></span>
+                                <c:if test="${pilote.etat == EtatPilote.EnFormation}">
+                                    <form action="validerFormation" method="GET">
+                                        <input type="hidden" name="id" value="${pilote.id_pilote}">
+                                        <button type="submit">Valider Formation</button>
+                                    </form>
+                                </c:if></span>
                             </li>
 
                         </c:forEach>

@@ -115,9 +115,14 @@ public class MajPiloteServlet extends HttpServlet {
             }
 
         }
+        String cheminRedirection = "/pilotes";
+        String paramsPrecedents = request.getParameter("paramsPrecedents");
+        if(paramsPrecedents != null && !paramsPrecedents.isEmpty())
+            cheminRedirection += "?" + paramsPrecedents;
+        //response.sendRedirect(request.getHeader("referer"));
         request.setAttribute("titre", "Liste des Pilotes");
         getServletContext()
-                .getRequestDispatcher("/pilotes")
+                .getRequestDispatcher(cheminRedirection)
                 .forward(request, response);
 
     }

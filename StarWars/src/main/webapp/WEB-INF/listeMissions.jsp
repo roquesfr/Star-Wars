@@ -16,7 +16,7 @@
                         <c:forEach items="${missions}" var="mission">
                             <tr>
                                 <td>
-                                    <c:out value="${mission.id_mission}" />
+                                    <c:out value="${mission.intitule}" />
                                 </td>
                                 <td>
                                     <c:if test="${!mission.completee}">Non </c:if>Complétée

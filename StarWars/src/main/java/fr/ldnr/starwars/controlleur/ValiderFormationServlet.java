@@ -53,9 +53,7 @@ public class ValiderFormationServlet extends HttpServlet {
                 em.close();
             }
         }
-        getServletContext()
-                .getRequestDispatcher("/pilotes")
-                .forward(request, response);
+        response.sendRedirect(request.getHeader("referer"));
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

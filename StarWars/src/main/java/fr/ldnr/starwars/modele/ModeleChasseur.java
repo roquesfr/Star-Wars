@@ -5,6 +5,9 @@
  */
 package fr.ldnr.starwars.modele;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author stag
@@ -27,5 +30,11 @@ public enum ModeleChasseur {
 
     public void setLabel(String label) {
         this.label = label;
+    }
+    
+    public static ArrayList<ModeleChasseur> getAll(){
+        ArrayList<ModeleChasseur> liste = new ArrayList<>();
+        liste.addAll(Arrays.asList(ModeleChasseur.values()));
+        return liste;
     }
 }

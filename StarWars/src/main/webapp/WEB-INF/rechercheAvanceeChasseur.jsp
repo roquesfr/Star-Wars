@@ -19,25 +19,24 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
                         <form action="chasseurs" method="GET">
 
-                            <label for="modele">Modèle</label>
-                            <select name="modele" id="modele">
-                                <option value="">Tous</option>
+                            
+                            
+                                
                             <c:forEach items="${ModeleChasseur.values()}" var="modele">
-                                <option value="${modele}">${modele.label}</option>
+                                <input type="checkbox" name="${modele}" id="${modele}" value="${modele}">
+                                <label for="${modele}">${modele.label}</label>
                             </c:forEach>
-                        </select>
                         
                         <div id="listRadio">
                             <div>
                                 <label>Etat : </label>
                                 <div id="list">
                                     <span>
-                                        <input type="radio" name="etat" id="etatvide" value="">
-                                        <label for="etatvide">Tous</label>
+                                        
                                     </span>
                                     <c:forEach items="${EtatChasseur.values()}" var="etat">
                                         <div>
-                                            <input type="radio" name="etat" id="etat_${etat}"
+                                            <input type="checkbox" name="${etat}" id="etat_${etat}"
                                                    value="${etat}"
                                                    <c:if test="${etat == EtatChasseur.Operationnel}">checked</c:if>>
                                             <label for="etat_${etat}">${etat.label}</label>

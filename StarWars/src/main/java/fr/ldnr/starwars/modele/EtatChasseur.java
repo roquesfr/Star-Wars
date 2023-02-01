@@ -4,6 +4,9 @@
  */
 package fr.ldnr.starwars.modele;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author stag
@@ -37,5 +40,11 @@ public enum EtatChasseur {
 
     public void setSelectionable(boolean selectionable) {
         this.selectionable = selectionable;
+    }
+    
+    public static ArrayList<EtatChasseur> getAll(){
+        ArrayList<EtatChasseur> liste = new ArrayList<>();
+        liste.addAll(Arrays.asList(EtatChasseur.values()));
+        return liste;
     }
 }

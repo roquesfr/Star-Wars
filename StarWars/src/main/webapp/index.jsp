@@ -9,10 +9,9 @@
 <!DOCTYPE html>
 <html lang="fr">
     <!-- HEAD -->
+    <title>Engagez-vous</title>
     <jsp:include page="/WEB-INF/head.jsp"></jsp:include>
     <body>
-        <!--        <h1>Hello Rebelles!</h1>-->
-
         <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
             <main>

@@ -5,7 +5,10 @@
 package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.Chasseur;
+import fr.ldnr.starwars.modele.EtatChasseur;
+import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,7 +38,7 @@ public class ListeChasseursServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,29 +54,51 @@ public class ListeChasseursServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = emf.createEntityManager();
-        String queryString = "SELECT c FROM Chasseur c WHERE 1=1";
+        StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
         TypedQuery<Chasseur> query;
-        String modele = request.getParameter("modele");
-        String etat = request.getParameter("etat");
-        
-        if(modele != null && !modele.isEmpty())
-            queryString += " AND c.modele LIKE CONCAT('%', :modele, '%')";
-        if(etat != null && !etat.isEmpty())
-            queryString += " AND c.etat LIKE CONCAT('%', :etat, '%')";
-        
-        query = em.createQuery(queryString, Chasseur.class);
-        if(modele != null && !modele.isEmpty())
-            query.setParameter("modele", modele);
-        if(etat != null && !etat.isEmpty())
-            query.setParameter("etat", etat);
-        
+        String etat = "";
+        String modele = "";
+        ArrayList<EtatChasseur> etats = new ArrayList<>();
+        ArrayList<ModeleChasseur> modeles = new ArrayList<>();
+
+        queryString.append("AND ");
+        queryString.append("c.etat IN :etats");
+        for (EtatChasseur e : EtatChasseur.values()) {
+            etat = request.getParameter(e.toString());
+
+            if (etat != null && !etat.isEmpty()) {
+                etats.add(EtatChasseur.valueOf(etat));
+            }
+        }
+
+        queryString.append(" AND ");
+        queryString.append("c.modele IN :modeles");
+
+        for (ModeleChasseur m : ModeleChasseur.values()) {
+            modele = request.getParameter(m.toString());
+
+            if (modele != null && !modele.isEmpty()) {
+                modeles.add(ModeleChasseur.valueOf(modele));
+            }
+        }
+
+        query = em.createQuery(queryString.toString(), Chasseur.class);
+        if(modeles.isEmpty()){
+            modeles.addAll(ModeleChasseur.getAll());
+        }
+        if(etats.isEmpty()){
+            etats.addAll(EtatChasseur.getAll());
+        }
+        query.setParameter("modeles", modeles);
+        query.setParameter("etats", etats);
+
         List<Chasseur> liste = query.getResultList();
         request.setAttribute("chasseurs", liste);
         em.close();
-        
+
         request.setAttribute("titre", "Liste des Chasseurs");
         getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
     }

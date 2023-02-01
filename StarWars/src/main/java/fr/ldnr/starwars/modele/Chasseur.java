@@ -69,5 +69,9 @@ public class Chasseur implements Serializable {
     public void setEtat(EtatChasseur etat) {
         this.etat = etat;
     }
+    
+    public String getMatricule() {
+        return modele.getLabel() + " n° " + id_chasseur;
+    }
 
 }

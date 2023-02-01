@@ -6,7 +6,6 @@ package fr.ldnr.starwars.controlleur;
 
 import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.EtatPilote;
-import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.Mission;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;

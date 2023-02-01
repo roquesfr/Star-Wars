@@ -27,9 +27,7 @@
                                     <c:out value="${pilote.etat.label}"/> -
                                     <c:out value="${pilote.nbMissions}"/> -
                                     <c:out value="${pilote.heuresVol}h de vol"/> |
-                                    <c:out value="${pilote.chasseur.id_chasseur}"/>-
-                                    <c:out value="${pilote.chasseur.modele.label}"/>-   
-                                    <c:out value="${pilote.chasseur.etat}"/>
+                                    <c:out value="${pilote.chasseur.matricule}"/>
                                     <button type="submit">Modifier</button>
                                 </form>
                                 <c:if test="${pilote.etat == EtatPilote.EnFormation}">

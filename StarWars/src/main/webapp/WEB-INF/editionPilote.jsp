@@ -63,7 +63,7 @@
                                     </c:if>
                                     <option value="-1">Aucun</option>
                                     <c:forEach items="${chasseurs}" var="chasseur">
-                                        <option value="${chasseur.id_chasseur}">${chasseur.id_chasseur}-${chasseur.modele.label}-${chasseur.etat.label}</option>
+                                        <option value="${chasseur.id_chasseur}">${chasseur.matricule} - ${chasseur.etat.label}</option>
                                     </c:forEach>
                                 </select>
                             </c:if>

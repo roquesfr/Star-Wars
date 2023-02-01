@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
 
                         <form action="chasseurs" method="GET">
 
-                            
+                            <input type="hidden" name="recherche" value="avancee">
                             
                                 
                             <c:forEach items="${ModeleChasseur.values()}" var="modele">

@@ -46,43 +46,50 @@ public class ListeChasseursServlet extends HttpServlet {
             em = emf.createEntityManager();
             StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
             TypedQuery<Chasseur> query;
-            String etat = "";
-            String modele = "";
-            ArrayList<EtatChasseur> etats = new ArrayList<>();
-            ArrayList<ModeleChasseur> modeles = new ArrayList<>();
+            if (request.getParameter("recherche") != null) {
 
-            for (EtatChasseur e : EtatChasseur.values()) {
-                etat = request.getParameter(e.toString());
+                System.out.println("Je passe dans la recherche avancée");
+                String etat = "";
+                String modele = "";
+                ArrayList<EtatChasseur> etats = new ArrayList<>();
+                ArrayList<ModeleChasseur> modeles = new ArrayList<>();
 
-                if (etat != null && !etat.isEmpty()) {
-                    etats.add(EtatChasseur.valueOf(etat));
+                for (EtatChasseur e : EtatChasseur.values()) {
+                    etat = request.getParameter(e.toString());
+
+                    if (etat != null && !etat.isEmpty()) {
+                        etats.add(EtatChasseur.valueOf(etat));
+                    }
                 }
-            }
 
-            for (ModeleChasseur m : ModeleChasseur.values()) {
-                modele = request.getParameter(m.toString());
+                for (ModeleChasseur m : ModeleChasseur.values()) {
+                    modele = request.getParameter(m.toString());
 
-                if (modele != null && !modele.isEmpty()) {
-                    modeles.add(ModeleChasseur.valueOf(modele));
+                    if (modele != null && !modele.isEmpty()) {
+                        modeles.add(ModeleChasseur.valueOf(modele));
+                    }
                 }
-            }
-            if (!modeles.isEmpty()) {
-                queryString.append(" AND ");
-                queryString.append("c.modele IN :modeles");
-            }
-            if (!etats.isEmpty()) {
-                queryString.append(" AND ");
-                queryString.append("c.etat IN :etats");
-            }
-            query = em.createQuery(queryString.toString(), Chasseur.class);
+                if (!modeles.isEmpty()) {
+                    queryString.append(" AND ");
+                    queryString.append("c.modele IN :modeles");
+                }
+                if (!etats.isEmpty()) {
+                    queryString.append(" AND ");
+                    queryString.append("c.etat IN :etats");
+                }
+                query = em.createQuery(queryString.toString(), Chasseur.class);
 
-            if (!modeles.isEmpty()) {
-                query.setParameter("modeles", modeles);
+                if (!modeles.isEmpty()) {
+                    query.setParameter("modeles", modeles);
+                }
+                if (!etats.isEmpty()) {
+                    query.setParameter("etats", etats);
+                }
+            } else {
+                System.out.println("Je passe dans la recherche simple");
+                query = em.createQuery(queryString.toString(), Chasseur.class);
+                
             }
-            if (!etats.isEmpty()) {
-                query.setParameter("etats", etats);
-            }
-
             liste = query.getResultList();
         } catch (Exception e) {
             System.err.println(e.getMessage());

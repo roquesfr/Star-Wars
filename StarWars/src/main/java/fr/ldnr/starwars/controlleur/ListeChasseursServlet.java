@@ -63,15 +63,10 @@ public class ListeChasseursServlet extends HttpServlet {
             String queryString ="SELECT c FROM Chasseur c WHERE 1=1";
             TypedQuery<Chasseur> query;
             if (request.getParameter("recherche") != null) {
-
-                System.out.println("Je passe dans la recherche avancée");
                 query = TypedQuery.class.cast(request.getAttribute("query"));
-                System.out.println(request.getAttribute("query"));
-                System.out.println("Le query récupéré de l'autre servlet "+query.toString());
             } else {
-                System.out.println("Je passe dans la recherche simple");
+
                 query = em.createQuery(queryString, Chasseur.class);
-                
             }
             liste = query.getResultList();
         } catch (Exception e) {

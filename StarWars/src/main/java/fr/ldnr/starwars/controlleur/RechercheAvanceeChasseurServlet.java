@@ -55,13 +55,11 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("recherche") == null) {
-            System.out.println("Je redirige vers le jsp");
             request.setAttribute("titre", "Recherche Chasseurs");
             getServletContext()
                     .getRequestDispatcher("/WEB-INF/rechercheAvanceeChasseur.jsp")
                     .forward(request, response);
         } else {
-            System.out.println("je suis un mauvais servlet");
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
             EntityManager em = null;
             TypedQuery<Chasseur> query = null;
@@ -90,12 +88,10 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
                     }
                 }
                 if (!modeles.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append("c.modele IN :modeles");
+                    queryString.append(" AND c.modele IN :modeles");
                 }
                 if (!etats.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append("c.etat IN :etats");
+                    queryString.append(" AND c.etat IN :etats");
                 }
                 query = em.createQuery(queryString.toString(), Chasseur.class);
 
@@ -105,7 +101,6 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
                 if (!etats.isEmpty()) {
                     query.setParameter("etats", etats);
                 }
-                System.out.println("ma requete :" + query.toString());
             } catch (Exception e) {
                 System.err.println("zut" + e.getMessage());
 
@@ -123,7 +118,6 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
             }
 
         }
-        System.out.println("Vilain Servlet");
     }
 
     /**

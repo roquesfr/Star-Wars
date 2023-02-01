@@ -47,7 +47,6 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
                     .getRequestDispatcher("/WEB-INF/rechercheAvanceePilote.jsp")
                     .forward(request, response);
         } else {
-            System.out.println("je traite le formulaire");
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
             EntityManager em = null;
             TypedQuery<Pilote> query = null;
@@ -57,9 +56,9 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
 
                 StringBuilder queryString = new StringBuilder("SELECT p FROM Pilote p WHERE 1=1");
                 
-                ArrayList<EtatPilote> etats = new ArrayList<>();
-                
+                ArrayList<EtatPilote> etats = new ArrayList<>();               
                 ArrayList<ModeleChasseur> chasseurs = new ArrayList<>();
+                
                 String recherche = request.getParameter("recherche");
                 String race = request.getParameter("race");
                 String etat = "";
@@ -76,32 +75,27 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
 
                 for (EtatPilote e : EtatPilote.values()) {
                     etat = request.getParameter(e.toString());
-
                     if (etat != null && !etat.isEmpty()) {
                         etats.add(EtatPilote.valueOf(etat));
                     }
                 }
                 if (!etats.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append("p.etat IN :etats ");
+                    queryString.append(" AND p.etat IN :etats ");
                 }
 
                 for (ModeleChasseur c : ModeleChasseur.values()) {
                     chasseur = request.getParameter(c.toString());
-
                     if (chasseur != null && !chasseur.isEmpty()) {
                         chasseurs.add(ModeleChasseur.valueOf(chasseur));
                     }
                 }
 
                 if (!chasseurs.isEmpty()) {
-                    queryString.append(" AND ");
-                    queryString.append(" p.chasseur.modele IN :chasseurs ");
+                    queryString.append(" AND p.chasseur.modele IN :chasseurs ");
                 }
 
                 for (Grade g : Grade.values()) {
                     grade = request.getParameter(g.toString());
-
                     if (grade != null && !grade.isEmpty()) {
                         grades.add(Grade.valueOf(grade));
                     }
@@ -112,26 +106,23 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
                 if (recherche != null && !recherche.isEmpty()) {
                     query.setParameter("recherche", recherche);
                 }
-
                 if (race != null && !race.isEmpty()) {
                     query.setParameter("race", Race.valueOf(race));
                 }
                 if (!etats.isEmpty()) {
                     query.setParameter("etats", etats);
                 }
-
                 if (!chasseurs.isEmpty()) {
                     query.setParameter("chasseurs", chasseurs);
                 }
+                
             } catch (Exception e) {
-                System.out.println(e.getMessage());
+                System.err.println(e.getMessage());
             } finally {
                 if (em != null) {
                     if (em.getTransaction().isActive()) {
                         em.getTransaction().rollback();
                     }
-                    System.out.println(grades);
-                    System.out.println(query.toString());
                     request.setAttribute("grades",grades);
                     request.setAttribute("query", query);
                     getServletContext()

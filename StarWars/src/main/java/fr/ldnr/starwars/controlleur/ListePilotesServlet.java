@@ -51,14 +51,12 @@ public class ListePilotesServlet extends HttpServlet {
             TypedQuery<Pilote> query=null;
 
             ArrayList<Grade> grades = new ArrayList<>();
+            
+            //on vient de recherche avancée
             if (request.getParameter("recherche") != null) {
-                System.out.println("Recherche avancée");
                 query= TypedQuery.class.cast(request.getAttribute("query"));
-                System.out.println("la query récupérée du servlet"+query.toString());
                 grades = ArrayList.class.cast(request.getAttribute("grades"));
-                System.out.println(grades.toString());
             } else {
-                System.out.println("Pas de recherche avancée");
                 query = em.createQuery(queryString, Pilote.class);
             }
             List<Pilote> liste = query.getResultList();
@@ -79,7 +77,7 @@ public class ListePilotesServlet extends HttpServlet {
                 request.setAttribute("pilotes", liste);
             }
         } catch (Exception e) {
-            System.out.println("error"+e.getMessage());
+            System.err.println("error"+e.getMessage());
         } finally {
             if (em != null) {
                 if (em.getTransaction().isActive()) {
@@ -88,9 +86,10 @@ public class ListePilotesServlet extends HttpServlet {
                 em.close();
             }
         }
-
         request.setAttribute("titre", "Liste des Pilotes");
-        getServletContext().getRequestDispatcher("/WEB-INF/listePilotes.jsp").forward(request, response);
+        getServletContext()
+                .getRequestDispatcher("/WEB-INF/listePilotes.jsp")
+                .forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

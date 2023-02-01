@@ -35,7 +35,34 @@ public class ListeChasseursServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = emf.createEntityManager();
+        String queryString = "SELECT c FROM Chasseur c WHERE 1=1";
+        TypedQuery<Chasseur> query;
+        String modele = request.getParameter("modele");
+        String etat = request.getParameter("etat");
+
+        if (modele != null && !modele.isEmpty()) {
+            queryString += " AND c.modele LIKE CONCAT('%', :modele, '%')";
+        }
+        if (etat != null && !etat.isEmpty()) {
+            queryString += " AND c.etat LIKE CONCAT('%', :etat, '%')";
+        }
+
+        query = em.createQuery(queryString, Chasseur.class);
+        if (modele != null && !modele.isEmpty()) {
+            query.setParameter("modele", modele);
+        }
+        if (etat != null && !etat.isEmpty()) {
+            query.setParameter("etat", etat);
+        }
+
+        List<Chasseur> liste = query.getResultList();
+        request.setAttribute("chasseurs", liste);
+        em.close();
+
+        request.setAttribute("titre", "Liste des Chasseurs");
+        getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -51,31 +78,6 @@ public class ListeChasseursServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
-        String queryString = "SELECT c FROM Chasseur c WHERE 1=1";
-        TypedQuery<Chasseur> query;
-        String modele = request.getParameter("modele");
-        String etat = request.getParameter("etat");
-        
-        if(modele != null && !modele.isEmpty())
-            queryString += " AND c.modele LIKE CONCAT('%', :modele, '%')";
-        if(etat != null && !etat.isEmpty())
-            queryString += " AND c.etat LIKE CONCAT('%', :etat, '%')";
-        
-        query = em.createQuery(queryString, Chasseur.class);
-        if(modele != null && !modele.isEmpty())
-            query.setParameter("modele", modele);
-        if(etat != null && !etat.isEmpty())
-            query.setParameter("etat", etat);
-        
-        List<Chasseur> liste = query.getResultList();
-        request.setAttribute("chasseurs", liste);
-        em.close();
-        
-        request.setAttribute("titre", "Liste des Chasseurs");
-        getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
     }
 
     /**

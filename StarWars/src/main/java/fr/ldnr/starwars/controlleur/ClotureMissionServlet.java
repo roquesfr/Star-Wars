@@ -73,7 +73,7 @@ public class ClotureMissionServlet extends HttpServlet {
         }
         request.setAttribute("titre", "Liste des Missions");
         getServletContext()
-                .getRequestDispatcher("/ListeMissions")
+                .getRequestDispatcher("/missions")
                 .forward(request, response);
     }
 

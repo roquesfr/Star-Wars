@@ -35,12 +35,24 @@ public class ListeMissionsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = emf.createEntityManager();
-
+        EntityManager em = null;
         String query = "SELECT m FROM Mission m";
-        List<Mission> liste = em.createQuery(query, Mission.class).getResultList();
+        List<Mission> liste = null;
+        try{
+         em = emf.createEntityManager();
+         em.createQuery(query, Mission.class).getResultList();
+        
+        }catch (Exception e) {
+            System.out.println(e.getMessage());
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+        }
         request.setAttribute("missions", liste);
-        em.close();
         request.setAttribute("titre", "Liste des Missions");
         getServletContext().getRequestDispatcher("/WEB-INF/listeMissions.jsp").forward(request, response);
     }

@@ -14,14 +14,21 @@ import org.joda.time.Years;
 
 
 /**
- *
- * @author stag
+ * @deprecated 
+ * Permet de gérer l'âge à partir de 
+ * la date d'anniversaire d'un Pilote
+ * et la date actuelle 
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 public class DateNaissance {
     
     private static LocalDate dateDuJour = new LocalDate();
     private LocalDate dateNaissance = new LocalDate(1997, 10, 05);
     
+    /**
+     * Permet de calculer d'âge d'un Pilote
+     * @return l'âge du Pilote 
+     */
     public int getAge(){
         return Years.yearsBetween(dateDuJour, dateNaissance).getYears();
     }

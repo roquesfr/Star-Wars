@@ -19,8 +19,10 @@ import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 
 /**
+ * Entité JPA Pilote que l'on stocke en base. Certains attribut ne sont pas
+ * stockés car calculables: nbHeureVol, nbMission, Grade
  *
- * @author stag
+ * @author Concepteurs: Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @NamedQueries({
     @NamedQuery(
@@ -57,29 +59,59 @@ public class Pilote implements Serializable {
     private String nom;
     private String prenom;
 
-//    @Temporal(TemporalType.DATE)
-//    private DateNaissance dateNaissance;
     private int age;
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Chasseur chasseur;
 
+    /**
+     * Crée un Pilote sans missions ni heure de vol Par défaut, il est officer
+     * de vol mais en formation
+     */
     public Pilote() {
         heuresVol = 0;
         nbMissions = 0;
         grade = Grade.OfficierDeVol;
-        etat = EtatPilote.Disponible;
+        etat = EtatPilote.EnFormation;
     }
 
+    /**
+     * Construit un pilote, renvoie à Pilote(prenom,nom,age,race)
+     *
+     * @param prenom
+     * @param nom
+     * @param age
+     * @param race Enumération
+     * @param etat Enumération
+     */
     public Pilote(String prenom, String nom, int age, Race race, EtatPilote etat) {
-        this();
-        this.prenom = prenom;
-        this.nom = nom;
-        this.age = age;
-        this.race = race;
+        this(prenom, nom, age, race);
         this.etat = etat;
     }
-    
+    /**
+     * Construit un pilote,
+     * renvoie à Pilote(prenom,nom,age,race,etat)
+     * @param prenom
+     * @param nom
+     * @param age
+     * @param race
+     * @param etat
+     * @param chasseur 
+     */
+    public Pilote(String prenom, String nom, int age, Race race, EtatPilote etat, Chasseur chasseur) {
+        this(prenom, nom, age, race,etat);
+        this.chasseur = chasseur;
+        this.etat = etat;
+    }
+
+    /**
+     * Construit un pilote renvoie à Pilote()
+     *
+     * @param prenom
+     * @param nom
+     * @param age
+     * @param race
+     */
     public Pilote(String prenom, String nom, int age, Race race) {
         this();
         this.prenom = prenom;
@@ -90,25 +122,34 @@ public class Pilote implements Serializable {
 
     /**
      * Met à jour l'attribut grade en fonction des valeurs des attributs
-     * heuresVol et nbMissions.
+     * heuresVol et nbMissions. N'est pas stocké en base
      */
     public void calculGrade() {
-        if(heuresVol >= 4000 && nbMissions >= 10) {
+        if (heuresVol >= 4000 && nbMissions >= 10) {
             grade = Grade.Commandant;
         } else if (heuresVol >= 1500 && nbMissions >= 3) {
             grade = Grade.Capitaine;
-        } else if(heuresVol >= 500 && nbMissions >= 1) {
+        } else if (heuresVol >= 500 && nbMissions >= 1) {
             grade = Grade.Lieutenant;
         } else {
             grade = Grade.OfficierDeVol;
         }
     }
-    
+
+    /**
+     * Valide la formation d'un pilote en changeant son état Ne change pas le
+     * grade
+     */
     public void validerFormation() {
-        if(this.etat == EtatPilote.EnFormation)
+        if (this.etat == EtatPilote.EnFormation) {
             this.etat = EtatPilote.Disponible;
+        }
     }
 
+    /**
+     *
+     * @return true si le Pilote a un Chasseur, false sinon
+     */
     public boolean possedeChasseur() {
         return chasseur != null;
     }
@@ -124,82 +165,172 @@ public class Pilote implements Serializable {
 
     }
 
+    /**
+     *
+     * @return id_pilote
+     */
     public int getId_pilote() {
         return id_pilote;
     }
 
+    /**
+     * Change l'id_pilote
+     *
+     * @param id_pilote
+     */
     public void setId_pilote(int id_pilote) {
         this.id_pilote = id_pilote;
     }
 
+    /**
+     *
+     * @return la Race du Pilote
+     */
     public Race getRace() {
         return race;
     }
 
+    /**
+     * Change la Race du Pilote
+     *
+     * @param race
+     */
     public void setRace(Race race) {
         this.race = race;
     }
 
+    /**
+     *
+     * @return l'Etat du Pilote
+     */
     public EtatPilote getEtat() {
         return etat;
     }
 
+    /**
+     * Change l'Etat du Pilote
+     *
+     * @param etat
+     */
     public void setEtat(EtatPilote etat) {
         this.etat = etat;
     }
 
+    /**
+     *
+     * @return le Grade du Pilote
+     */
     public Grade getGrade() {
         return grade;
     }
 
+    /**
+     * Change le Grade du Pilote
+     *
+     * @param grade
+     */
     public void setGrade(Grade grade) {
         this.grade = grade;
     }
 
+    /**
+     *
+     * @return le nombre d'heure de vol du Pilote
+     */
     public int getHeuresVol() {
         return heuresVol;
     }
 
+    /**
+     * Change la valeur du nombre d'heure du pilote
+     *
+     * @param heuresVol
+     */
     public void setHeuresVol(int heuresVol) {
         this.heuresVol = heuresVol;
     }
 
+    /**
+     *
+     * @return le nombre de Mission du Pilote
+     */
     public int getNbMissions() {
         return nbMissions;
     }
 
+    /**
+     * Change le nombre de Missions du Pilote
+     *
+     * @param nbMissions
+     */
     public void setNbMissions(int nbMissions) {
         this.nbMissions = nbMissions;
     }
 
+    /**
+     *
+     * @return le nom du Pilote
+     */
     public String getNom() {
         return nom;
     }
 
+    /**
+     * Change le nom du Pilote
+     *
+     * @param nom
+     */
     public void setNom(String nom) {
         this.nom = nom;
     }
 
+    /**
+     *
+     * @return le prénom du Pilote
+     */
     public String getPrenom() {
         return prenom;
     }
 
+    /**
+     * Change le prenom du Pilote
+     *
+     * @param prenom
+     */
     public void setPrenom(String prenom) {
         this.prenom = prenom;
     }
 
+    /**
+     *
+     * @return le l'âge du Pilote
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * Change l'âge du Pilote
+     *
+     * @param age
+     */
     public void setAge(int age) {
         this.age = age;
     }
 
+    /**
+     *
+     * @return le Chasseur du Pilote
+     */
     public Chasseur getChasseur() {
         return chasseur;
     }
 
+    /**
+     * Change le Chasseur du Pilote
+     * Change l'état du Chasseur pour Affecté
+     * @param chasseur
+     */
     public void setChasseur(Chasseur chasseur) {
         this.chasseur = chasseur;
         if (chasseur != null) {

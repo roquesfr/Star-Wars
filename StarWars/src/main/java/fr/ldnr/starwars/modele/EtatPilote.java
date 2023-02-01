@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
- * @author stag
+ * Enumération des Etat possibles pour un Pilote
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 public enum EtatPilote {
     EnFormation("En Formation", true),
@@ -26,22 +26,42 @@ public enum EtatPilote {
         this.selectionable = selectionable;
     } 
 
+    /**
+     * 
+     * @return le label  
+     */
     public String getLabel() {
         return label;
     }
 
+    /**
+     * Change le label
+     * @param label 
+     */
     public void setLabel(String label) {
         this.label = label;
     }
 
+    /**
+     * 
+     * @return true si le Pilote n'est pas en Mission, false sinon 
+     */
     public boolean isSelectionable() {
         return selectionable;
     }
 
+    /**
+     * Change selectionnable
+     * @param selectionable 
+     */
     public void setSelectionable(boolean selectionable) {
         this.selectionable = selectionable;
     }
     
+    /**
+     * 
+     * @return Collection de tous les Etat d'un Pilote 
+     */
     public static ArrayList<EtatPilote> getAll(){
         ArrayList<EtatPilote> liste = new ArrayList<>();
         liste.addAll(Arrays.asList(EtatPilote.values()));

@@ -15,8 +15,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 /**
- *
- * @author stag
+ * Entité JPA que l'on stocke en base
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @Entity
 public class Mission implements Serializable {
@@ -34,59 +34,121 @@ public class Mission implements Serializable {
     @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
     private ArrayList<Pilote> pilotes;
     
-//    @ManyToMany(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
-//    private ArrayList<Chasseur> chasseurs;
-    
+    /**
+     * Constructeur de Mission
+     * Par défaut, elle n'est pas complétée,
+     * N'a pas de durée,
+     * et une liste vide de Pilotes
+     */
     public Mission() {
         completee = false;
         dureeHeures = 0;
         pilotes = new ArrayList<>();
     }
-
+    
+    /**
+     * Construteur de Mission
+     * renvoie à Mission()
+     * @param pilotes 
+     */
+    public Mission(ArrayList<Pilote> pilotes) {
+        this();
+        this.pilotes = pilotes;
+    }
+    
+    /**
+     * 
+     * @return id_mission 
+     */
     public int getId_mission() {
         return id_mission;
     }
 
+    /**
+     * Change la valeur de l'id_mission
+     * @param id_mission 
+     */
     public void setId_mission(int id_mission) {
         this.id_mission = id_mission;
     }
     
+    /**
+     * 
+     * @return intitule de la Mission
+     */
     public String getIntitule() {
         return intitule;
     }
     
+    /**
+     * Change l'intitulé de la Mission
+     * @param intitule 
+     */
     public void setIntitule(String intitule) {
         this.intitule = intitule;
     }
 
+    /**
+     * 
+     * @return true si la mission est terminée, false sinon
+     */
     public boolean isCompletee() {
         return completee;
     }
 
+    /**
+     * Change la valeur de complétee,
+     * True si la mission est complété, false sinon
+     * @param completee 
+     */
     public void setCompletee(boolean completee) {
         this.completee = completee;
     }
-
+    
+    /**
+     * 
+     * @return la durée de la Mission
+     */
     public int getDureeHeures() {
         return dureeHeures;
     }
 
+    /**
+     * Change la durée de la Mission
+     * @param dureeHeures 
+     */
     public void setDureeHeures(int dureeHeures) {
         this.dureeHeures = dureeHeures;
     }
 
+    /**
+     * 
+     * @return la liste des Pilotes de la Mission
+     */
     public ArrayList<Pilote> getPilotes() {
         return pilotes;
     }
 
+    /**
+     * Change la liste des Pilotes de la Mission
+     * @param pilotes 
+     */
     public void setPilotes(ArrayList<Pilote> pilotes) {
         this.pilotes = pilotes;
     }
 
+    /**
+     * 
+     * @return l'objectif de la mission
+     */
     public String getObjectif() {
         return objectif;
     }
 
+    /**
+     * Change l'objectif de la Mission
+     * @param objectif 
+     */
     public void setObjectif(String objectif) {
         this.objectif = objectif;
     }

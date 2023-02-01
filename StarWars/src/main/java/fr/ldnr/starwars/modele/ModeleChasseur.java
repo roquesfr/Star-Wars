@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- *
- * @author stag
+ * Enumération des Modèles de Chasseur disponible pour les Pilotes rebelles
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 public enum ModeleChasseur {
 
@@ -20,18 +20,34 @@ public enum ModeleChasseur {
        
     private String label;
 
+    /**
+     * Constructeur de ModeleChasseur
+     * @param label 
+     */
     private ModeleChasseur(String label) {
         this.label = label;
     } 
 
+    /**
+     * 
+     * @return le label de l'énumération ModeleChasseur
+     */
     public String getLabel() {
         return label;
     }
-
+    
+    /**
+     * Change le label de l'énumération ModeleChasseur
+     * @param label 
+     */
     public void setLabel(String label) {
         this.label = label;
     }
     
+    /**
+     * 
+     * @return Collection de tous les ModeleChasseur
+     */
     public static ArrayList<ModeleChasseur> getAll(){
         ArrayList<ModeleChasseur> liste = new ArrayList<>();
         liste.addAll(Arrays.asList(ModeleChasseur.values()));

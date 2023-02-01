@@ -81,8 +81,7 @@ public class ListeChasseursServlet extends HttpServlet {
                     modeles.add(ModeleChasseur.valueOf(modele));
                 }
             }
-
-            
+ 
             if (!modeles.isEmpty()) {
                 queryString.append(" AND ");
                 queryString.append("c.modele IN :modeles");
@@ -100,7 +99,7 @@ public class ListeChasseursServlet extends HttpServlet {
 
             liste = query.getResultList();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
 
         } finally {
             if (em != null) {

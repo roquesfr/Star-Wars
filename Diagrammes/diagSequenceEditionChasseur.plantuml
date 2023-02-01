@@ -1,0 +1,23 @@
+@startuml Diagramme séquence Edition d'un chasseur
+
+participant index.html as appli
+participant listeChasseur
+participant editionChasseur
+database BDD
+
+appli -> listeChasseur : afficher liste
+
+listeChasseur -> BDD : select
+note right: select * from chasseur
+
+BDD --> listeChasseur : return
+
+alt etatChasseur != affecte
+    BDD -> editionChasseur : afficher chasseur
+    editionChasseur -> editionChasseur : verification formulaire
+    editionChasseur -> BDD : update
+end
+
+editionChasseur --> listeChasseur : return
+
+@enduml

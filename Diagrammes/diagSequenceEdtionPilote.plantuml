@@ -1,0 +1,25 @@
+@startuml Diagramme séquence Edition d'un pilote
+
+participant index.html as appli
+participant listePilote
+participant editionPilote
+database BDD
+
+appli -> listePilote : afficherListe 
+
+listePilote -> BDD : select
+note right
+select * from pilote 
+and select * from chasseur 
+where etat = disponible
+end note
+
+BDD --> listePilote : return
+
+listePilote -> editionPilote : afficher pilote
+
+editionPilote -> editionPilote : verification formulaire
+editionPilote -> BDD : update
+editionPilote --> listePilote : return
+
+@enduml

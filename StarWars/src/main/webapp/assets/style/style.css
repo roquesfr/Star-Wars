@@ -12,7 +12,8 @@
 
 body {
     margin: auto;
-    background-image: url("../img/background-sombre.png");
+    background-color: rgb(4, 4, 39);
+    background-image: url("../img/background-sombre-compresse.png");
     background-size: cover;
     background-repeat: no-repeat;
     color: var(--color-primary-4);

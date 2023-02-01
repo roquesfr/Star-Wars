@@ -15,6 +15,7 @@ function showHour() {
 }
 
 //Mise à jour de l'affichage de l'heure toutes les secondes
+const heure = setInterval(showHour, 1000);
 window.addEventListener("DOMContentLoaded", () => {
     showHour();
     setInterval(showHour, 1000);

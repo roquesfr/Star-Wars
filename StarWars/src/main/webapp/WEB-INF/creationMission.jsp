@@ -19,7 +19,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <form action="creationMission" method="post">
                     <div>
                         <label>Intitulé : </label>
-                        <input type="text" name="intitule" id="intitule" pattern="[0-9a-zA-Z/\s-]+" required>
+                        <input type="text" name="intitule" id="intitule" pattern="[0-9/\p{L}/\s-]+" required>
                     </div>
                     <div>
                         <label for="pilotes">Participants : </label>

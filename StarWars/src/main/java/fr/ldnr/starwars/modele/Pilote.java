@@ -103,6 +103,11 @@ public class Pilote implements Serializable {
             grade = Grade.OfficierDeVol;
         }
     }
+    
+    public void validerFormation() {
+        if(this.etat == EtatPilote.EnFormation)
+            this.etat = EtatPilote.Disponible;
+    }
 
     public boolean possedeChasseur() {
         return chasseur != null;

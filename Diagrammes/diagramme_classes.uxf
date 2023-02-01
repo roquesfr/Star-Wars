@@ -18,8 +18,9 @@
 - race: Race
 - état: EtatPilote
 - heuresVol: int
-- chasseur: Chasseur
+- nbMissions: int
 - grade: Grade
+- chasseur: Chasseur
 --
 + validerFormation()</panel_attributes>
     <additional_attributes/>
@@ -27,16 +28,16 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>340</x>
+      <x>310</x>
       <y>450</y>
-      <w>170</w>
+      <w>200</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>Chasseur
 --
 - id: int
 - état: EtatChasseur
-- type: TypeChasseur</panel_attributes>
+- modele: ModeleChasseur</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
@@ -179,7 +180,7 @@ m2=0..1</panel_attributes>
       <h>80</h>
     </coordinates>
     <panel_attributes>&lt;&lt;enumeration&gt;&gt;
-TypeChasseur
+ModeleChasseur
 --
 X-Wing
 Y-Wing</panel_attributes>

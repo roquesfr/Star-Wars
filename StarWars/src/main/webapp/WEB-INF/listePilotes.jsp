@@ -1,18 +1,19 @@
 <%-- Document : liste_pilotes Created on : 27 janv. 2023, 11:08:08 Author : stag --%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="fr.ldnr.starwars.modele.EtatPilote"%>
 <!DOCTYPE html>
 <html lang="fr">
     <!-- HEAD -->
     <jsp:include page="head.jsp"></jsp:include>
-    <body>
-        <!--HEADER-->
+        <body>
+            <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
-        <main>
-            <div class="form">
-                <h1>Pilotes: </h1>
-                <div>
-                    <ul>
+            <main>
+                <div class="form">
+                    <h1>Pilotes: </h1>
+                    <div>
+                        <ul>
                         <c:forEach items="${pilotes}" var="pilote">
                             <li>
                                 <form action="editionPilote" method="post">
@@ -31,6 +32,12 @@
                                     <c:out value="${pilote.chasseur.etat}"/>
                                     <button type="submit">Modifier</button>
                                 </form>
+                                <c:if test="${pilote.etat == EtatPilote.EnFormation}">
+                                    <form action="validerFormation" method="GET">
+                                        <input type="hidden" name="id" value="${pilote.id_pilote}">
+                                        <button type="submit">Valider Formation</button>
+                                    </form>
+                                </c:if>
                             </li>
 
                         </c:forEach>

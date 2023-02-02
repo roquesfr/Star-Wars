@@ -232,6 +232,10 @@ main p {
     transition: background-color 1000ms;
 }
 
+input[type="text"] {
+    text-transform: capitalize;
+}
+
 aside p {
     font-size: 24px;
 }

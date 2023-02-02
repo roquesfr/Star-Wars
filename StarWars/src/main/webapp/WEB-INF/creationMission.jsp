@@ -20,7 +20,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div>
                         <label>Intitulé : </label>
                         <input type="text" name="intitule" id="intitule" minlength="7" required>
-                        <span class="error">Veuillez saisir un intitulé valide ! (Commence par une majuscule et au moins 7 caractères alpha-numérique)</span>
+                        <span class="error">Veuillez saisir un intitulé valide ! (Au moins 7 caractères alpha-numérique)</span>
                     </div>
                     <div>
                         <label for="pilotes">Participants : </label>

@@ -67,6 +67,7 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
 
                 if (recherche != null && !recherche.isEmpty()) {
                     queryString.append(" AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')");
+                    queryString.append(" OR CONCAT(p.nom,' ', p.prenom) LIKE CONCAT('%', :recherche, '%')");
                 }
 
                 if (race != null && !race.isEmpty()) {

@@ -17,8 +17,8 @@ import static org.mockito.Mockito.mock;
  */
 public class PiloteTest {
 
-    int AGE_MIN = 10;
-    int AGE_MAX = 800;
+    final int AGE_MIN = 10;
+    final int AGE_MAX = 800;
 
     public PiloteTest() {
     }

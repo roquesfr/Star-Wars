@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Génère un jeu de données de démonstration.
+ *
  * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "Test", urlPatterns = {"/Test"})
@@ -49,7 +50,7 @@ public class Test extends HttpServlet {
             em.getTransaction().begin();
             em.createQuery("DELETE FROM Mission").executeUpdate();
             em.getTransaction().commit();
-            
+
             em.getTransaction().begin();
             em.createQuery("DELETE FROM Pilote").executeUpdate();
             em.getTransaction().commit();
@@ -57,32 +58,39 @@ public class Test extends HttpServlet {
             em.createQuery("DELETE FROM Chasseur").executeUpdate();
             em.getTransaction().commit();
             em.getTransaction().begin();
-            
-            Mission mission1 = new Mission();
-            mission1.setIntitule("Attaque de l'étoile de la mort");
+
             ArrayList<Chasseur> chasseursm1 = new ArrayList<>();
             chasseursm1.add(new Chasseur());
             chasseursm1.add(new Chasseur(ModeleChasseur.YWing, EtatChasseur.Operationnel));
             chasseursm1.add(new Chasseur());
+
             ArrayList<Pilote> pilotesm1 = new ArrayList<>();
             pilotesm1.add(new Pilote("Han", "Solo", 30, Race.Humain, EtatPilote.EnMission));
             pilotesm1.add(new Pilote("Saall", "Gani", 23, Race.Chalacteen, EtatPilote.EnMission));
             pilotesm1.add(new Pilote("Jiph", "Dinnath", 13, Race.Neimoidien, EtatPilote.EnMission));
+
+            Mission mission1 = new Mission(pilotesm1);
             mission1.setPilotes(pilotesm1);
-            for(int i=0; i<pilotesm1.size(); i++) {
+            mission1.setIntitule("Attaque de l'étoile de la mort");
+            mission1.setObjectif("Protéger les peuples de la galaxie en détruisant la nouvelle arme de destruction de l'Empire");
+
+            for (int i = 0; i < pilotesm1.size(); i++) {
                 Pilote p = pilotesm1.get(i);
                 Chasseur c = chasseursm1.get(i);
                 p.setChasseur(c);
             }
             em.persist(mission1);
-            
-            Mission mission2 = new Mission();
-            mission2.setIntitule("Reconnaissance");
+
             Chasseur chasseurm2 = new Chasseur(ModeleChasseur.ZWing, EtatChasseur.Operationnel);
             Pilote pilotem2 = new Pilote("Chroll", "Diraso", 30, Race.Humain, EtatPilote.EnMission);
             pilotem2.setChasseur(chasseurm2);
+
+            Mission mission2 = new Mission();
+            mission2.setIntitule("Reconnaissance");
+            mission2.setObjectif("Repérer les positions de l'ennemi dans le secteur B-612");
             mission2.getPilotes().add(pilotem2);
             em.persist(mission2);
+
             em.persist(new Chasseur(ModeleChasseur.XWing, EtatChasseur.EnMaintenance));
             em.persist(new Chasseur(ModeleChasseur.YWing, EtatChasseur.EnConstruction));
             em.persist(new Pilote("Colle", "Billaggoc", 25, Race.Humain, EtatPilote.EnFormation));
@@ -91,6 +99,10 @@ public class Test extends HttpServlet {
             em.persist(new Pilote("Kluch", "Jenk", 18, Race.Nikto, EtatPilote.EnFormation));
             em.persist(new Pilote("Yidred", "Higedal", 27, Race.Chalacteen, EtatPilote.Blesse));
             em.persist(new Pilote("Pwud", "Nhawmoll", 150, Race.Ithorien, EtatPilote.Decede));
+            em.persist(new Pilote("Molindi", "Phlox", 18, Race.Mirialen, EtatPilote.Disponible));
+            em.persist(new Pilote("Ashlyn", "Hannica", 55, Race.Miraluka, EtatPilote.Blesse));
+            em.persist(new Pilote("Zoras", "Riggers", 310, Race.Chis, EtatPilote.EnMission));
+
             em.getTransaction().commit();
 
         } catch (Exception e) {
@@ -103,8 +115,7 @@ public class Test extends HttpServlet {
                 em.close();
             }
         }
-        
-        
+
         getServletContext()
                 .getRequestDispatcher("/index.jsp")
                 .forward(request, response);

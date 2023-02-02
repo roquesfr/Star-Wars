@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Sert le formulaire de recherche avancée si pas de paramètre.
+ * Sinon, génère intelligemment la requête JPQL correspondant aux paramètres
+ * et la relaie à ListePilotesServlet.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/rechercheAvanceePilote"})
 public class RechercheAvanceePiloteServlet extends HttpServlet {
@@ -41,7 +43,6 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("recherche") == null) {
-            System.out.println("je redirige");
             request.setAttribute("titre", "Recherche Pilotes");
             getServletContext()
                     .getRequestDispatcher("/WEB-INF/rechercheAvanceePilote.jsp")
@@ -67,6 +68,7 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
 
                 if (recherche != null && !recherche.isEmpty()) {
                     queryString.append(" AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')");
+                    queryString.append(" OR CONCAT(p.nom,' ', p.prenom) LIKE CONCAT('%', :recherche, '%')");
                 }
 
                 if (race != null && !race.isEmpty()) {

@@ -18,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Charge le pilote à l'id donnée en paramètre de la requête, ainsi que la liste
+ * des chasseurs opérationnels.
+ * Puis les sert à editionPilote.jsp.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "EditionPiloteServlet", urlPatterns = {"/editionPilote"})
 public class EditionPiloteServlet extends HttpServlet {
@@ -39,7 +41,6 @@ public class EditionPiloteServlet extends HttpServlet {
         
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

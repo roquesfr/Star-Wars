@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Ajoute la liste de toutes les missions en attribut de la requête, puis
+ * la relaie vers listeMissions.jsp
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "ListeMissionsServlet", urlPatterns = {"/missions"})
 public class ListeMissionsServlet extends HttpServlet {

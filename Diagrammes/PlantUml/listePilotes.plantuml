@@ -1,25 +1,23 @@
 @startuml Liste Pilotes
 entity index.jsp
-entity rechercheAvanceePilote.jsp
+entity rechercheAvanceePiloteServlet as RAPS
+entity rechercheAvanceePilote.jsp as rap
 entity listePilotes.jsp
 entity ListePilotesServlet as LPS
 entity ModèleJPA
 database BDD
-alt
+
   index.jsp -> LPS: http GET
   activate LPS
-else
-  rechercheAvanceePilote.jsp -> LPS: http GET
-end
-LPS -> LPS: génère la requête
-LPS -> ModèleJPA: JPQL
-activate ModèleJPA
-ModèleJPA -> BDD: jdbc
-activate BDD
-BDD --> ModèleJPA
-deactivate BDD
-ModèleJPA --> LPS: List<Chasseur>
-deactivate ModèleJPA
-LPS -> listePilotes.jsp: forward(http GET)
+  LPS -> ModèleJPA: JPQL
+  activate ModèleJPA
+  ModèleJPA -> BDD: jdbc
+  activate BDD
+  BDD --> ModèleJPA
+  deactivate BDD
+  ModèleJPA --> LPS
+  deactivate ModèleJPA
+
+LPS -> listePilotes.jsp: forward(http GET) Liste<Pilote>
 deactivate LPS
 @enduml

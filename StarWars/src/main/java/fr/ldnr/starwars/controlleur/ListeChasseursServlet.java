@@ -18,9 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Si une requête JPQL est donnée en paramètre, charge la liste de Chasseur résultant
- * de cette requête. Sinon, requête la liste de tous les chasseurs.
+ * Si une requête JPQL est donnée en paramètre, charge la liste de Chasseur
+ * résultant de cette requête. Sinon, requête la liste de tous les chasseurs.
  * Ajoute cette liste en attribut de la requête puis sert listeChasseurs.jsp
+ *
  * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "ListeChasseursServlet", urlPatterns = {"/chasseurs"})
@@ -37,8 +38,34 @@ public class ListeChasseursServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
+        EntityManager em = null;
+        List<Chasseur> liste = null;
+        try {
+            em = emf.createEntityManager();
+            String queryString = "SELECT c FROM Chasseur c WHERE 1=1";
+            TypedQuery<Chasseur> query;
+            if (request.getParameter("recherche") != null) {
+                query = TypedQuery.class.cast(request.getAttribute("query"));
+            } else {
 
-        
+                query = em.createQuery(queryString, Chasseur.class);
+            }
+            liste = query.getResultList();
+        } catch (Exception e) {
+            System.err.println("ERROR" + e.getMessage());
+
+        } finally {
+            if (em != null) {
+                if (em.getTransaction().isActive()) {
+                    em.getTransaction().rollback();
+                }
+                em.close();
+            }
+            request.setAttribute("chasseurs", liste);
+            request.setAttribute("titre", "Liste des Chasseurs");
+            getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,34 +81,6 @@ public class ListeChasseursServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
-        EntityManager em = null;
-        List<Chasseur> liste = null;
-        try {
-            em = emf.createEntityManager();
-            String queryString ="SELECT c FROM Chasseur c WHERE 1=1";
-            TypedQuery<Chasseur> query;
-            if (request.getParameter("recherche") != null) {
-                query = TypedQuery.class.cast(request.getAttribute("query"));
-            } else {
-
-                query = em.createQuery(queryString, Chasseur.class);
-            }
-            liste = query.getResultList();
-        } catch (Exception e) {
-            System.err.println("ERROR"+e.getMessage());
-
-        } finally {
-            if (em != null) {
-                if (em.getTransaction().isActive()) {
-                    em.getTransaction().rollback();
-                }
-                em.close();
-            }
-            request.setAttribute("chasseurs", liste);
-            request.setAttribute("titre", "Liste des Chasseurs");
-            getServletContext().getRequestDispatcher("/WEB-INF/listeChasseurs.jsp").forward(request, response);
-        }
     }
 
     /**

@@ -20,7 +20,6 @@
                     <input type="hidden" name="paramsPrecedents" value="${param.paramsPrecedents}">
                     <div id="listRadio">
                         <div>
-
                             <div id="list" class="listeEtatPilote">
                                 <c:if test="${pilote.etat == EtatPilote.EnMission}">
                                     <aside>

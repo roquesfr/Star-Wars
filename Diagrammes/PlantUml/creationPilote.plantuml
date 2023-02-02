@@ -6,12 +6,18 @@ database ModeleJPA as bdd
 
 accueil -> serlvet: http GET
 serlvet -> creation : http GET
+activate serlvet
+activate creation
 creation -> creation : formulaire
 creation -> serlvet : http POST
+deactivate creation
 serlvet -> bdd : createEntityManagerFactory
+activate bdd
 bdd --> serlvet :
 serlvet -> serlvet : creation du Pilote
 serlvet -> bdd : persistance du Pilote
-bdd --> serlvet: 
+bdd --> serlvet
+deactivate bdd
 serlvet -> creation : http POST
+deactivate serlvet
 @enduml

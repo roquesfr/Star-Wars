@@ -7,7 +7,7 @@ intitule.addEventListener("blur", checkIntitule);
 //Ajout d'un évènement lors du click sur le bouton envoyer du formulaire création mission
 submitMission.addEventListener("click", checkFormCreationMission);
 
-const intituleFormat = /^[A-Z][0-9a-z\u00C0-\u00FF\s\-]{5,}[0-9a-z\u00C0-\u00FF]+$/;
+const intituleFormat = /^[A-Za-z0-9\u00C0-\u00FF][A-Za-z0-9\u00C0-\u00FF\s\-]{6,199}$/;
 
 function checkIntitule() {
     let isIntituleOk = true;

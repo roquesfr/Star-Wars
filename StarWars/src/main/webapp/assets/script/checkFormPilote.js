@@ -14,7 +14,7 @@ prenom.addEventListener("blur", checkPrenom);
 //Ajout d'un évènement lors du click sur le bouton envoyer du formulaire création pilote
 submitPilote.addEventListener("click", checkFormCreationPilote);
 
-const nomPrenomFormat = /^[A-Z][a-z\u00C0-\u00FF\s\-]{1,}[a-z\u00C0-\u00FF]+$/;
+const nomPrenomFormat = /^[A-Za-z\u00C0-\u00FF][A-Za-z\u00C0-\u00FF\s\-]{2,49}$/;
 
 function checkNom() {
     let isNomOk = true;

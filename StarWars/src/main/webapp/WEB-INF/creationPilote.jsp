@@ -20,12 +20,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <div>
                         <label for="nom" >Nom du pilote : </label>
                         <input type="text" name="nom" id="nom" placeholder="Solo" minlength="3" required>
-                        <span class="error">Veuillez saisir un nom valide ! (Commence par une majuscule et au moins 3 caractères alphabétiques)</span>
+                        <span class="error">Veuillez saisir un nom valide ! (Au moins 3 caractères alphabétiques)</span>
                     </div>
                     <div>
                         <label for="prenom">Prénom du pilote : </label>
                         <input type="text" name="prenom" id="prenom" placeholder="Han" minlength="3" required>
-                        <span class="error">Veuillez saisir un prénom valide ! (Commence par une majuscule et au moins 3 caractères alphabétiques)</span>
+                        <span class="error">Veuillez saisir un prénom valide ! (Au moins 3 caractères alphabétiques)</span>
                     </div>
                     <div>
                         <label for="race">Race du pilote : </label>

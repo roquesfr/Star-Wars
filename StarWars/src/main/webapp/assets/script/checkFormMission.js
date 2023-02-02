@@ -16,7 +16,7 @@ function checkIntitule() {
         isIntituleOk = false;
 
         //Ajout d'une info-bulle lorsque la souris est sur l'input
-        intitule.setAttribute("title", "Veuillez saisir un intitulé valide ! (Commence par une majuscule et au moins 7 caractères alpha-numérique)");
+        intitule.setAttribute("title", "Veuillez saisir un intitulé valide ! (Au moins 7 caractères alpha-numérique)");
         //Ajout de bordure rouge
         intitule.classList.add("bordererror");
         //Ajout d'un message d'erreur

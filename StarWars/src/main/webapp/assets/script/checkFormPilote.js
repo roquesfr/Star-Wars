@@ -23,7 +23,7 @@ function checkNom() {
         isNomOk = false;
 
         //Ajout d'une info-bulle lorsque la souris est sur l'input
-        nom.setAttribute("title", "Veuillez saisir un nom valide ! (Commence par une majuscule et au moins 3 caractères alphabétiques)");
+        nom.setAttribute("title", "Veuillez saisir un nom valide ! (Au moins 3 caractères alphabétiques)");
         //Ajout de bordure rouge
         nom.classList.add("bordererror");
         //Ajout d'un message d'erreur
@@ -43,7 +43,7 @@ function checkPrenom() {
         isPrenomOk = false;
 
         //Ajout d'une info-bulle lorsque la souris est sur l'input
-        prenom.setAttribute("title", "Veuillez saisir un prénom valide ! (Commence par une majuscule et au moins 3 caractères alphabétiques)");
+        prenom.setAttribute("title", "Veuillez saisir un prénom valide ! (Au moins 3 caractères alphabétiques)");
         //Ajout de bordure rouge
         prenom.classList.add("bordererror");
         //Ajout d'un message d'erreur

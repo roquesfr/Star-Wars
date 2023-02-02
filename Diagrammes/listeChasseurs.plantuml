@@ -1,0 +1,25 @@
+@startuml Liste Chasseurs
+entity index.jsp
+entity rechercheAvanceeChasseur.jsp
+entity listeChasseurs.jsp
+entity ListeChasseursServlet as LCS
+entity ModèleJPA
+database BDD
+alt
+  index.jsp -> LCS: http GET
+  activate LCS
+else
+  rechercheAvanceeChasseur.jsp -> LCS: http GET
+end
+LCS -> LCS: génère la requête
+LCS -> ModèleJPA: JPQL
+activate ModèleJPA
+ModèleJPA -> BDD: jdbc
+activate BDD
+BDD --> ModèleJPA
+deactivate BDD
+ModèleJPA --> LCS: List<Chasseur>
+deactivate ModèleJPA
+LCS -> listeChasseurs.jsp: forward(http GET)
+deactivate LCS
+@enduml

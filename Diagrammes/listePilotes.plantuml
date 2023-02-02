@@ -18,7 +18,7 @@ ModèleJPA -> BDD: jdbc
 activate BDD
 BDD --> ModèleJPA
 deactivate BDD
-ModèleJPA --> LPS
+ModèleJPA --> LPS: List<Chasseur>
 deactivate ModèleJPA
 LPS -> listePilotes.jsp: forward(http GET)
 deactivate LPS

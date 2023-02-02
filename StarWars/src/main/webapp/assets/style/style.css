@@ -236,6 +236,27 @@ aside p {
     font-size: 24px;
 }
 
+/* Erreur dans le formulaire */
+.bordererror {
+    border: 1px solid red;
+}
+
+.error {
+    color: red;
+    font-size: 0.8rem;
+    font-style: italic;
+    margin-left: 10px;
+}
+
+.show {
+    display: inline;
+}
+
+form span {
+    display: none;
+}
+/* Fin erreur dans le formulaire */
+
 /* Responsive */
 @media screen and (max-width: 870px) {
     html {

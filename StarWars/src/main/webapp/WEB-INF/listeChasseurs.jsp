@@ -7,27 +7,33 @@
 <html lang="fr">
     <!-- HEAD -->
     <jsp:include page="head.jsp"></jsp:include>
-    <body>
-        <!--HEADER-->
+        <body>
+            <!--HEADER-->
         <jsp:include page="/WEB-INF/header.jsp"></jsp:include>
             <main>
                 <div class="form">
                     <h1>Chasseurs:</h1>
-                    <div>
-                        <ul>
-                        <c:forEach items="${chasseurs}" var="chasseur">
-                            <li>
-                                <form action="editionChasseur" method="get">
-                                    <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
-                                    <c:out value="${chasseur.matricule}"/> - 
-                                    <c:out value="${chasseur.etat.label}"/>
-                                    <c:if test="${chasseur.etat != EtatChasseur.Affecte}">
-                                        <button type="submit">Modifier</button>
-                                    </c:if>
-                                </form>
-                            </li>
-                        </c:forEach>
-                    </ul>
+                    <div style="display:flex; flex-direction: row; flex-wrap: wrap; gap:1em 3%">
+
+                    <c:forEach items="${chasseurs}" var="chasseur">
+
+                        <form action="editionChasseur" method="get" style="display: flex;flex-direction: column; row-gap: .7em; flex-basis: 27%">
+                            <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
+                            <c:out value="${chasseur.matricule}"/> - 
+                            <c:out value="${chasseur.etat.label}"/>
+                            <c:choose>
+                                <c:when test="${chasseur.etat != EtatChasseur.Affecte}">
+                                <button type="submit" >Modifier</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button type="button" disabled >Modifier</button>
+                            </c:otherwise>
+                            </c:choose>
+                            
+                        </form>
+
+                    </c:forEach>
+
                 </div>
             </div>
         </main>

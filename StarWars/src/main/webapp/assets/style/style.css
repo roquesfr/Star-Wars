@@ -171,7 +171,7 @@ main p {
 }
 
 .form form div:last-of-type input:hover,
-.form li form button:hover {
+.form form button:not([disabled]):hover {
     cursor: pointer;
     background-color: #fc0000;
 }
@@ -226,7 +226,7 @@ main p {
     padding: 10px 50px 10px 0;
 }
 
-.form li form button {
+.form form button {
     padding: 5px 10px;
     border-radius: 15px;
     transition: background-color 1000ms;

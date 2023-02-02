@@ -19,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Clôture la mission à l'id donnée en paramètre.
+ * Met également à jour l'état des pilotes participants à la mission et de
+ * leurs chasseurs.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "ClotureMissionServlet", urlPatterns = {"/clotureMission"})
 public class ClotureMissionServlet extends HttpServlet {

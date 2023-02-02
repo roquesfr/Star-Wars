@@ -4,15 +4,10 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.EtatChasseur;
-import fr.ldnr.starwars.modele.EtatPilote;
 import fr.ldnr.starwars.modele.Grade;
-import fr.ldnr.starwars.modele.ModeleChasseur;
 import fr.ldnr.starwars.modele.Pilote;
-import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,8 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Si une requête JPQL est donnée en paramètre, charge la liste de Pilote résultant
+ * de cette requête. Sinon, requête la liste de tous les pilotes.
+ * Ajoute cette liste en attribut de la requête puis sert listePilotes.jsp
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "ListePilotesServlet", urlPatterns = {"/pilotes"})
 public class ListePilotesServlet extends HttpServlet {

@@ -8,7 +8,6 @@ import fr.ldnr.starwars.modele.Chasseur;
 import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,8 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
+ * Sert creationChasseur.jsp.
  *
- * @author stag
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "CreationChasseurServlet", urlPatterns = {"/creationChasseur"})
 public class CreationChasseurServlet extends HttpServlet {
@@ -37,14 +37,11 @@ public class CreationChasseurServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
-     *
+     * Sert creationChasseur.jsp.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,8 +58,8 @@ public class CreationChasseurServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
-     *
+     * Crée un nouveau Chasseur à partir des paramètres de la requête.
+     * Puis sert creationChasseur.jsp.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -71,14 +68,14 @@ public class CreationChasseurServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
-        
+
         ModeleChasseur modele = ModeleChasseur.valueOf(request.getParameter("modele"));
         EtatChasseur etat = EtatChasseur.valueOf(request.getParameter("etat_chasseur"));
-        
-        Chasseur chasseur = new Chasseur(modele,etat);
+
+        Chasseur chasseur = new Chasseur(modele, etat);
 
         try {
             em = emf.createEntityManager();

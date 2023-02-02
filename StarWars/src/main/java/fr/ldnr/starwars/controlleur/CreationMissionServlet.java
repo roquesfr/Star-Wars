@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author stag
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "CreationMissionServlet", urlPatterns = {"/creationMission"})
 public class CreationMissionServlet extends HttpServlet {
@@ -33,8 +33,8 @@ public class CreationMissionServlet extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method.
-     *
+     * Crée une nouvelle Mission à partir des paramètres de la requête.
+     * Puis sert ListeMissionsServlet.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -84,6 +84,15 @@ public class CreationMissionServlet extends HttpServlet {
                 .forward(request, response);
     }
 
+    /**
+     * Charge la liste des pilotes prêts à partir en mission en attribut de la
+     * requête.
+     * Puis sert creationMission.jsp.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

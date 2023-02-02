@@ -7,8 +7,6 @@ package fr.ldnr.starwars.controlleur;
 import fr.ldnr.starwars.modele.Chasseur;
 import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.EtatPilote;
-import fr.ldnr.starwars.modele.Grade;
-import fr.ldnr.starwars.modele.ModeleChasseur;
 import fr.ldnr.starwars.modele.Pilote;
 import java.io.IOException;
 import javax.persistence.EntityManager;
@@ -21,8 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Met à jour les attributs chasseur et etat d'un Pilote en fonction des
+ * paramètres de la requête.
+ * Enfin, relaie la requête vers la liste de pilotes d'origine.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "MajPiloteServlet", urlPatterns = {"/majPilote"})
 public class MajPiloteServlet extends HttpServlet {

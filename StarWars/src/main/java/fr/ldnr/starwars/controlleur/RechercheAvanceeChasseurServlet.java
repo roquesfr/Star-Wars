@@ -8,9 +8,7 @@ import fr.ldnr.starwars.modele.Chasseur;
 import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -22,8 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Sert le formulaire de recherche avancée si pas de paramètre.
+ * Sinon, génère intelligemment la requête JPQL correspondant aux paramètres
+ * et la relaie à ListeChasseursServlet.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "RechercheAvanceeChasseurServlet", urlPatterns = {"/rechercheAvanceeChasseur"})
 public class RechercheAvanceeChasseurServlet extends HttpServlet {

@@ -23,8 +23,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Sert le formulaire de recherche avancée si pas de paramètre.
+ * Sinon, génère intelligemment la requête JPQL correspondant aux paramètres
+ * et la relaie à ListePilotesServlet.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/rechercheAvanceePilote"})
 public class RechercheAvanceePiloteServlet extends HttpServlet {

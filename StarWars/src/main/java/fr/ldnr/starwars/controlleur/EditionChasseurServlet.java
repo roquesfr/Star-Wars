@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Charge le chasseur à l'id donnée en paramètre de la requête.
+ * Puis le sert à editionPilote.jsp.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "EditionChasseurServlet", urlPatterns = {"/editionChasseur"})
 public class EditionChasseurServlet extends HttpServlet {

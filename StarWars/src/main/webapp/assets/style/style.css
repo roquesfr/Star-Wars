@@ -153,6 +153,16 @@ main p {
     flex-wrap: wrap;
 }
 
+#rechercheAvancee {
+    justify-content: space-evenly;
+    align-items: baseline;
+    padding-left: 0;
+}
+
+#rechercheAvancee + #listRadio {
+    padding-left: 40px;
+}
+
 .form form div label {
     padding-right: 10px;
 }

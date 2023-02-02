@@ -146,7 +146,7 @@ main p {
 }
 
 .form form div {
-    padding: 10px 30px;
+    padding: 10px 0px;
     display: flex;
     align-content: center;
     align-items: flex-start;

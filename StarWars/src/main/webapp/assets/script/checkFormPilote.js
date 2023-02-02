@@ -40,7 +40,7 @@ function checkNom() {
 function checkPrenom() {
     let isPrenomOk = true;
     prenom.value = prenom.value.trim();
-    prenom.value = prenom.value.charAt(0).toUpperCase()+nom.value.slice(1);
+    prenom.value = prenom.value.charAt(0).toUpperCase()+prenom.value.slice(1);
     
     if (!prenom.value.match(nomPrenomFormat)) {
         isPrenomOk = false;

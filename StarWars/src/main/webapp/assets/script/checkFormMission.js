@@ -12,7 +12,9 @@ const intituleFormat = /^[A-Za-z0-9\u00C0-\u00FF][A-Za-z0-9\u00C0-\u00FF\s\-]{6,
 function checkIntitule() {
     let isIntituleOk = true;
 
-    if (!intitule.value.trim().match(intituleFormat)) {
+    intitule.value = intitule.value.trim();
+    intitule.value = intitule.value.charAt(0).toUpperCase()+intitule.value.slice(1);
+    if (!intitule.value.match(intituleFormat)) {
         isIntituleOk = false;
 
         //Ajout d'une info-bulle lorsque la souris est sur l'input

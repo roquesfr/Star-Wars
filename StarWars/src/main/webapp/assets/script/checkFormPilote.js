@@ -18,8 +18,9 @@ const nomPrenomFormat = /^[A-Za-z\u00C0-\u00FF][A-Za-z\u00C0-\u00FF\s\-]{2,49}$/
 
 function checkNom() {
     let isNomOk = true;
-    
-    if (!nom.value.trim().match(nomPrenomFormat)) {
+    nom.value = nom.value.trim();
+    nom.value = nom.value.charAt(0).toUpperCase()+nom.value.slice(1);
+    if (!nom.value.match(nomPrenomFormat)) {;
         isNomOk = false;
 
         //Ajout d'une info-bulle lorsque la souris est sur l'input
@@ -38,8 +39,10 @@ function checkNom() {
 
 function checkPrenom() {
     let isPrenomOk = true;
-
-    if (!prenom.value.trim().match(nomPrenomFormat)) {
+    prenom.value = prenom.value.trim();
+    prenom.value = prenom.value.charAt(0).toUpperCase()+nom.value.slice(1);
+    
+    if (!prenom.value.match(nomPrenomFormat)) {
         isPrenomOk = false;
 
         //Ajout d'une info-bulle lorsque la souris est sur l'input

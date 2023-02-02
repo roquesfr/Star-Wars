@@ -19,16 +19,19 @@
                                 <form action="editionPilote" method="post">
                                     <input type="hidden" name="paramsPrecedents" value="${pageContext.request.queryString}">
                                     <input type="hidden" name="id_pilote" value="${pilote.id_pilote}">
-                                    <c:out value="${pilote.id_pilote}"/> -
+                                    
                                     <c:out value="${pilote.grade.label}"/> -
                                     <c:out value="${pilote.prenom}"/> -
                                     <c:out value="${pilote.nom}"/> -
                                     <c:out value="${pilote.race.label}"/> -
                                     <c:out value="${pilote.age}"/> ans -
-                                    <c:out value="${pilote.etat.label}"/> -
-                                    <c:out value="${pilote.nbMissions}"/> -
-                                    <c:out value="${pilote.heuresVol}h de vol"/> |
-                                    <c:out value="${pilote.chasseur.matricule}"/>
+                                    <c:out value="${pilote.etat.label}"/> <br>
+                                    <c:out value="${pilote.nbMissions} missions"/> -
+                                    <c:out value="${pilote.heuresVol}h de vol"/>
+                                    <c:if test="${pilote.possedeChasseur()}">
+                                        <c:out value=" - ${pilote.chasseur.matricule}"/>
+                                    </c:if>
+                                    
                                     <span id="validerFormation"><button type="submit">Modifier</button>
                                 </form>
                                 <c:if test="${pilote.etat == EtatPilote.EnFormation}">

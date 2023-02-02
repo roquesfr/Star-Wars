@@ -41,38 +41,22 @@ public class ListePilotesServlet extends HttpServlet {
             throws ServletException, IOException {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;
+        List<Pilote> liste = null;
         try {
             em = emf.createEntityManager();
 
             String queryString = "SELECT p FROM Pilote p WHERE 1=1";
-            TypedQuery<Pilote> query=null;
 
-            ArrayList<Grade> grades = new ArrayList<>();
-            
             //on vient de recherche avancée
             if (request.getParameter("recherche") != null) {
-                query= TypedQuery.class.cast(request.getAttribute("query"));
-                grades = ArrayList.class.cast(request.getAttribute("grades"));
+                liste = List.class.cast(request.getAttribute("liste"));
             } else {
+                TypedQuery<Pilote> query=null;
                 query = em.createQuery(queryString, Pilote.class);
+                liste = query.getResultList();
             }
-            List<Pilote> liste = query.getResultList();
-
-            for (Pilote pilote : liste) {
-                GestionairePilote.majGrade(pilote);
-            }
-            if (!grades.isEmpty()) {
-                ArrayList<Pilote> resultat = new ArrayList<>();
-                for (Pilote pilote : liste) {
-                    if (grades.contains(pilote.getGrade())) {
-                        resultat.add(pilote);
-                    }
-
-                }
-                request.setAttribute("pilotes", resultat);
-            } else {
-                request.setAttribute("pilotes", liste);
-            }
+            
+            request.setAttribute("pilotes", liste);
         } catch (Exception e) {
             System.err.println("error"+e.getMessage());
         } finally {

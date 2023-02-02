@@ -12,6 +12,7 @@ import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -23,9 +24,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Sert le formulaire de recherche avancée si pas de paramètre.
- * Sinon, génère intelligemment la requête JPQL correspondant aux paramètres
- * et la relaie à ListePilotesServlet.
+ * Sert le formulaire de recherche avancée si pas de paramètre. Sinon, génère
+ * intelligemment la requête JPQL correspondant aux paramètres et la relaie à
+ * ListePilotesServlet.
+ *
  * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "RechercheAvanceeServlet", urlPatterns = {"/rechercheAvanceePilote"})
@@ -52,14 +54,15 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
             EntityManager em = null;
             TypedQuery<Pilote> query = null;
             ArrayList<Grade> grades = new ArrayList<>();
+            List<Pilote> liste = null;
             try {
                 em = emf.createEntityManager();
 
                 StringBuilder queryString = new StringBuilder("SELECT p FROM Pilote p WHERE 1=1");
-                
-                ArrayList<EtatPilote> etats = new ArrayList<>();               
+
+                ArrayList<EtatPilote> etats = new ArrayList<>();
                 ArrayList<ModeleChasseur> chasseurs = new ArrayList<>();
-                
+
                 String recherche = request.getParameter("recherche");
                 String race = request.getParameter("race");
                 String etat = "";
@@ -117,7 +120,27 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
                 if (!chasseurs.isEmpty()) {
                     query.setParameter("chasseurs", chasseurs);
                 }
-                
+
+                liste = query.getResultList();
+
+                for (Pilote pilote : liste) {
+                    GestionairePilote.majGrade(pilote);
+                }
+                if (!grades.isEmpty()) {
+                    ArrayList<Pilote> resultat = new ArrayList<>();
+                    for (Pilote pilote : liste) {
+                        if (grades.contains(pilote.getGrade())) {
+                            resultat.add(pilote);
+                        }
+
+                    }
+                    request.setAttribute("liste", resultat);
+                    System.out.println(resultat.toString());
+                } else {
+                    request.setAttribute("liste", liste);
+                    System.out.println(liste.toString());
+                }
+
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             } finally {
@@ -125,8 +148,6 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
                     if (em.getTransaction().isActive()) {
                         em.getTransaction().rollback();
                     }
-                    request.setAttribute("grades",grades);
-                    request.setAttribute("query", query);
                     getServletContext()
                             .getRequestDispatcher("/pilotes")
                             .forward(request, response);

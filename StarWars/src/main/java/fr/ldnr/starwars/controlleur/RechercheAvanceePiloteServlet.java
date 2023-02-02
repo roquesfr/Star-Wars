@@ -41,7 +41,6 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         if (request.getParameter("recherche") == null) {
-            System.out.println("je redirige");
             request.setAttribute("titre", "Recherche Pilotes");
             getServletContext()
                     .getRequestDispatcher("/WEB-INF/rechercheAvanceePilote.jsp")

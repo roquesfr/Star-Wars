@@ -16,17 +16,17 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <div class="form">
                 <h1>Création d'un nouveau pilote</h1>
 
-                <form action="creationPilote" method="post">
-                    <div>
-                        <label for="nom" >Nom du pilote : </label>
+                <form action="creationPilote" method="post" style="display: flex; flex-direction: column">
+                    <div style="display: flex;column-gap: 1em ">
+                        <label  for="nom" style="flex-basis: 8.2em">Nom du pilote : </label>
                         <input type="text" name="nom" id="nom" placeholder="Solo" pattern="[/\p{L}/\s-]+" required>
                     </div>
-                    <div>
-                        <label for="prenom">Prénom du pilote : </label>
+                    <div style="display: flex;column-gap: 1em">
+                        <label  for="prenom" style="flex-basis: 8.2em">Prénom du pilote : </label>
                         <input type="text" name="prenom" id="prenom" placeholder="Han" pattern="[/\p{L}/\s-]+" required>
                     </div>
-                    <div>
-                        <label for="race">Race du pilote : </label>
+                    <div style="display: flex;column-gap: 1em">
+                        <label  for="race" style="flex-basis: 8.2em">Race du pilote : </label>
                         <select name="race" id="race">
                         <c:forEach items="${Race.values()}" var="race">
                             <option value="${race}">${race.label}</option>  
@@ -37,8 +37,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 <label for="race" id="race">Race du pilote : </label>
                                 <input type="text" name="race" id="race" placeholder="Humain" required>
                             </div>-->
-                <div>
-                    <label for="age">Age du pilote : </label>
+                <div style="display: flex;column-gap: 1em">
+                    <label  for="age" style="flex-basis: 8.2em">Age du pilote : </label>
                     <input type="number" name="age" id="age" min="10" max="800" placeholder="10-800" required>
                 </div>
                 <div>

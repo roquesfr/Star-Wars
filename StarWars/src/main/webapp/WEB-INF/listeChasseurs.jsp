@@ -23,13 +23,13 @@
                             <c:out value="${chasseur.etat.label}"/>
                             <c:choose>
                                 <c:when test="${chasseur.etat != EtatChasseur.Affecte}">
-                                <button type="submit" >Modifier</button>
-                            </c:when>
-                            <c:otherwise>
-                                <button type="button" disabled >Modifier</button>
-                            </c:otherwise>
+                                    <button type="submit" >Modifier</button>
+                                </c:when>
+                                <c:otherwise>
+                                    <button type="button" disabled >Modifier</button>
+                                </c:otherwise>
                             </c:choose>
-                            
+
                         </form>
 
                     </c:forEach>

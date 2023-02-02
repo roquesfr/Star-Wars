@@ -244,10 +244,11 @@ public class Pilote implements Serializable {
     /**
      * Change la valeur du nombre d'heure du pilote
      *
-     * @param heuresVol
+     * @param heuresVol throw NumberFormatException
      */
     public void setHeuresVol(int heuresVol) {
-        this.heuresVol = heuresVol;
+        if(heuresVol<0) throw new NumberFormatException("Des heures de vol ne peuvent pas être négatives");
+        else{this.heuresVol = heuresVol;}
     }
 
     /**
@@ -260,11 +261,12 @@ public class Pilote implements Serializable {
 
     /**
      * Change le nombre de Missions du Pilote
-     *
-     * @param nbMissions
+     * 
+     * @param nbMissions throw NumberFormatException
      */
     public void setNbMissions(int nbMissions) {
-        this.nbMissions = nbMissions;
+        if(nbMissions <0) throw new NumberFormatException("Un nombre de mission ne peut pas être négatif");
+        else{this.nbMissions = nbMissions;}
     }
 
     /**
@@ -312,10 +314,13 @@ public class Pilote implements Serializable {
     /**
      * Change l'âge du Pilote
      *
-     * @param age
+     * @param age throw NumberFormatException
      */
     public void setAge(int age) {
-        this.age = age;
+        if(age<0) throw new NumberFormatException("Un âge ne peut pas être négatif");
+        if(0<=age && age<10) throw new NumberFormatException("Trop p'tit");
+        if(age>800) throw new NumberFormatException("Trop vieux");
+        else{this.age = age;}
     }
 
     /**

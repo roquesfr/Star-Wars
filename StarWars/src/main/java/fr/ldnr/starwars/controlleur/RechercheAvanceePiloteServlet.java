@@ -44,12 +44,15 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        //Si on arrive de la nav
         if (request.getParameter("recherche") == null) {
             request.setAttribute("titre", "Recherche Pilotes");
             getServletContext()
                     .getRequestDispatcher("/WEB-INF/rechercheAvanceePilote.jsp")
                     .forward(request, response);
-        } else {
+        } // on arrive de recherche avancée.jsp
+        else {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
             EntityManager em = null;
             TypedQuery<Pilote> query = null;
@@ -58,6 +61,7 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
             try {
                 em = emf.createEntityManager();
 
+                // pour ajouter des conditions
                 StringBuilder queryString = new StringBuilder("SELECT p FROM Pilote p WHERE 1=1");
 
                 ArrayList<EtatPilote> etats = new ArrayList<>();
@@ -69,63 +73,73 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
                 String grade = "";
                 String chasseur = "";
 
+                //si on rempli un nom-prenom OU prenom-nom
                 if (recherche != null && !recherche.isEmpty()) {
                     queryString.append(" AND CONCAT(p.prenom,' ', p.nom) LIKE CONCAT('%', :recherche, '%')");
                     queryString.append(" OR CONCAT(p.nom,' ', p.prenom) LIKE CONCAT('%', :recherche, '%')");
                 }
 
+                //si on sélectionne la race
                 if (race != null && !race.isEmpty()) {
                     queryString.append(" AND p.race = :race");
                 }
 
+                //si on sélection un/des EtatPilotes
                 for (EtatPilote e : EtatPilote.values()) {
                     etat = request.getParameter(e.toString());
                     if (etat != null && !etat.isEmpty()) {
                         etats.add(EtatPilote.valueOf(etat));
                     }
-                }
+                }//on complète la requete si besoin
                 if (!etats.isEmpty()) {
                     queryString.append(" AND p.etat IN :etats ");
                 }
 
+                //si on sélectionne un/des ModeleChasseur
                 for (ModeleChasseur c : ModeleChasseur.values()) {
                     chasseur = request.getParameter(c.toString());
                     if (chasseur != null && !chasseur.isEmpty()) {
                         chasseurs.add(ModeleChasseur.valueOf(chasseur));
                     }
-                }
-
+                }//on complète la requete si besoin
                 if (!chasseurs.isEmpty()) {
                     queryString.append(" AND p.chasseur.modele IN :chasseurs ");
                 }
 
+                //si on sélectionne un/des Grade
                 for (Grade g : Grade.values()) {
                     grade = request.getParameter(g.toString());
                     if (grade != null && !grade.isEmpty()) {
                         grades.add(Grade.valueOf(grade));
                     }
-                }
+                }//pas d'ajout à la requete car les grades doivent être calculés
 
                 query = em.createQuery(queryString.toString(), Pilote.class);
 
+                //si recherche par nom
                 if (recherche != null && !recherche.isEmpty()) {
                     query.setParameter("recherche", recherche);
                 }
+                //si recherche par race
                 if (race != null && !race.isEmpty()) {
                     query.setParameter("race", Race.valueOf(race));
                 }
+                //si recherche par EtatPilote
                 if (!etats.isEmpty()) {
                     query.setParameter("etats", etats);
                 }
+                //si recherche par ModeleChasseur
                 if (!chasseurs.isEmpty()) {
                     query.setParameter("chasseurs", chasseurs);
                 }
 
                 liste = query.getResultList();
 
+                //on met a jour les grades
                 for (Pilote pilote : liste) {
                     GestionairePilote.majGrade(pilote);
                 }
+                //on filtre selon les grades recherchés si besoin
                 if (!grades.isEmpty()) {
                     ArrayList<Pilote> resultat = new ArrayList<>();
                     for (Pilote pilote : liste) {
@@ -135,10 +149,8 @@ public class RechercheAvanceePiloteServlet extends HttpServlet {
 
                     }
                     request.setAttribute("liste", resultat);
-                    System.out.println(resultat.toString());
                 } else {
                     request.setAttribute("liste", liste);
-                    System.out.println(liste.toString());
                 }
 
             } catch (Exception e) {

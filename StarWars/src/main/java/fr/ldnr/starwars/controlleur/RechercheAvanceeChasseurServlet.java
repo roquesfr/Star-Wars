@@ -65,13 +65,16 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
             TypedQuery<Chasseur> query = null;
             try {
                 em = emf.createEntityManager();
+                
+                //pour pouvoir ajouter des conditions
                 StringBuilder queryString = new StringBuilder("SELECT c FROM Chasseur c WHERE 1=1 ");
 
                 String etat = "";
                 String modele = "";
                 ArrayList<EtatChasseur> etats = new ArrayList<>();
                 ArrayList<ModeleChasseur> modeles = new ArrayList<>();
-
+                
+                //si on sélection un/des EtatChasseur
                 for (EtatChasseur e : EtatChasseur.values()) {
                     etat = request.getParameter(e.toString());
 
@@ -79,7 +82,12 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
                         etats.add(EtatChasseur.valueOf(etat));
                     }
                 }
+                //on ajoute à la requete
+                if (!etats.isEmpty()) {
+                    queryString.append(" AND c.etat IN :etats");
+                }
 
+                //si on sélection un/des ModeleChasseur
                 for (ModeleChasseur m : ModeleChasseur.values()) {
                     modele = request.getParameter(m.toString());
 
@@ -87,12 +95,11 @@ public class RechercheAvanceeChasseurServlet extends HttpServlet {
                         modeles.add(ModeleChasseur.valueOf(modele));
                     }
                 }
+                //on ajoute à la requete
                 if (!modeles.isEmpty()) {
                     queryString.append(" AND c.modele IN :modeles");
                 }
-                if (!etats.isEmpty()) {
-                    queryString.append(" AND c.etat IN :etats");
-                }
+                
                 query = em.createQuery(queryString.toString(), Chasseur.class);
 
                 if (!modeles.isEmpty()) {

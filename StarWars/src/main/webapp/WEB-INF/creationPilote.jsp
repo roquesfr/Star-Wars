@@ -19,11 +19,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <form action="creationPilote" method="post">
                     <div>
                         <label for="nom" >Nom du pilote : </label>
-                        <input type="text" name="nom" id="nom" placeholder="Solo" pattern="[/\p{L}/\s-]+" required>
+                        <input type="text" name="nom" id="nom" placeholder="Solo" minlength="3" required>
+                        <span class="error">Veuillez saisir un nom valide ! (Commence par une majuscule et au moins 3 caractères alphabétiques)</span>
                     </div>
                     <div>
                         <label for="prenom">Prénom du pilote : </label>
-                        <input type="text" name="prenom" id="prenom" placeholder="Han" pattern="[/\p{L}/\s-]+" required>
+                        <input type="text" name="prenom" id="prenom" placeholder="Han" minlength="3" required>
+                        <span class="error">Veuillez saisir un prénom valide ! (Commence par une majuscule et au moins 3 caractères alphabétiques)</span>
                     </div>
                     <div>
                         <label for="race">Race du pilote : </label>
@@ -42,7 +44,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                     <input type="number" name="age" id="age" min="10" max="800" placeholder="10-800" required>
                 </div>
                 <div>
-                <input type="submit" value="Valider l'inscription">
+                    <input type="submit" id="submitPilote" value="Valider l'inscription">
                 <input type="reset" value="Reset">
             </div>
             </form>
@@ -50,5 +52,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         </main>
         <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
+        <script src="assets/script/checkFormPilote.js"></script>
     </body>
 </html>

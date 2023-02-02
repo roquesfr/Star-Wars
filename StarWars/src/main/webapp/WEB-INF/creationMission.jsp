@@ -19,7 +19,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                 <form action="creationMission" method="post">
                     <div>
                         <label>Intitulé : </label>
-                        <input type="text" name="intitule" id="intitule" pattern="[0-9/\p{L}/\s-]+" required>
+                        <input type="text" name="intitule" id="intitule" minlength="7" required>
+                        <span class="error">Veuillez saisir un intitulé valide ! (Commence par une majuscule et au moins 7 caractères alpha-numérique)</span>
                     </div>
                     <div>
                         <label for="pilotes">Participants : </label>
@@ -30,7 +31,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                         </select>
                     </div>
                     <div>
-                        <input type="submit" value="Valider">
+                        <input type="submit" id="submitMission" value="Valider">
                         <input type="reset" value="Reset">
                     </div>
                 </form>
@@ -38,5 +39,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
         </main>
         <!--FOOTER-->
         <jsp:include page="/WEB-INF/footer.jsp"></jsp:include>
+        <script src="assets/script/checkFormMission.js"></script>
     </body>
 </html>

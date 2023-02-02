@@ -39,10 +39,6 @@
                             </div>
                         </div>
                     </div>
-                    <aside>
-                        <p>Modèle du chasseur : ${chasseur.modele.label}</p>
-                        <p>État du chasseur : ${chasseur.etat.label}</p>
-                    </aside>
 
                     <input type="hidden" name="id_chasseur" value="${chasseur.id_chasseur}">
                     <!--<button type="submit">Modifier</button>-->

@@ -23,8 +23,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Génère un jeu de données de démonstration.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "Test", urlPatterns = {"/Test"})
 public class Test extends HttpServlet {

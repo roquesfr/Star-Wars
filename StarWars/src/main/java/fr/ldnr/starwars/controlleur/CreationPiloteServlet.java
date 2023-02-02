@@ -4,8 +4,6 @@
  */
 package fr.ldnr.starwars.controlleur;
 
-import fr.ldnr.starwars.modele.EtatPilote;
-import fr.ldnr.starwars.modele.Grade;
 import fr.ldnr.starwars.modele.Pilote;
 import fr.ldnr.starwars.modele.Race;
 import java.io.IOException;
@@ -19,8 +17,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Sert creationPilote.jsp.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "CreationPiloteServlet", urlPatterns = {"/creationPilote"})
 public class CreationPiloteServlet extends HttpServlet {
@@ -31,6 +29,13 @@ public class CreationPiloteServlet extends HttpServlet {
     }
    
    
+   /**
+    * Sert creationPilote.jsp.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+    */
    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -41,6 +46,14 @@ public class CreationPiloteServlet extends HttpServlet {
                 .forward(request, response);
     }
    
+    /**
+     * Crée un nouveau Pilote à partir des paramètres de la requête.
+     * Puis sert creationPilote.jsp.
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

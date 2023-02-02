@@ -8,7 +8,6 @@ import fr.ldnr.starwars.modele.Chasseur;
 import fr.ldnr.starwars.modele.EtatChasseur;
 import fr.ldnr.starwars.modele.ModeleChasseur;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,8 +18,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Met à jour les attributs modele et etat d'un Chasseur en fonction des
+ * paramètres de la requête.
+ * Enfin, relaie la requête vers la liste de chasseurs.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "MajChasseurServlet", urlPatterns = {"/majChasseur"})
 public class MajChasseurServlet extends HttpServlet {

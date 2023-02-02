@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Charge la mission à l'id donnée en paramètre de la requête.
+ * Puis la sert à detailMission.jsp.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "DetailMissionServlet", urlPatterns = {"/detailMission"})
 public class DetailMissionServlet extends HttpServlet {

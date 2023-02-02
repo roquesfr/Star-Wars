@@ -11,11 +11,16 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 
 /**
- *
- * @author stag
+ * Effectue des requêtes courantes sur les pilotes.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 public class GestionairePilote {
 
+    /**
+     * Requête le temps de vol total et le nombre de missions du pilote donné.
+     * Puis calcule son grade en fonction de ces informations.
+     * @param pilote le pilote
+     */
     public static void majGrade(Pilote pilote) {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("StarWarsPU");
         EntityManager em = null;

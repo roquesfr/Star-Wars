@@ -16,8 +16,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *
- * @author stag
+ * Appelle la méthode validerFormation() du Pilote à l'id donnée en paramètre
+ * de la requête.
+ * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "ValiderFormationServlet", urlPatterns = {"/validerFormation"})
 public class ValiderFormationServlet extends HttpServlet {

@@ -1,4 +1,4 @@
-@startuml creationPilote
+@startuml creationChasseur
 participant index.jsp as accueil
 participant EditionChasseurServlet as serlvet
 participant creationChasseur.jsp as creation

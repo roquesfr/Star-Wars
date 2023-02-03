@@ -20,9 +20,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Si une requête JPQL est donnée en paramètre, charge la liste de Pilote résultant
- * de cette requête. Sinon, requête la liste de tous les pilotes.
+ * Si une requête JPQL est donnée en paramètre, charge la liste de Pilote
+ * résultant de cette requête. Sinon, requête la liste de tous les pilotes.
  * Ajoute cette liste en attribut de la requête puis sert listePilotes.jsp
+ *
  * @author Pierre MORITZ, Thibault MASSÉ, Frédéric ROQUES
  */
 @WebServlet(name = "ListePilotesServlet", urlPatterns = {"/pilotes"})
@@ -51,14 +52,17 @@ public class ListePilotesServlet extends HttpServlet {
             if (request.getParameter("recherche") != null) {
                 liste = List.class.cast(request.getAttribute("liste"));
             } else {
-                TypedQuery<Pilote> query=null;
+                TypedQuery<Pilote> query = null;
                 query = em.createQuery(queryString, Pilote.class);
                 liste = query.getResultList();
+                for (Pilote pilote : liste) {
+                    GestionairePilote.majGrade(pilote);
+                }
             }
-            
+
             request.setAttribute("pilotes", liste);
         } catch (Exception e) {
-            System.err.println("error"+e.getMessage());
+            System.err.println("error" + e.getMessage());
         } finally {
             if (em != null) {
                 if (em.getTransaction().isActive()) {

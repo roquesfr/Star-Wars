@@ -1,7 +1,5 @@
 @startuml Liste Pilotes
 entity index.jsp
-entity rechercheAvanceePiloteServlet as RAPS
-entity rechercheAvanceePilote.jsp as rap
 entity listePilotes.jsp
 entity ListePilotesServlet as LPS
 entity ModèleJPA

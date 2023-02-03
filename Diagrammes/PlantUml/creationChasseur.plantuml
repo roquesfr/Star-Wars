@@ -1,6 +1,6 @@
 @startuml creationChasseur
 participant index.jsp as accueil
-participant EditionChasseurServlet as serlvet
+participant CreationChasseurServlet as serlvet
 participant creationChasseur.jsp as creation
 database BDD as bdd
 
@@ -9,9 +9,9 @@ serlvet -> creation : redirection Get
 creation -> creation : formulaire
 creation -> serlvet : envoie form POST
 serlvet -> bdd : createEntityManagerFactory
-bdd --> serlvet : connexion ok
+bdd --> serlvet : 
 serlvet -> serlvet : creation du Chasseur
 serlvet -> bdd : persistance du Chasseur
-bdd --> serlvet: persistance ok
+bdd --> serlvet: 
 serlvet -> creation : redirection
 @enduml

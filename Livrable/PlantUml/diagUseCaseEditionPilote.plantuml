@@ -1,0 +1,17 @@
+@startuml Diagramme de cas d'utilisation Edition d'un pilote
+
+actor utilisateur
+(Edition Pilote) as edition
+(Liste pilotes) as liste
+
+utilisateur --> edition
+edition -- (Etat du pilote)
+edition -- (Affectation chasseur)
+(Liste chasseurs) <. (Affectation chasseur) : includes
+
+(Recherche rapide) .> liste : extends
+(Recherche avancée Pilotes) .> liste : extends
+
+
+liste <. edition : includes
+@enduml

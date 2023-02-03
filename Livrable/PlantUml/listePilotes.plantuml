@@ -1,0 +1,21 @@
+@startuml Liste Pilotes
+entity index.jsp
+entity listePilotes.jsp
+entity ListePilotesServlet as LPS
+entity ModèleJPA
+database BDD
+
+  index.jsp -> LPS: http GET
+  activate LPS
+  LPS -> ModèleJPA: JPQL
+  activate ModèleJPA
+  ModèleJPA -> BDD: jdbc
+  activate BDD
+  BDD --> ModèleJPA
+  deactivate BDD
+  ModèleJPA --> LPS
+  deactivate ModèleJPA
+
+LPS -> listePilotes.jsp: forward(http GET) Liste<Pilote>
+deactivate LPS
+@enduml

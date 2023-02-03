@@ -1,0 +1,30 @@
+@startuml RechercheAvanceeChasseur
+entity index.jsp
+entity rechercheAvanceeChasseurServlet as RACS
+entity rechercheAvanceeChasseur.jsp as rap
+entity listeChasseurs.jsp
+entity ListeChasseursServlet as LPS
+entity ModèleJPA
+database BDD
+
+  index.jsp -> RACS: http GET
+  activate RACS
+  RACS -> rap: http GET
+  activate rap
+  rap -> rap: formulaire
+  rap -> RACS: http GET
+  deactivate rap
+  RACS -> RACS: génère la requête
+  RACS -> ModèleJPA: JPQL
+  deactivate RACS
+  activate ModèleJPA
+  ModèleJPA -> BDD: jdbc
+  activate BDD
+  BDD --> ModèleJPA
+  deactivate BDD
+  ModèleJPA --> LPS
+  deactivate ModèleJPA
+  activate LPS
+  LPS -> listeChasseurs.jsp: forward(http GET) Liste<Chasseur>
+  deactivate LPS
+@enduml

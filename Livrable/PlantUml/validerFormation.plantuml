@@ -1,0 +1,20 @@
+@startuml Valider Formation
+entity listePilotes.jsp
+entity ValiderFormationServlet as VFS
+entity ModèleJPA
+database BDD
+listePilotes.jsp -> VFS: http GET
+activate VFS
+VFS -> ModèleJPA: JPQL
+activate ModèleJPA
+ModèleJPA -> BDD: jdbc
+activate BDD
+BDD --> ModèleJPA
+ModèleJPA --> VFS: Pilote
+VFS -> VFS: Mise à jour
+VFS -> ModèleJPA: transaction
+ModèleJPA -> BDD: jdbc
+deactivate BDD
+deactivate ModèleJPA
+VFS -> listePilotes.jsp: forward (http GET)
+deactivate VFS

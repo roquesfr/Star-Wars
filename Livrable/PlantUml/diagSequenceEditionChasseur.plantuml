@@ -1,0 +1,32 @@
+@startuml Diagramme séquence Edition d'un chasseur
+participant listeChasseurjsp as listes
+participant EditionChasseurSerlvet as servlet
+
+participant MajChasseurServlet as servlet2
+participant editionChasseurjsp as edition
+database ModeleJPA as bdd
+
+listes -> servlet : http GET
+activate servlet
+servlet -> bdd : find()
+activate bdd
+note right: select * from chasseur where id=...
+bdd --> servlet
+deactivate bdd
+
+
+servlet -> edition : http GET
+activate edition
+deactivate servlet
+edition -> edition : formulaire
+edition -> servlet2 : http POST
+deactivate edition
+activate servlet2
+
+servlet2 -> bdd : update()
+
+servlet2 -> listes : forward http POST
+deactivate servlet2
+
+
+@enduml

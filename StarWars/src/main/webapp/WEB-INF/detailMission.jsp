@@ -51,7 +51,7 @@
                                     <td><c:out value="${pilote.race}"/></td>
                                     <td><c:out value="${pilote.age}"/> ans</td>
                                     <c:if test="${!mission.completee}">
-                                        <td><c:out value="${pilote.chasseur.modele}"/></td>
+                                        <td><c:out value="${pilote.chasseur.modele.label}"/></td>
                                         <td>
                                             <select name="etatChasseur_${pilote.id_pilote}" id="etatChasseur_${pilote.id_pilote}">
                                                 <c:forEach items="${EtatChasseur.values()}" var="etat">

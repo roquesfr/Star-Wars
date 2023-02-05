@@ -34,13 +34,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this
                                 <select name="pilotes" id="pilotes" required multiple>
                                     <c:forEach items="${pilotesDispo}" var="pilote">
                                         <option value="${pilote.id_pilote}">${pilote.prenom} ${pilote.nom}</option>  
-                                    </select>
-                                </div>
-                                <div>
-                                    <input type="submit" id="submitMission" value="Valider">
-                                    <input type="reset" value="Reset">
-                                </div>
-                            </c:forEach>
+
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div>
+                                <input type="submit" id="submitMission" value="Valider">
+                                <input type="reset" value="Reset">
+                            </div>
+
                         </form>
                     </c:otherwise>
                 </c:choose>
